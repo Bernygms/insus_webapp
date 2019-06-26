@@ -35,6 +35,7 @@
   <script src="../js/dashboard.js"></script>
   <script src="../js/data-table.js"></script>
   <script src="../js/jquery.dataTables.js"></script>
+  <!--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>-->
   <script src="../js/dataTables.bootstrap4.js"></script>
   <!-- End custom js for this page-->
 
@@ -42,9 +43,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <!-- framework toastr:js -->
   <!--acceso js-->
-    <script type="text/javascript" src="../libs/toastr.js"></script>
+  <script type="text/javascript" src="../libs/toastr.js"></script>
   <script type="text/javascript" src="../libs/ajax.js"></script>
   <script type="text/javascript" src="../libs/insus_app.js"></script>
+  <script type="text/javascript" src="../libs/init.js"></script>
   <!--acceso js-->
   <script>
     window.onload = function(){

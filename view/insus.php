@@ -34,7 +34,6 @@
           <div class="row">
             <div class="col-md-12 stretch-card">
               <div class="card">
-
                 <div id="div_est" class="card-body">
                   <p id="titulo_est" class="card-title">Cargando ...</p>
                   <div id="estados" class="table-responsive"></div>
@@ -42,6 +41,7 @@
                 <div id="div_raci" class="card-body">
                   <p id="titulo_raci" class="card-title">Cargando ...</p>
                   <div id="contenedor" class="table-responsive"></div>
+                  <br>
                 </div>
               </div>
             </div>

@@ -1,27 +1,4 @@
-$(function(){
-	'use strict';
-	
-	$("#div_raci").hide();
-	init();
 
-	$('.accordian-body').on('show.bs.collapse', function () {
-    	$(this).closest("table")
-        .find(".collapse.in")
-        .not(this)
-        .collapse('toggle')
-   });
-	$("#buscar").keyup(function(){
-	 		var _this = this;
-	 		console.log(_this);
-	 		// Show only matching TR, hide rest of them
-			$.each($("#tabla tbody tr"), function() {
-				if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-					 $(this).hide();
-	 			else
-					 $(this).show();
-	 		});
-    });
-});
 var url = '../controller/controller_insus_app.php';
 var navigation = 0;
 var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
@@ -83,8 +60,8 @@ function getRaci(entidad_raci){
 		var data = {op: "raci",entidad_raci: entidad_raci}
 		__Ajax_JSON(url,data).done(function(response){
 				console.log(response);
-				html_raci += '<table id="raci" class="table table-hover"><thead><tr><th>Entidad</th><th>Cv.INSUS</th><th>Cv.INEGI</th><th>Modalidad</th><th>Poblado</th><th>Municipio</th><th>Superficie</th><th>Municipio</th><th>Contrataciòn</th><th>Lotes</th><th>Contratados</th><th>Pendientes</th></tr></thead>';
-				html_raci += '<caption>Lista de entidades.</caption></thead><tbody>';
+				html_raci += '<table id="raci" class="table table-hover mytable"><thead><tr><th>Entidad</th><th>Cv.INSUS</th><th>Cv.INEGI</th><th>Modalidad</th><th>Poblado</th><th>Municipio</th><th>Superficie</th><th>Municipio</th><th>Contrataciòn</th><th>Lotes</th><th>Contratados</th><th>Pendientes</th></tr></thead>';
+				html_raci += '</thead><tbody>';
 				$.each(response.data.raci, function(key,value){
 					//console.log(value['nombre_est']);
 					var pend_contratar = value['universo_de_lot_raci'] - value['total_con_raci']; 
@@ -104,19 +81,24 @@ function getRaci(entidad_raci){
 					//html_raci +='<td><button class="badge badge-primary"><i class="mdi mdi-book-open-page-variant"></i>Abrir</button></td>';
 					//html_raci +='<td><button class="badge badge-primary"><i class="mdi mdi-book-open-page-variant"></i>Abrir</button></td>';
 					html_raci +='</tr>';
-					html_raci +='<tr>';
-					html_raci +='<td colspan="12" class="hiddenRow"><div class="accordian-body collapse text-center mt-2 mb-2" id="Estados'+value['clave_insus_raci']+'">';
-					if(rol_usu == 1 && value['universo_de_lot_raci'] == value['total_con_raci']) 
-					html_raci +='<button class="badge badge-primary" ><i class="mdi mdi-pencil"></i>Editar </button>';
+					/*html_raci +='<tr>';
+					html_raci +='<td colspan="12" class="hiddenRow">';
+					
+					html_raci +='<div class="accordian-body collapse text-center mt-2 mb-2" id="Estados'+value['clave_insus_raci']+'">';
+					if(rol_usu == 1 && value['universo_de_lot_raci'] == value['total_con_raci']) html_raci +='<button class="badge badge-primary" ><i class="mdi mdi-pencil"></i>Editar </button>';
 					html_raci +='<button class="badge badge-success" ><i class="mdi mdi-note-plus"></i>Agregar acciones</button>';
 					html_raci +='<button class="badge badge-success" ><i class="mdi mdi-magnify"></i>Consultas y edicion</button>';
-					html_raci +='</div> </td>';
-					html_raci +='</tr>';
+					html_raci +='</div>';
+
+					html_raci +='</td>';
+					html_raci +='</tr>';*/
 				});
 				html_raci += '</tbody></table>';
 				$("p#titulo_raci").html("Raci");
 				$("div#contenedor").html(html_raci);
 				$("div#div_raci").show();
+				//$("#raci").DataTable();
+				DataTable('.mytable');
 				navigation = 2;
 			});		
 	}else{
@@ -125,6 +107,7 @@ function getRaci(entidad_raci){
 	
 }
 
+/*Convertidor de texto mayusculas al inicio*/
 function MaysInit(intoText){
 	return intoText.toLowerCase()
             .trim()
@@ -132,6 +115,8 @@ function MaysInit(intoText){
             .map( v => v[0].toUpperCase() + v.substr(1) )
             .join(' '); 
 }
+
+/**/
 
 /*Vamos a buscar la pagina, ya visitada*/
 function nextPage(){
@@ -142,3 +127,33 @@ function nextPage(){
 function beforePage(){
 	navigation--;
 }
+
+function DataTable(IdOrClass){
+	$(IdOrClass).DataTable({
+		language: {
+				    "sProcessing":     "Procesando...",
+				    "sLengthMenu":     "Mostrar _MENU_ registros",
+				    "sZeroRecords":    "No se encontraron resultados",
+				    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+				    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+				    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+				    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+				    "sInfoPostFix":    "",
+				    "sSearch":         "Buscar:",
+				    "sUrl":            "",
+				    "sInfoThousands":  ",",
+				    "sLoadingRecords": "Cargando...",
+				    "oPaginate": {
+				        "sFirst":    "Primero",
+				        "sLast":     "Último",
+				        "sNext":     "Siguiente",
+				        "sPrevious": "Anterior"
+				    },
+				    "oAria": {
+				        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+				        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+				    }
+				}
+	});
+}
+
