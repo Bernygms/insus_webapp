@@ -4,7 +4,7 @@ if(!isset($_SESSION["rol_usu"]))
  {
   header("Location: login.php");
  }else{
-  require ('../templates/functions.php');
+  
  } 
 
 ?>

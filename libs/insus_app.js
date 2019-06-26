@@ -1,6 +1,6 @@
 $(function(){
 	'use strict';
-	var url = '../controller/controller_insus_app.php';
+	
 	$("#div_raci").hide();
 	init();
 
@@ -12,6 +12,7 @@ $(function(){
    });
 	$("#buscar").keyup(function(){
 	 		var _this = this;
+	 		console.log(_this);
 	 		// Show only matching TR, hide rest of them
 			$.each($("#tabla tbody tr"), function() {
 				if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
@@ -19,21 +20,9 @@ $(function(){
 	 			else
 					 $(this).show();
 	 		});
-	});
-
-	$("#busca").keyup(function(){
-	 		var __this = this;
-	 		// Show only matching TR, hide rest of them
-			$.each($("#raci tbody tr"), function() {
-				if($(this).text().toLowerCase().indexOf($(__this).val().toLowerCase()) === -1)
-					 $(this).hide();
-	 			else
-					 $(this).show();
-	 		});
-	});
-
+    });
 });
-
+var url = '../controller/controller_insus_app.php';
 var navigation = 0;
 var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
 var rol_usu = $("#rol_usu").val();
@@ -48,6 +37,12 @@ function init(){
 		var total_estados = 0;
 		if (rol_usu==1 || rol_usu == 2 || rol_usu == 3) {	
 		$("div#search_est").html('<input id="buscar" type="text" class="form-control" placeholder="Buscar ahora" aria-label="search" aria-describedby="search">');	
+		
+		if (rol_usu==1 || rol_usu == 2) {
+			$("p#name_user").html('&nbsp;/&nbsp; Administrador');
+		}else{
+			$("p#nombre_estado").html('&nbsp;/&nbsp;'+ MaysInit(estadosArray[id_estado]));
+		};
 			var data = {op: "estados", id_est: id_estado, rol_usu: rol_usu}
 			__Ajax_JSON(url,data).done(function(response){
 				console.log(response);
@@ -57,7 +52,7 @@ function init(){
 					//console.log(value['nombre_est']);
 					html_est += '<tr>';
 					html_est +='<td>'+value['id_est']+'</td>';
-					html_est +='<td>'+value['nombre_est']+'</td>';
+					html_est +='<td>'+MaysInit(value['nombre_est'])+'</td>';
 					html_est +='<td><button onClick="javascript:getRaci(' + value['id_est'] +')" class="badge badge-primary" ><i class="mdi mdi-book-open-page-variant"></i>Abrir</button></td>';
 					html_est += '</tr>';
 					total_estados = total_estados + key;
@@ -81,9 +76,9 @@ function getRaci(entidad_raci){
 	var html_raci = "";
 	if (entidad_raci) {
 		$("div#div_est").hide();
+		$("div#search_est").hide();
 		if (rol_usu==1 || rol_usu == 2) {
-			$("div#search_est").hide();
-			$("span#nombre_estado").html('&nbsp;/&nbsp;'+ estadosArray[entidad_raci]);
+			$("p#nombre_estado").html('&nbsp;/&nbsp;'+ MaysInit(estadosArray[entidad_raci]));
 		};
 		var data = {op: "raci",entidad_raci: entidad_raci}
 		__Ajax_JSON(url,data).done(function(response){
@@ -111,7 +106,8 @@ function getRaci(entidad_raci){
 					html_raci +='</tr>';
 					html_raci +='<tr>';
 					html_raci +='<td colspan="12" class="hiddenRow"><div class="accordian-body collapse text-center mt-2 mb-2" id="Estados'+value['clave_insus_raci']+'">';
-					if(rol_usu == 1 && value['universo_de_lot_raci'] == value['total_con_raci']) html_raci +='<button class="badge badge-primary" ><i class="mdi mdi-pencil"></i>Editar </button>';
+					if(rol_usu == 1 && value['universo_de_lot_raci'] == value['total_con_raci']) 
+					html_raci +='<button class="badge badge-primary" ><i class="mdi mdi-pencil"></i>Editar </button>';
 					html_raci +='<button class="badge badge-success" ><i class="mdi mdi-note-plus"></i>Agregar acciones</button>';
 					html_raci +='<button class="badge badge-success" ><i class="mdi mdi-magnify"></i>Consultas y edicion</button>';
 					html_raci +='</div> </td>';
@@ -128,11 +124,21 @@ function getRaci(entidad_raci){
 	}
 	
 }
+
+function MaysInit(intoText){
+	return intoText.toLowerCase()
+            .trim()
+            .split(' ')
+            .map( v => v[0].toUpperCase() + v.substr(1) )
+            .join(' '); 
+}
+
 /*Vamos a buscar la pagina, ya visitada*/
 function nextPage(){
 	navigation++;
 	console.log('' + navigation + '' );
 }
+
 function beforePage(){
 	navigation--;
 }

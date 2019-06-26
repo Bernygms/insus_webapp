@@ -44,7 +44,6 @@
   <!--acceso js-->
     <script type="text/javascript" src="../libs/toastr.js"></script>
   <script type="text/javascript" src="../libs/ajax.js"></script>
-  <script type="text/javascript" src="../libs/functions/function_insus_app.js"></script>
   <script type="text/javascript" src="../libs/insus_app.js"></script>
   <!--acceso js-->
   <script>

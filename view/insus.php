@@ -9,8 +9,9 @@
                   </div>
                   <div class="d-flex">
                     <i class="mdi mdi-home text-muted hover-cursor"></i>
-                    <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Inicio&nbsp;/&nbsp;</p>
-                    <p class="text-primary mb-0 hover-cursor"><?php echo estados($_SESSION['pk_id_est']);?><span id="nombre_estado"></span></p>
+                    <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Inicio</p>
+                    <p class="text-primary mb-0 hover-cursor" id="name_user"></p>
+                    <p class="text-primary mb-0 hover-cursor" id="nombre_estado"></p>
                   </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
