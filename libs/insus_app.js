@@ -49,7 +49,8 @@ function init(){
 
 function getRaci(entidad_raci){
 	console.log("ID de entidad: " + entidad_raci);
-	$("div#search_raci").html('<input id="busca" type="text" class="form-control" placeholder="Buscar ahora" aria-label="search" aria-describedby="search">');
+	$("#buscador").hide();
+	//$("div#search_raci").html('<input id="busca" type="text" class="form-control" placeholder="Buscar ahora" aria-label="search" aria-describedby="search">');
 	var html_raci = "";
 	if (entidad_raci) {
 		$("div#div_est").hide();
@@ -78,6 +79,7 @@ function getRaci(entidad_raci){
 					html_raci +='<td>'+value['universo_de_lot_raci']+'</td>';
 					html_raci +='<td>'+value['total_con_raci']+'</td>';
 					html_raci +='<td>'+pend_contratar+'</td>';
+
 					//html_raci +='<td><button class="badge badge-primary"><i class="mdi mdi-book-open-page-variant"></i>Abrir</button></td>';
 					//html_raci +='<td><button class="badge badge-primary"><i class="mdi mdi-book-open-page-variant"></i>Abrir</button></td>';
 					html_raci +='</tr>';
