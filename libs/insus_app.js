@@ -1,4 +1,5 @@
 
+
 var url = '../controller/controller_insus_app.php';
 var navigation = 0;
 var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
@@ -50,7 +51,7 @@ function init(){
 function getRaci(entidad_raci){
 	console.log("ID de entidad: " + entidad_raci);
 	$("#buscador").hide();
-	//$("div#search_raci").html('<input id="busca" type="text" class="form-control" placeholder="Buscar ahora" aria-label="search" aria-describedby="search">');
+	$("div#search_raci").html('<input id="busca" type="text" class="form-control" placeholder="Buscar ahora" aria-label="search" aria-describedby="search">');
 	var html_raci = "";
 	if (entidad_raci) {
 		$("div#div_est").hide();
@@ -60,13 +61,13 @@ function getRaci(entidad_raci){
 		};
 		var data = {op: "raci",entidad_raci: entidad_raci}
 		__Ajax_JSON(url,data).done(function(response){
-				console.log(response);
-				html_raci += '<table id="raci" class="table table-hover mytable"><thead><tr><th>Entidad</th><th>Cv.INSUS</th><th>Cv.INEGI</th><th>Modalidad</th><th>Poblado</th><th>Municipio</th><th>Superficie</th><th>Municipio</th><th>Contrataciòn</th><th>Lotes</th><th>Contratados</th><th>Pendientes</th></tr></thead>';
+				//console.log(response);
+				html_raci += '<table id="raci" class="table table-hover mytable"><thead><tr><th>Entidad</th><th>Cv.INSUS</th><th>Cv.INEGI</th><th>Modalidad</th><th>Poblado</th><th>Municipio</th><th>Superficie</th><th>Municipio</th><th>Contrataciòn</th><th>Lotes</th><th>Contratados</th><th>Pendientes</th><th>Accion</th></tr>';
 				html_raci += '</thead><tbody>';
 				$.each(response.data.raci, function(key,value){
 					//console.log(value['nombre_est']);
 					var pend_contratar = value['universo_de_lot_raci'] - value['total_con_raci']; 
-					html_raci +='<tr data-toggle="collapse" href="#Estados'+value['clave_insus_raci']+'"  >';
+					html_raci +='<tr>';
 					html_raci +='<td><i class="mdi mdi-plus text-muted"></i>'+value['entidad_raci']+'</td>';
 					html_raci +='<td>'+value['clave_insus_raci']+'</td>';
 					html_raci +='<td>'+value['clave_inegi_raci']+'</td>';
@@ -79,27 +80,17 @@ function getRaci(entidad_raci){
 					html_raci +='<td>'+value['universo_de_lot_raci']+'</td>';
 					html_raci +='<td>'+value['total_con_raci']+'</td>';
 					html_raci +='<td>'+pend_contratar+'</td>';
-
-					//html_raci +='<td><button class="badge badge-primary"><i class="mdi mdi-book-open-page-variant"></i>Abrir</button></td>';
-					//html_raci +='<td><button class="badge badge-primary"><i class="mdi mdi-book-open-page-variant"></i>Abrir</button></td>';
-					html_raci +='</tr>';
-					/*html_raci +='<tr>';
-					html_raci +='<td colspan="12" class="hiddenRow">';
-					
-					html_raci +='<div class="accordian-body collapse text-center mt-2 mb-2" id="Estados'+value['clave_insus_raci']+'">';
-					if(rol_usu == 1 && value['universo_de_lot_raci'] == value['total_con_raci']) html_raci +='<button class="badge badge-primary" ><i class="mdi mdi-pencil"></i>Editar </button>';
-					html_raci +='<button class="badge badge-success" ><i class="mdi mdi-note-plus"></i>Agregar acciones</button>';
-					html_raci +='<button class="badge badge-success" ><i class="mdi mdi-magnify"></i>Consultas y edicion</button>';
-					html_raci +='</div>';
-
+					html_raci +='<td>';
+					html_raci +='<button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil"></button>&nbsp;';
+					html_raci +='<button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-account-multiple-plus"></button>';
 					html_raci +='</td>';
-					html_raci +='</tr>';*/
+					html_raci +='</tr>';
 				});
 				html_raci += '</tbody></table>';
 				$("p#titulo_raci").html("Raci");
 				$("div#contenedor").html(html_raci);
 				$("div#div_raci").show();
-				//$("#raci").DataTable();
+				//$("#table_raci").DataTable();
 				DataTable('.mytable');
 				navigation = 2;
 			});		
