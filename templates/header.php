@@ -65,16 +65,15 @@ if(!isset($_SESSION["rol_usu"]))
         </div>  
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <ul id="buscador" class="navbar-nav mr-lg-4 w-100">
+        <ul  class="navbar-nav mr-lg-4 w-100">
           <li class="nav-item nav-search d-none d-lg-block w-100">
-            <div class="input-group">
+            <div id="buscador_estados" class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="search">
                   <i class="mdi mdi-magnify"></i>
                 </span>
               </div>
               <div id="search_est"></div>
-              <div id="search_raci"></div>
             </div>
           </li>
         </ul>

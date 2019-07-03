@@ -25,7 +25,7 @@ function init(){
 			__Ajax_JSON(url,data).done(function(response){
 				console.log(response);
 				html_est += '<table id="tabla" class="table  table-hover"><thead><tr><th>#</th><th>Nombre</th></tr></thead>';
-				html_est += '<caption>Lista de estados.</caption></thead><tbody>';
+				html_est += '<caption>Lista de estados.</caption><tbody>';
 				$.each(response.data.estados, function(key,value){
 					//console.log(value['nombre_est']);
 					html_est += '<tr>';
@@ -42,8 +42,7 @@ function init(){
 		    });
 		}else{
 			alert("No se encontro ningun resultado.");
-		}
-			
+		}	
 	}
 }
 
@@ -51,11 +50,11 @@ function init(){
 function getRaci(entidad_raci){
 	console.log("ID de entidad: " + entidad_raci);
 	$("#buscador").hide();
-	$("div#search_raci").html('<input id="busca" type="text" class="form-control" placeholder="Buscar ahora" aria-label="search" aria-describedby="search">');
+	//$("div#search_raci").html('<input id="busca" type="text" class="form-control" placeholder="Buscar ahora" aria-label="search" aria-describedby="search">');
 	var html_raci = "";
 	if (entidad_raci) {
 		$("div#div_est").hide();
-		$("div#search_est").hide();
+		$("#buscador_estados").hide();
 		if (rol_usu==1 || rol_usu == 2) {
 			$("p#nombre_estado").html('&nbsp;/&nbsp;'+ MaysInit(estadosArray[entidad_raci]));
 		};
@@ -81,8 +80,13 @@ function getRaci(entidad_raci){
 					html_raci +='<td>'+value['total_con_raci']+'</td>';
 					html_raci +='<td>'+pend_contratar+'</td>';
 					html_raci +='<td>';
-					html_raci +='<button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil"></button>&nbsp;';
-					html_raci +='<button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-account-multiple-plus"></button>';
+					if(rol_usu == 1 || rol_usu == 2 ) html_raci +='<button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil" data-toggle="tooltip" data-placement="right" title="Actualizar universo de lotes" ></button>&nbsp;&nbsp;';
+					if (value['universo_de_lot_raci'] == value['total_con_raci'] ) {
+						html_raci +='<button type="button" class="btn  btn-inverse-danger btn-rounded mdi mdi-account-multiple-plus" data-toggle="tooltip" data-placement="right" title="Acciones completadas"  ></button>&nbsp;&nbsp;';
+					}else{
+						html_raci +='<button type="button" class="btn  btn-inverse-success btn-rounded mdi mdi-account-multiple-plus data-toggle="tooltip" data-placement="right" title="Agregar nuevas acciones"></button>&nbsp;&nbsp;';
+					}
+					html_raci +='<button type="button" class="btn btn-md btn-inverse-info btn-rounded mdi mdi-magnify data-toggle="tooltip" data-placement="right" title="Consultar acciones"></button>&nbsp;&nbsp;';
 					html_raci +='</td>';
 					html_raci +='</tr>';
 				});
@@ -98,55 +102,4 @@ function getRaci(entidad_raci){
 		console.log('no ok');
 	}
 	
-}
-
-/*Convertidor de texto mayusculas al inicio*/
-function MaysInit(intoText){
-	return intoText.toLowerCase()
-            .trim()
-            .split(' ')
-            .map( v => v[0].toUpperCase() + v.substr(1) )
-            .join(' '); 
-}
-
-/**/
-
-/*Vamos a buscar la pagina, ya visitada*/
-function nextPage(){
-	navigation++;
-	console.log('' + navigation + '' );
-}
-
-function beforePage(){
-	navigation--;
-}
-
-function DataTable(IdOrClass){
-	$(IdOrClass).DataTable({
-		language: {
-				    "sProcessing":     "Procesando...",
-				    "sLengthMenu":     "Mostrar _MENU_ registros",
-				    "sZeroRecords":    "No se encontraron resultados",
-				    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-				    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-				    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-				    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-				    "sInfoPostFix":    "",
-				    "sSearch":         "Buscar:",
-				    "sUrl":            "",
-				    "sInfoThousands":  ",",
-				    "sLoadingRecords": "Cargando...",
-				    "oPaginate": {
-				        "sFirst":    "Primero",
-				        "sLast":     "Último",
-				        "sNext":     "Siguiente",
-				        "sPrevious": "Anterior"
-				    },
-				    "oAria": {
-				        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-				    }
-				}
-	});
-}
-
+} 
