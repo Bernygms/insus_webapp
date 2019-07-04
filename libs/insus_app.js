@@ -1,15 +1,16 @@
+ var url = '../controller/controller_insus_app.php';
+ var navigation = 0;
+ var estados = []; 
+ var raci = [];
+ var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
 
+ var rol_usu = $("#rol_usu").val();
+ var id_estado = $("#pk_id_est").val();
 
-var url = '../controller/controller_insus_app.php';
-var navigation = 0;
-var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
-var rol_usu = $("#rol_usu").val();
-var id_estado = $("#pk_id_est").val();
-
-//mandamos a llamar la funcion  que regresa la informacion de raci
+ //Cosulta de estados 
 function init(){
 	if (rol_usu == "" ||  id_estado == "") {
-		$("#estados").html("<p>No termino de cargar la pagina, revisa tu coneccion de internet.</p>");
+		$("#tab_est").html("<p>No termino de cargar la pagina, revisa tu coneccion de internet.</p>");
 	}else{
 		var html_est = "";
 		var total_estados = 0;
@@ -23,21 +24,22 @@ function init(){
 		};
 			var data = {op: "estados", id_est: id_estado, rol_usu: rol_usu}
 			__Ajax_JSON(url,data).done(function(response){
-				console.log(response);
-				html_est += '<table id="tabla" class="table  table-hover"><thead><tr><th>#</th><th>Nombre</th></tr></thead>';
+				estados = response; 
+				//console.log(response);
+				html_est += '<table id="tabla" class="table  table-hover "><thead><tr><th>#</th><th>Nombre</th></tr></thead>';
 				html_est += '<caption>Lista de estados.</caption><tbody>';
 				$.each(response.data.estados, function(key,value){
 					//console.log(value['nombre_est']);
 					html_est += '<tr>';
 					html_est +='<td>'+value['id_est']+'</td>';
 					html_est +='<td>'+MaysInit(value['nombre_est'])+'</td>';
-					html_est +='<td><button onClick="javascript:getRaci(' + value['id_est'] +')" class="badge badge-primary" ><i class="mdi mdi-book-open-page-variant"></i>Abrir</button></td>';
+					html_est +='<td><button type="button" onClick="javascript:getRaci(' + value['id_est'] +')" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';
 					html_est += '</tr>';
 					total_estados = total_estados + key;
 				});
 				html_est += '</tbody></table>';
 				$("p#titulo_est").html("Estados");
-				$("div#estados").html(html_est);
+				$("div#tab_est").html(html_est);
 				navigation = 1;
 		    });
 		}else{
@@ -46,11 +48,10 @@ function init(){
 	}
 }
 
-
+//Consulta de raci
 function getRaci(entidad_raci){
 	console.log("ID de entidad: " + entidad_raci);
 	$("#buscador").hide();
-	//$("div#search_raci").html('<input id="busca" type="text" class="form-control" placeholder="Buscar ahora" aria-label="search" aria-describedby="search">');
 	var html_raci = "";
 	if (entidad_raci) {
 		$("div#div_est").hide();
@@ -60,6 +61,7 @@ function getRaci(entidad_raci){
 		};
 		var data = {op: "raci",entidad_raci: entidad_raci}
 		__Ajax_JSON(url,data).done(function(response){
+				raci = response;
 				//console.log(response);
 				html_raci += '<table id="raci" class="table table-hover mytable"><thead><tr><th>Entidad</th><th>Cv.INSUS</th><th>Cv.INEGI</th><th>Modalidad</th><th>Poblado</th><th>Municipio</th><th>Superficie</th><th>Municipio</th><th>Contrataciòn</th><th>Lotes</th><th>Contratados</th><th>Pendientes</th><th>Accion</th></tr>';
 				html_raci += '</thead><tbody>';
@@ -84,7 +86,7 @@ function getRaci(entidad_raci){
 					if (value['universo_de_lot_raci'] == value['total_con_raci'] ) {
 						html_raci +='<button type="button" class="btn  btn-inverse-danger btn-rounded mdi mdi-account-multiple-plus" data-toggle="tooltip" data-placement="right" title="Acciones completadas"  ></button>&nbsp;&nbsp;';
 					}else{
-						html_raci +='<button type="button" class="btn  btn-inverse-success btn-rounded mdi mdi-account-multiple-plus data-toggle="tooltip" data-placement="right" title="Agregar nuevas acciones"></button>&nbsp;&nbsp;';
+						html_raci +='<button type="button" onClick="addAcciones('+ value['id_raci'] +')" class="btn  btn-inverse-success btn-rounded mdi mdi-account-multiple-plus data-toggle="tooltip" data-placement="right" title="Agregar nuevas acciones"></button>&nbsp;&nbsp;';
 					}
 					html_raci +='<button type="button" class="btn btn-md btn-inverse-info btn-rounded mdi mdi-magnify data-toggle="tooltip" data-placement="right" title="Consultar acciones"></button>&nbsp;&nbsp;';
 					html_raci +='</td>';
@@ -92,7 +94,7 @@ function getRaci(entidad_raci){
 				});
 				html_raci += '</tbody></table>';
 				$("p#titulo_raci").html("Raci");
-				$("div#contenedor").html(html_raci);
+				$("div#tab_raci").html(html_raci);
 				$("div#div_raci").show();
 				//$("#table_raci").DataTable();
 				DataTable('.mytable');
@@ -103,3 +105,33 @@ function getRaci(entidad_raci){
 	}
 	
 } 
+
+function addAcciones(id_raci){
+	var status = false;
+	console.log(id_raci);
+	console.log(raci);
+	for (var i in raci.data.raci) {
+		if (raci.data.raci[i].id_raci == id_raci) {
+			console.log('id' + raci.data.raci[i].id_raci);
+			console.log('calve inegi' + raci.data.raci[i].clave_inegi_raci);
+			console.log('clave insus' + raci.data.raci[i].clave_insus_raci);
+			console.log('contratados raci' + raci.data.raci[i].contratados_raci);
+			console.log('entidad ' + raci.data.raci[i].entidad_raci);
+			console.log('fecha inicio' + raci.data.raci[i].fecha_ini_con_raci);
+			console.log('modalidad' + raci.data.raci[i].modalidad_raci);
+			console.log('municipio programa' + raci.data.raci[i].municipio_pro_raci);
+			console.log('municipio ' + raci.data.raci[i].municipio_raci);
+			console.log('nombre del poblado' + raci.data.raci[i].nombre_de_pob_raci);
+			console.log('pendientes de contratar ' + raci.data.raci[i].pendientes_de_con_raci);
+			console.log('superficie ' + raci.data.raci[i].superficie_de_pob_raci);
+			console.log('total contratados ' + raci.data.raci[i].total_con_raci);
+			console.log('universo de lotes' + raci.data.raci[i].universo_de_lot_raci);
+			status = true;
+			console.log(status);
+		}
+	}
+	if (status ==true) {
+		$("#modalForm").modal('show');
+	}
+	
+}

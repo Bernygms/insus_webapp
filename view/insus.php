@@ -35,12 +35,17 @@
             <div class="col-md-12 stretch-card">
               <div class="card">
                 <div id="div_est" class="card-body">
-                  <p id="titulo_est" class="card-title">Cargando ...</p>
-                  <div id="estados" class="table-responsive"></div>
+                  <p id="titulo_est" class="card-title">Cargando ... estado/s</p>
+                  <div id="tab_est" class="table-responsive"></div>
                 </div>
                 <div id="div_raci" class="card-body">
-                  <p id="titulo_raci" class="card-title">Cargando ...</p>
-                  <div id="contenedor" class="table-responsive"></div>
+                  <p id="titulo_raci" class="card-title">Cargando ... contenido de los poblados.</p>
+                  <div id="tab_raci" class="table-responsive"></div>
+                  <br>
+                </div>
+                <div id="div_pro_benef" class="card-body">
+                  <p id="titulo_prog_benef" class="card-title">Cargando ... programas y beneficiarios. </p>
+                  <div id="tab_progra_benef" class="table-responsive"></div>
                   <br>
                 </div>
                 

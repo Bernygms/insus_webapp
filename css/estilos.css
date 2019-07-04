@@ -54,3 +54,24 @@
 .navbar-menu-wrapper{
     background-image: linear-gradient(120deg, rgb(0, 228, 208), rgb(89, 131, 232));
 }
+
+/*estilos para los modals*/
+.modal-body
+{
+    
+}
+
+.modal-content
+{
+
+}
+
+.modal-footer
+{
+  
+}
+
+.modal-header
+{
+    background-color: #4d83ff;
+}

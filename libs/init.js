@@ -1,15 +1,12 @@
 $(function(){
 	'use strict';
-	
+	//Ocultamos contenido al iniciar el sistema web 
 	$("#div_raci").hide();
+	$("#div_pro_benef").hide();
+	//funcion init()  se obtine del script insus_app.js
 	init();
 
-	$('.accordian-body').on('show.bs.collapse', function () {
-    	$(this).closest("table")
-        .find(".collapse.in")
-        .not(this)
-        .collapse('toggle')
-   });
+	//Funcion de JQuery para la busqueda de estados en la tabla estados
 	$("#buscar").keyup(function(){
 	 		var _this = this;
 	 		console.log(_this);
@@ -21,29 +18,23 @@ $(function(){
 					 $(this).show();
 	 		});
 	});
+	var nombre_usu = $("#nombre_usu").val();
+	var apellidos_usu = $("#apellidos_usu").val();
+	//Agregamos el nombre perfil
+	$("#perfil_name").html(MaysInit(nombre_usu + " " + apellidos_usu));
 
 });
 /*Convertidor de texto mayusculas al inicio*/
 function MaysInit(intoText){
 	return intoText.toLowerCase()
             .trim()
+
             .split(' ')
             .map( v => v[0].toUpperCase() + v.substr(1) )
             .join(' '); 
 }
 
-/**/
-
-/*Vamos a buscar la pagina, ya visitada*/
-function nextPage(){
-	navigation++;
-	console.log('' + navigation + '' );
-}
-
-function beforePage(){
-	navigation--;
-}
-
+//Libreria de JQuery DataTable() + Lenguage Espanol 
 function DataTable(IdOrClass){
 	$(IdOrClass).DataTable({
 		language: {
@@ -71,4 +62,14 @@ function DataTable(IdOrClass){
 				    }
 				}
 	});
+}
+
+/*Navegacion para la  pagina siguiente y anterior */
+function nextPage(){
+	navigation++;
+	console.log('' + navigation + '' );
+}
+
+function beforePage(){
+	navigation--;
 }

@@ -24,7 +24,7 @@ if (isset($_POST['op'])) {
                 echo "La contraseña es obligatorio.";
             }else{
                 $objUsuarios = new Model_Usuarios();
-                $result = $objUsuarios->acceso($correo_usu, $password_usu);
+                $result = $objUsuarios->acceso(strtolower($correo_usu), $password_usu);
                 if ($result == false) {
                    #echo "Correo o contraseña incorrecta, intenta acceder nuevamente.";
                    echo "Correo o contraseña incorrecta, intenta acceder nuevamente";
