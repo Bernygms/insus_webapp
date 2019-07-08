@@ -123,7 +123,7 @@ function addAcciones(id_raci){
 			console.log('municipio ' + raci.data.raci[i].municipio_raci);
 			console.log('nombre del poblado' + raci.data.raci[i].nombre_de_pob_raci);
 			console.log('pendientes de contratar ' + raci.data.raci[i].pendientes_de_con_raci);
-			console.log('superficie ' + raci.data.raci[i].superficie_de_pob_raci);
+			console.log('superficie ' + raci.data.raci[i].superficie_de_pob_raci);													
 			console.log('total contratados ' + raci.data.raci[i].total_con_raci);
 			console.log('universo de lotes' + raci.data.raci[i].universo_de_lot_raci);
 			status = true;
