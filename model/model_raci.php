@@ -27,4 +27,8 @@ class Model_raci{
         
     }
 
+    public function addAcciones(){
+        #Write your code ...
+    }
+
 }

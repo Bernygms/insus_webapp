@@ -55,135 +55,167 @@
     };
   </script>
   <!--Inicia Modal : myModalAddAcciones -->
-
-<!-- Modal -->
-<div class="modal fade" id="myModalAddAcciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+   <!-- Large modal start files  add files-->
+  <div id="myModalAddAcciones" class="modal fade bd-prah-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <!--header modal-->
+      
+      <div class="modal-header modal-header-info">
+        <h5 class="modal-title" id="exampleModalLongTitle">Agregando acciones</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-       <div class="card ">
-          <div class="card-header text-center ">
-            <ul class="nav nav-tabs card-header-tabs">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Autorización</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">En Proceso</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">VoBo</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Cierre</a>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body">
-          <!--body del modal-->
-            <form id="form_update_propuesta" name="form_update_propuesta">
+      <div class="card col-md-12">
+        <div class="card-header text-center ">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a id="nav1" class="nav-link">Datos del poblado</a>
+            </li>
+            <li class="nav-item">
+              <a id="nav2" class="nav-link">Acciones y programa</a>
+            </li>
+            <li class="nav-item">
+              <a id="nav3" class="nav-link">Agregar beneficiarios</a>
+            </li>
+            <li class="nav-item">
+              <a id="nav4" class="nav-link">Terminar</a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+        <!--body del modal-->
+          <div id="div_datos_poblado">
             <div class="modal-body">
              <div class="row">
-              <div id="mesage_edit" class="form-group col-md-12">
+              <div class="form-group col-md-3">
+                <label for="id">Identificador:</label>
+                <input id="id_raci" name="id_raci" type="text" class="form-control border border-primary" disabled/>
               </div>
-              <div class="form-group col-md-4">
-                <label for="id">No. Propuesta </label>
-                <input id="op" name="op" type="hidden" class="form-control" value="editar" />
-                <input id="app" name="app" type="hidden" class="form-control" value="<?php echo $_SESSION['nombre_app'] ?>"/>
-                <input id="anno" name="anno" type="hidden"/>
-                <input id="id_estado" name="id_estado" type="hidden" >
-                <input id="id_file" name="id_file" type="hidden"/>
-                <input id="ofic_porp_nombre" name="ofic_porp_nombre" type="hidden"/>
-                <input id="anexo6_nombre" name="anexo6_nombre" type="hidden"/>
-                <input id="anexo7_nombre" name="anexo7_nombre" type="hidden"/>
-                <input id="lis_de_bene_nombre" name="lis_de_bene_nombre" type="hidden"/>
-                <input id="num_prop" name="num_prop" type="text" class="form-control" placeholder="01-001" maxlength="6"  />
-              </div>
-              <div class="form-group col-md-4">
-                <label for="id">Oficio de Propuesta</label>
-                <input type="file" class="form-control-file" id="ofic_porp" name="ofic_porp" >
+              <div class="form-group col-md-3">
+                <label for="id">Entidad:</label>
+                <input id="entidad_raci" name="entidad_raci" type="text" class="form-control border border-primary" disabled/>
               </div>   
-              <div class="form-group col-md-4">
-                <label for="id">Anexo 6</label>
-                <input type="file" class="form-control-file" id="anexo6" name="anexo6" >
+              <div class="form-group col-md-3">
+                <label for="id">Clave INSUS:</label>
+                <input id="clave_insus_raci" name="clave_insus_raci" type="text" class="form-control border border-primary" disabled/>
               </div> 
-              <div class="form-group col-md-4">
-                <label for="id">Anexo 7</label>
-                <input type="file" class="form-control-file" id="anexo7" name="anexo7">
+              <div class="form-group col-md-3">
+                <label for="id">Clave INEGI:</label>
+                <input id="clave_inegi_raci" name="clave_inegi_raci" type="text" class="form-control border border-primary" disabled/>
               </div> 
-              <div class="form-group col-md-4">
-                <label for="id">Listado de Beneficiarios</label>
-                <input type="file" class="form-control-file" id="lis_de_bene" name="lis_de_bene">
-              </div>        
+              <div class="form-group col-md-3">
+                <label for="id">Modalidad:</label>
+                <input id="modalidad_raci" name="modalidad_raci" type="text" class="form-control border border-primary" disabled/>
+              </div>  
+              <div class="form-group col-md-3">
+                <label for="id">Poblado:</label>
+                <input id="nombre_de_pob_raci" name="nombre_de_pob_raci" type="text" class="form-control border border-primary" disabled/>
+              </div> 
+              <div class="form-group col-md-3">
+                <label for="id">Municipio:</label>
+                <input id="municipio_raci" name="municipio_raci" type="text" class="form-control border border-primary" disabled/>
+              </div>     
+              <div class="form-group col-md-3">
+                <label for="id">Superficie:</label>
+                <input id="superficie_de_pob_raci" name="superficie_de_pob_raci" type="text" class="form-control border border-primary" disabled/>
+              </div>  
+              <div class="form-group col-md-3">
+                <label for="id">Programa Municipio:</label>
+                <input id="municipio_pro_raci" name="municipio_pro_raci" type="text" class="form-control border border-primary" disabled/>
+              </div> 
+              <div class="form-group col-md-3">
+                <label for="id">Fecha de Contratacion:</label>
+                <input id="fecha_ini_con_raci" name="fecha_ini_con_raci" type="text" class="form-control border border-primary" disabled/>
+              </div> 
+              <div class="form-group col-md-3">
+                <label for="id">Universo de lotes:</label>
+                <input id="universo_de_lot_raci" name="universo_de_lot_raci" type="text" class="form-control border border-primary" disabled/>
+              </div> 
+              <div class="form-group col-md-3">
+                <label for="id">Contratados:</label>
+                <input id="total_con_raci" name="total_con_raci" type="text" class="form-control border border-primary" disabled/>
+              </div> 
             </div>
             <!--footer modal-->
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" onclick="editOAAL()" class="btn btn-primary">Guardar propuesta</button>
+              <button id="btn_next_1" type="button" class="btn btn-primary">Continuar</button>
             </div>
-            <div id="ajaxloader" style="display:none"><img class="mx-auto mt-30 mb-30 d-block" src="../images/pre-loader/loader-02.svg" alt=""></div>
           </div>
-          </form>
+          </div>
+        <!--Datos: agregar accion y programa-->
+        <div id="div_accion_y_programa">
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-md-2">
+                <label for="id">Programa:</label>
+                <select id="pk_id_pro" name="pk_id_pro" class="form-control border border-primary">
+                      <option value="">Secciona un programa</option>
+                      <option value="1">REGLA 1</option>
+                      <option value="2">REGLA 2</option>
+                      <option value="3">REGLA 3</option>
+                      <option value="4">PMU</option>
+                      <option value="5">PRAH</option>
+                      <option value="6">PASPRAH</option>
+                      <option value="7">OTROS</option>
+                    </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="id">Accion:</label>
+                <input id="accion_con" name="accion_con" type="text" class="form-control border border-primary" />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="id">Pago Beneficiario:</label>
+                <input id="pago_ben_con" name="pago_ben_con" type="text" class="form-control border border-primary" />
+              </div>   
+              <div class="form-group col-md-2">
+                <label for="id">Apoyo INSUS:</label>
+                <input id="apoyo_insus_con" name="apoyo_insus_con" type="text" class="form-control border border-primary" />
+              </div> 
+              <div class="form-group col-md-2">
+                <label for="id">Subsidio:</label>
+                <input id="subsidio_con" name="subsidio_con" type="text" class="form-control border border-primary" />
+              </div>       
+            </div>
+          <!--footer modal-->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger text-left"></button>
+            <button type="button" id="btn_before_2" class="btn btn-light">Regresar</button>
+            <button type="button" id="btn_next_2" class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
+        </div>
+        <!--Datos: agregar accion y programa-->
+        <div id="div_beneficiarios">
+          <div class="modal-body">
+           <div class="row">
+            <div class="form-group col-md-4">
+              <label for="id">Fecha de Contratacion:</label>
+              <input id="fecha_ini_con_raci" name="fecha_ini_con_raci" type="text" class="form-control border border-primary" />
+            </div> 
+            <div class="form-group col-md-4">
+              <label for="id">Universo de lotes:</label>
+              <input id="universo_de_lot_raci" name="universo_de_lot_raci" type="text" class="form-control border border-primary" />
+            </div> 
+            <div class="form-group col-md-4">
+              <label for="id">Contratados:</label>
+              <input id="total_con_raci" name="total_con_raci" type="text" class="form-control border border-primary" />
+            </div> 
+          </div>
+          <!--footer modal-->
+          <div class="modal-footer">
+            <button type="button" id="" class="btn btn-light">Regresar</button>
+            <button type="button" id="" class="btn btn-primary">Continuar</button>
+          </div>
+        </div>
         </div>
       </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+    </div>
     </div>
   </div>
 </div>
-
   <!--Termina Modal : myModalAddAcciones -->
-
-  <!-- Modal -->
-<div class="modal fade" id="modalForm" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">×</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Contact Form</h4>
-            </div>
-            
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <p class="statusMsg"></p>
-                <form role="form">
-                    <div class="form-group">
-                        <label for="inputName">Name</label>
-                        <input type="text" class="form-control" id="inputName" placeholder="Enter your name"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Enter your email"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputMessage">Message</label>
-                        <textarea class="form-control" id="inputMessage" placeholder="Enter your message"></textarea>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary submitBtn" onclick="submitContactForm()">SUBMIT</button>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 
 </html>

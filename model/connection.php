@@ -16,6 +16,7 @@ function DB()
         );
         $dsn = 'mysql:host=' . HOST . ';dbname=' . DATABASE;
         $instance = new PDO($dsn, USER, PASSWORD, $opt);
+
     }
     return $instance;
 }

@@ -23,7 +23,21 @@ if (isset($_POST['op'])) {
     #variable para validar la consultas por roles
     $rol_usu =  (isset($_POST['rol_usu']) ? $_POST['rol_usu'] : NULL);
 
-
+    #Variables de entrada contratos
+    /*
+        id_con
+        accion_con
+        pago_ben_con
+        apoyo_insus_con
+        subsidio_con
+        mes_con
+        anno_con
+        fecha_con
+        fecha_edi_con
+        pk_id_raci
+        pk_id_pro
+            
+    */
     switch($op) {
         case 'estados':
             # Consulta a la tabla estados

@@ -49,31 +49,6 @@
                   <br>
                 </div>
                 
-                <!--<div id="" class="card-body">
-                  <p id="titulo_raci" class="card-title">Cargando ...</p>
-                  <div id="" class="table-responsive">
-                    <table id="table_raci" class="table table-hover mytable">
-                      <thead>
-                        <tr>
-                          <th>Entidad</th>
-                          <th>Cv.INSUS</th>
-                          <th>Cv.INEGI</th>
-                          <th>Modalidad</th>
-                          <th>Poblado</th>
-                          <th>Municipio</th>
-                          <th>Superficie</th>
-                          <th>Municipio</th>
-                          <th>Contrataciòn</th>
-                          <th>Lotes</th>
-                          <th>Contratados</th>
-                          <th>Pendientes</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                </div>-->
-
               </div>
             </div>
           </div>
