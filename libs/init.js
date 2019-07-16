@@ -46,7 +46,7 @@ $(function(){
 
 	$("#btn_next_2").click(function(){
 		//Variables para contratos
-		var pk_id_pro = $("#pk_id_pro").val();
+		
 
 		var accion_con = $("#accion_con").val();
 		var pago_ben_con = $("#pago_ben_con").val();
@@ -61,30 +61,6 @@ $(function(){
 		var pk_id_raci = $("#id_raci").val();
 		var universo_de_lot_raci = $("#universo_de_lot_raci").val();
 		var total_con_raci = $("#total_con_raci").val();
-		if (pk_id_pro == 1) {
-			toastrError("Regla 1 OK ","Regla 1");
-			r = validarPrograma();
-
-			
-
-		}else if(pk_id_pro == 2){
-			toastrError("Regla 2 OK ","Regla 2");
-		}else if(pk_id_pro == 3){
-			toastrError("Regla 3 OK ","Regla 3");
-		}else if(pk_id_pro == 4){
-			toastrError("PMU  OK ","PMU");
-		}else if(pk_id_pro == 5){
-			toastrError("PRAH  OK ","PRAH");
-		}
-		else if(pk_id_pro == 6){
-			toastrError("PASPRAH  OK ","PASPRAH");
-		}else if(pk_id_pro == 7){
-			toastrError("OTROS  OK ","OTROS");
-		}else{
-
-		}
-		
-		
 	});
 
 	$("#btn_before_3").click(function(){

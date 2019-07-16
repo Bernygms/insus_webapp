@@ -132,6 +132,12 @@ function getIdRaci(id_raci){
 		$("#div_datos_poblado").show();
 		$("#div_accion_y_programa").hide();
 		$("#div_beneficiarios").hide();
+		$("#ac1").hide();
+		$("#ac2").hide();
+		$("#ac3").hide();
+		$("#ac4").hide();
+		$("#ac5").hide();
+		$("#ac6").hide();
 		$("#myModalAddAcciones").modal('show');
 		$('#myModalAddAcciones').modal({backdrop: 'static', keyboard: false});
 		$("#nav1").removeClass("active");
@@ -142,6 +148,72 @@ function getIdRaci(id_raci){
 	
 }
 
+/*Validamos programas, REGLA 1 , REGLA 2 , REGLA 3, PMU, PRH, PASPRAH, OTROS*/
+function valProgramas(){
+	var pk_id_pro = 0;
+	pk_id_pro = $("#pk_id_pro").val();
+	if(pk_id_pro == 1) {
+			toastrError("Regla 1 OK ","Regla 1");
+			$("#ac1").show(); //accion
+			$("#ac2").show(); //pago beneficiario
+			$("#ac3").show(); //Apoyo insus 
+			$("#ac4").hide(); //Subsidio
+			$("#ac5").hide(); //Rectificacion
+			$("#ac6").hide(); //Otros
+		}else if(pk_id_pro == 2){
+			toastrError("Regla 2 OK ","Regla 2");
+			$("#ac1").show();
+			$("#ac2").show();
+			$("#ac3").hide();
+			$("#ac4").hide();
+			$("#ac5").hide();
+			$("#ac6").hide();
+		}else if(pk_id_pro == 3){
+			toastrError("Regla 3 OK ","Regla 3");
+			$("#ac1").show();
+			$("#ac2").show();
+			$("#ac3").hide();
+			$("#ac4").hide();
+			$("#ac5").hide();
+			$("#ac6").hide();
+
+		}else if(pk_id_pro == 4){
+			toastrError('oK','PMU');
+			$("#ac1").show();
+			$("#ac2").show();
+			$("#ac3").hide();
+			$("#ac4").show();
+			$("#ac5").hide();
+			$("#ac6").hide();
+		}else if(pk_id_pro == 5){
+			toastrError("PRAH  OK ","PRAH");
+			$("#ac1").show();
+			$("#ac2").show();
+			$("#ac3").hide();
+			$("#ac4").show();
+			$("#ac5").hide();
+			$("#ac6").hide();
+		}else if(pk_id_pro == 6){
+			toastrError("PASPRAH  OK ","PASPRAH");
+			$("#ac1").show();
+			$("#ac2").hide();
+			$("#ac3").show();
+			$("#ac4").show();
+			$("#ac5").hide();
+			$("#ac6").hide();
+		}else if(pk_id_pro == 7){
+			toastrError("OTROS  OK ","OTROS");
+			$("#ac1").hide();
+			$("#ac2").hide();
+			$("#ac3").hide();
+			$("#ac4").hide();
+			$("#ac5").show();
+			$("#ac6").show();
+		}else{
+			
+		}
+
+}
 
 function addAcciones(uno,dos){
 	toastrExito(uno + dos , 'response');

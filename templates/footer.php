@@ -150,7 +150,7 @@
             <div class="row">
               <div class="form-group col-md-2">
                 <label for="id">Programa:</label>
-                <select id="pk_id_pro" name="pk_id_pro" class="form-control border border-primary">
+                <select id="pk_id_pro" name="pk_id_pro" class="form-control border border-primary" onchange="valProgramas()">
                       <option value="">Secciona un programa</option>
                       <option value="1">REGLA 1</option>
                       <option value="2">REGLA 2</option>
@@ -159,28 +159,35 @@
                       <option value="5">PRAH</option>
                       <option value="6">PASPRAH</option>
                       <option value="7">OTROS</option>
-                    </select>
+                </select>
               </div>
-              <div class="form-group col-md-2">
+              <div id="ac1" class="form-group col-md-2">
                 <label for="id">Accion:</label>
                 <input id="accion_con" name="accion_con" type="text" class="form-control border border-primary" />
               </div>
-              <div class="form-group col-md-2">
+              <div id="ac2" class="form-group col-md-2">
                 <label for="id">Pago Beneficiario:</label>
                 <input id="pago_ben_con" name="pago_ben_con" type="text" class="form-control border border-primary" />
               </div>   
-              <div class="form-group col-md-2">
+              <div id="ac3" class="form-group col-md-2">
                 <label for="id">Apoyo INSUS:</label>
                 <input id="apoyo_insus_con" name="apoyo_insus_con" type="text" class="form-control border border-primary" />
               </div> 
-              <div class="form-group col-md-2">
+              <div id="ac4" class="form-group col-md-2">
                 <label for="id">Subsidio:</label>
                 <input id="subsidio_con" name="subsidio_con" type="text" class="form-control border border-primary" />
+              </div> 
+              <div id="ac5" class="form-group col-md-2">
+                <label for="id">Rectificaciones:</label>
+                <input id="rectif" name="rectif" type="text" class="form-control border border-primary" />
+              </div> 
+              <div id="ac6" class="form-group col-md-2">
+                <label for="id">Otros:</label>
+                <input id="otros" name="otros_otr_con" type="text" class="form-control border border-primary" />
               </div>       
             </div>
           <!--footer modal-->
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger text-left"></button>
             <button type="button" id="btn_before_2" class="btn btn-light">Regresar</button>
             <button type="button" id="btn_next_2" class="btn btn-primary">Guardar</button>
           </div>
