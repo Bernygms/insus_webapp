@@ -1,6 +1,7 @@
 <?php 
 require_once('../model/model_estados.php');
 require_once('../model/model_raci.php');
+require_once('../model/model_contratos.php');
 
 if (isset($_POST['op'])) {
     $op =  (isset($_POST['op']) ? $_POST['op'] : NULL);#Dato para la consulta de de cada case 
@@ -24,20 +25,18 @@ if (isset($_POST['op'])) {
     $rol_usu =  (isset($_POST['rol_usu']) ? $_POST['rol_usu'] : NULL);
 
     #Variables de entrada contratos
-    /*
-        id_con
-        accion_con
-        pago_ben_con
-        apoyo_insus_con
-        subsidio_con
-        mes_con
-        anno_con
-        fecha_con
-        fecha_edi_con
-        pk_id_raci
-        pk_id_pro
-            
-    */
+    $id_con =  (isset($_POST['id_con']) ? $_POST['id_con'] : NULL);
+    $accion_con =  (isset($_POST['accion_con']) ? $_POST['accion_con'] : NULL);
+    $pago_ben_con =  (isset($_POST['pago_ben_con']) ? $_POST['pago_ben_con'] : NULL);
+    $apoyo_insus_con =  (isset($_POST['apoyo_insus_con']) ? $_POST['apoyo_insus_con'] : NULL);
+    $subsidio_con=  (isset($_POST['subsidio_con']) ? $_POST['subsidio_con'] : NULL);
+    $mes_con =  (isset($_POST['mes_con']) ? $_POST['mes_con'] : NULL);
+    $anno_con =  (isset($_POST['anno_con']) ? $_POST['anno_con'] : NULL);
+    $fecha_con=  (isset($_POST['fecha_con']) ? $_POST['fecha_con'] : NULL);
+    $fecha_edi_con =  (isset($_POST['fecha_edi_con']) ? $_POST['fecha_edi_con'] : NULL);
+    $pk_id_raci =  (isset($_POST['pk_id_raci']) ? $_POST['pk_id_raci'] : NULL);
+    $pk_id_pro =  (isset($_POST['pk_id_pro']) ? $_POST['pk_id_pro'] : NULL);
+
     switch($op) {
         case 'estados':
             # Consulta a la tabla estados
@@ -60,6 +59,19 @@ if (isset($_POST['op'])) {
             $objRaci = new Model_raci();
             $response = $objRaci->getRaci($entidad_raci);
             if (!empty($response)) {
+                header('Content-type: application/json; charset=utf-8');
+                echo json_encode($response);
+            }else{
+                if ($response == false) {
+                    echo "Lo sentimos, no encontramos resultados.";
+                }
+            }
+            break;
+        case 'regla1':
+            # code...
+            $objContratos = new Model_contratos();
+            $response = $objContratos->getContratos($mes_con, $anno_con,$pk_id_pro);
+           if (!empty($response)) {
                 header('Content-type: application/json; charset=utf-8');
                 echo json_encode($response);
             }else{

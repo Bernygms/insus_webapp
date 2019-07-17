@@ -3,7 +3,7 @@
  var estados = []; 
  var raci = [];
  var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
-
+ var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
  var rol_usu = $("#rol_usu").val();
  var id_estado = $("#pk_id_est").val();
 
@@ -150,90 +150,177 @@ function getIdRaci(id_raci){
 
 /*Validamos programas, REGLA 1 , REGLA 2 , REGLA 3, PMU, PRH, PASPRAH, OTROS*/
 function valProgramas(){
+	var f = new Date();
+	var mes = meses[f.getMonth()], anno = f.getFullYear();
 	var pk_id_pro = 0;
+	var data = {};
 	pk_id_pro = $("#pk_id_pro").val();
-	if(pk_id_pro == 1) {
-			toastrError("Regla 1 OK ","Regla 1");
-			$("#ac1").show(); //accion
-			$("#ac2").show(); //pago beneficiario
-			$("#ac3").show(); //Apoyo insus 
-			$("#ac4").hide(); //Subsidio
-			$("#ac5").hide(); //Rectificacion
-			$("#ac6").hide(); //Otros
-		}else if(pk_id_pro == 2){
-			toastrError("Regla 2 OK ","Regla 2");
-			$("#ac1").show();
-			$("#ac2").show();
-			$("#ac3").hide();
-			$("#ac4").hide();
-			$("#ac5").hide();
-			$("#ac6").hide();
-		}else if(pk_id_pro == 3){
-			toastrError("Regla 3 OK ","Regla 3");
-			$("#ac1").show();
-			$("#ac2").show();
-			$("#ac3").hide();
-			$("#ac4").hide();
-			$("#ac5").hide();
-			$("#ac6").hide();
-
-		}else if(pk_id_pro == 4){
-			toastrError('oK','PMU');
-			$("#ac1").show();
-			$("#ac2").show();
-			$("#ac3").hide();
-			$("#ac4").show();
-			$("#ac5").hide();
-			$("#ac6").hide();
-		}else if(pk_id_pro == 5){
-			toastrError("PRAH  OK ","PRAH");
-			$("#ac1").show();
-			$("#ac2").show();
-			$("#ac3").hide();
-			$("#ac4").show();
-			$("#ac5").hide();
-			$("#ac6").hide();
-		}else if(pk_id_pro == 6){
-			toastrError("PASPRAH  OK ","PASPRAH");
-			$("#ac1").show();
-			$("#ac2").hide();
-			$("#ac3").show();
-			$("#ac4").show();
-			$("#ac5").hide();
-			$("#ac6").hide();
-		}else if(pk_id_pro == 7){
-			toastrError("OTROS  OK ","OTROS");
-			$("#ac1").hide();
-			$("#ac2").hide();
-			$("#ac3").hide();
-			$("#ac4").hide();
-			$("#ac5").show();
-			$("#ac6").show();
-		}else{
+		if(pk_id_pro == 1) {
+			data = {op: "regla1", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
+			console.log(mes,anno, pk_id_pro);
+			__Ajax_JSON(url,data).done(function(response){
+				if ($.isEmptyObject(response.data.contratos) == true) {
+					hideInput();
+					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","Regla 1");
+					$("#ac1").show(); //accion
+					$("#ac2").show(); //pago beneficiario
+					$("#ac3").show(); //Apoyo insus 
+					$("#ac4").hide(); //Subsidio
+					$("#ac5").hide(); //Rectificacion
+					$("#ac6").hide(); //Otros
+				}else{
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 1");
+					hideInput();
+				}
+			});
 			
+		}else if(pk_id_pro == 2){
+			data = {op: "regla1", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
+			console.log(mes,anno, pk_id_pro);
+			__Ajax_JSON(url,data).done(function(response){
+				hideInput();
+				if ($.isEmptyObject(response.data.contratos) == true) {
+					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","Regla 2");
+					$("#ac1").show();
+					$("#ac2").show();
+					$("#ac3").hide();
+					$("#ac4").hide();
+					$("#ac5").hide();
+					$("#ac6").hide();
+				}else{
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 2");
+					hideInput();
+				}
+			});
+		}else if(pk_id_pro == 3){
+			data = {op: "regla1", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
+			console.log(mes,anno, pk_id_pro);
+			__Ajax_JSON(url,data).done(function(response){
+				hideInput();
+				if ($.isEmptyObject(response.data.contratos) == true) {
+					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","Regla 3");
+					$("#ac1").show();
+					$("#ac2").show();
+					$("#ac3").hide();
+					$("#ac4").hide();
+					$("#ac5").hide();
+					$("#ac6").hide();
+				}else{
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 3");
+					hideInput();
+				}
+			});
+		}else if(pk_id_pro == 4){
+			data = {op: "regla1", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
+			console.log(mes,anno, pk_id_pro);
+			__Ajax_JSON(url,data).done(function(response){
+				hideInput();
+				if ($.isEmptyObject(response.data.contratos) == true) {
+					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","PMU");
+					$("#ac1").show();
+					$("#ac2").show();
+					$("#ac3").hide();
+					$("#ac4").show();
+					$("#ac5").hide();
+					$("#ac6").hide();
+				}else{
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PMU");
+					hideInput();
+				}
+			});
+		}else if(pk_id_pro == 5){
+			data = {op: "regla1", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
+			console.log(mes,anno, pk_id_pro);
+			__Ajax_JSON(url,data).done(function(response){
+				hideInput();
+				if ($.isEmptyObject(response.data.contratos) == true) {
+					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","PRAH");
+					$("#ac1").show();
+					$("#ac2").show();
+					$("#ac3").hide();
+					$("#ac4").show();
+					$("#ac5").hide();
+					$("#ac6").hide();
+				}else{
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PRAH");
+					hideInput();
+				}
+			});
+		}else if(pk_id_pro == 6){
+			data = {op: "regla1", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
+			console.log(mes,anno, pk_id_pro);
+			__Ajax_JSON(url,data).done(function(response){
+				hideInput();
+				if ($.isEmptyObject(response.data.contratos) == true) {
+					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","PASPRAH");
+					$("#ac1").show();
+					$("#ac2").hide();
+					$("#ac3").show();
+					$("#ac4").show();
+					$("#ac5").hide();
+					$("#ac6").hide();
+				}else{
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PASPRAH");
+					hideInput();
+				}
+			});
+		}else if(pk_id_pro == 7){
+			data = {op: "regla1", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
+			console.log(mes,anno, pk_id_pro);
+			__Ajax_JSON(url,data).done(function(response){
+				hideInput();
+				if ($.isEmptyObject(response.data.contratos) == true) {
+					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","OTROS");
+					$("#ac1").hide();
+					$("#ac2").hide();
+					$("#ac3").hide();
+					$("#ac4").hide();
+					$("#ac5").show();
+					$("#ac6").show();
+				}else{
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","OTROS RECTIFICACIONES");
+					hideInput();
+				}
+			});
+		}else{
+			toastrError("Selecciona un programa ","Programas");
+			hideInput();
 		}
 
 }
 
-function addAcciones(uno,dos){
-	toastrExito(uno + dos , 'response');
-	$("#div_datos_poblado").hide();
-	$("#div_accion_y_programa").hide();
-	$("#div_beneficiarios").show();
-	$("#nav2").removeClass("active");
-	$("#nav3").addClass("active");
-	//$("#nav3").addClass("active"); 
-	//$("#nav4").addClass("active");
-
+function hideInput(){
+	$("#ac1").hide(); //accion
+	$("#ac2").hide(); //pago beneficiario
+	$("#ac3").hide(); //Apoyo insus 
+	$("#ac4").hide(); //Subsidio
+	$("#ac5").hide(); //Rectificacion
+	$("#ac6").hide(); //Otros
+	//Vaciamos los campos cuando se cambia el programa.
+	$("#accion_con").val("");
+	$("#pago_ben_con").val("") ;
+	$("#apoyo_insus_con").val("");
+	$("#subsidio_con").val("");
+	$("#subsidio_con").val("");
+	$("#rectificaciones_con").val("");
+	$("#otros_con").val("");
 }
 
-function validarPrograma(data){
-	var respuesta = "";
-	__Ajax_JSON(url,data).done(function(response){
+function getPrograma(data){
+	var result = "";
+	__Ajax_JSON(url,data)
+
+	.done(function(response){
 		console.log("------------------------")
-		console.log(response);
-		respuesta = response;
+
 		console.log("------------------------")
+	})
+	.fail(function(){
+		console.log("Error en ajax, no hay respuesta.")
+	})
+	.always(function(){
+		console.log( "finished" );
+		return result;
 	});
-	return respuesta;
+	
 }

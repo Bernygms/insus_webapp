@@ -151,7 +151,7 @@
               <div class="form-group col-md-2">
                 <label for="id">Programa:</label>
                 <select id="pk_id_pro" name="pk_id_pro" class="form-control border border-primary" onchange="valProgramas()">
-                      <option value="">Secciona un programa</option>
+                      <option selected>Secciona un programa</option>
                       <option value="1">REGLA 1</option>
                       <option value="2">REGLA 2</option>
                       <option value="3">REGLA 3</option>
@@ -179,11 +179,11 @@
               </div> 
               <div id="ac5" class="form-group col-md-2">
                 <label for="id">Rectificaciones:</label>
-                <input id="rectif" name="rectif" type="text" class="form-control border border-primary" />
+                <input id="rectificaciones_con" name="rectificaciones_con" type="text" class="form-control border border-primary" />
               </div> 
               <div id="ac6" class="form-group col-md-2">
                 <label for="id">Otros:</label>
-                <input id="otros" name="otros_otr_con" type="text" class="form-control border border-primary" />
+                <input id="otros_con" name="otros_con" type="text" class="form-control border border-primary" />
               </div>       
             </div>
           <!--footer modal-->
