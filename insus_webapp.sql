@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-07-2019 a las 23:29:19
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.1.27
+-- Tiempo de generación: 18-07-2019 a las 23:43:51
+-- Versión del servidor: 10.3.16-MariaDB
+-- Versión de PHP: 7.3.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -60,12 +60,23 @@ CREATE TABLE `contratos` (
   `pago_ben_con` decimal(10,0) NOT NULL,
   `apoyo_insus_con` decimal(10,0) NOT NULL,
   `subsidio_con` decimal(10,0) NOT NULL,
-  `mes_com` varchar(20) NOT NULL,
+  `rectificaciones_con` decimal(10,0) NOT NULL,
+  `otros_con` decimal(10,0) NOT NULL,
+  `mes_con` varchar(20) NOT NULL,
+  `anno_con` varchar(5) NOT NULL,
   `fecha_con` date NOT NULL,
   `fecha_edi_con` date NOT NULL,
   `pk_id_raci` int(11) NOT NULL,
-  `pk_id_programa` int(11) NOT NULL
+  `pk_id_pro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `contratos`
+--
+
+INSERT INTO `contratos` (`id_con`, `accion_con`, `pago_ben_con`, `apoyo_insus_con`, `subsidio_con`, `rectificaciones_con`, `otros_con`, `mes_con`, `anno_con`, `fecha_con`, `fecha_edi_con`, `pk_id_raci`, `pk_id_pro`) VALUES
+(7, 2, '12000', '2000', '12000', '0', '0', 'Julio', '2019', '2019-07-01', '2019-07-02', 1, 1),
+(8, 3, '1222', '1222', '1222', '122', '122', 'Julio', '2019', '2019-07-02', '2019-07-02', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -127,6 +138,7 @@ CREATE TABLE `otros_recursos` (
   `rectificaciones_otr_rec` decimal(10,0) NOT NULL,
   `otros_otr_rec` decimal(10,0) NOT NULL,
   `mes_otr_rec` varchar(20) NOT NULL,
+  `anno_otr_rec` varchar(5) NOT NULL,
   `fecha_otr_rec` date NOT NULL,
   `fecha_edi_otr_rec` date NOT NULL,
   `pk_id_raci` int(11) NOT NULL
@@ -142,6 +154,19 @@ CREATE TABLE `programas` (
   `id_pro` int(11) NOT NULL,
   `nombre_pro` varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `programas`
+--
+
+INSERT INTO `programas` (`id_pro`, `nombre_pro`) VALUES
+(1, 'REGLA 1'),
+(2, 'REGLA 2'),
+(3, 'REGLA 3'),
+(4, 'PMU'),
+(5, 'PRAH'),
+(6, 'PASPRAH'),
+(7, 'OTROS');
 
 -- --------------------------------------------------------
 
@@ -195,7 +220,7 @@ INSERT INTO `raci` (`id_raci`, `entidad_raci`, `clave_insus_raci`, `clave_inegi_
 (22, 1, '0089-7', '10010001', 'MDT', 'CUMBRES (ANEXO PALOMINO DENA)', ' AGUASCALIENTES', '20-90-82.00', '0', '0000-00-00', 710, 0, 645, 65),
 (23, 1, '0090-2', '10012050', 'MDT', 'CUMBRES (LA LOMA)', ' AGUASCALIENTES', '71-76-88.00', '0', '0000-00-00', 1500, 0, 1560, -60),
 (24, 1, '0091-7', '10012055', 'MDT', 'SAN IGNACIO (JARDIN DE LOS OLIVOS)', ' AGUASCALIENTES', '06-32-56.00', '0', '0000-00-00', 172, 0, 134, 38),
-(25, 1, '0092-5', '10010001', 'MDT', 'SALTO DE OJO CALIENTE Y SU ANEXO', ' AGUASCALIENTES', '05-83-43.00', '0', '0000-00-00', 127, 0, 100, 27),
+(25, 2, '0092-5', '10010001', 'MDT', 'SALTO DE OJO CALIENTE Y SU ANEXO', ' AGUASCALIENTES', '05-83-43.00', '0', '0000-00-00', 127, 0, 100, 27),
 (26, 1, '0096-6', '10010001', 'MDT', 'PE. OJO CALIENTE (EL RIEGO)', ' AGUASCALIENTES', '03-09-58.00', '0', '0000-00-00', 138, 0, 116, 22),
 (27, 1, '0098-0', '10010001', 'MDT', 'PE. NORIAS DE PASO HONDO (CIUDAD GOTICA)', ' AGUASCALIENTES', '03-28-49.00', '0', '0000-00-00', 112, 0, 87, 25),
 (28, 1, '0099-8', '10010001', 'MDT', 'PE. NORIAS DE PASO HONDO (ANEXO NORIAS)', ' AGUASCALIENTES', '01-69-81.00', '0', '0000-00-00', 66, 0, 38, 28),
@@ -249,9 +274,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usu`, `nombre_usu`, `apellidos_usu`, `usuario_usu`, `correo_usu`, `password_usu`, `estado_usu`, `rol_usu`, `pk_id_est`) VALUES
-(1, 'Bernard', 'Games Cabanzo', '@Brends', 'bernardinogamescabanzo@hotmail.com', '12345', 1, 1, 1),
+(1, 'Bernard', 'Games Cabanzo', '@Brends', 'admin@admin.com', '12345', 1, 1, 1),
 (2, 'Puebla', 'Puebla Pue.', '', 'puebla@hotmail.com', '12345', 2, 2, 21),
-(3, 'AGUASCALIENTES', 'AGU', '', 'aguascalientes@hotmail.com', '12345', 1, 3, 1);
+(3, 'AGUASCALIENTES', 'AGU', '', 'user@user.com', '12345', 1, 3, 1);
 
 --
 -- Índices para tablas volcadas
@@ -270,7 +295,7 @@ ALTER TABLE `beneficiarios`
 ALTER TABLE `contratos`
   ADD PRIMARY KEY (`id_con`),
   ADD KEY `pk_id_raci` (`pk_id_raci`),
-  ADD KEY `pk_id_programa` (`pk_id_programa`);
+  ADD KEY `pk_id_pro` (`pk_id_pro`) USING BTREE;
 
 --
 -- Indices de la tabla `estados`
@@ -320,13 +345,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `beneficiarios`
 --
 ALTER TABLE `beneficiarios`
-  MODIFY `id_ben` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ben` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `contratos`
 --
 ALTER TABLE `contratos`
-  MODIFY `id_con` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_con` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `otros_recursos`
@@ -338,7 +363,7 @@ ALTER TABLE `otros_recursos`
 -- AUTO_INCREMENT de la tabla `programas`
 --
 ALTER TABLE `programas`
-  MODIFY `id_pro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `raci`
@@ -357,12 +382,17 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- Filtros para la tabla `beneficiarios`
+--
+ALTER TABLE `beneficiarios`
+  ADD CONSTRAINT `beneficiarios_ibfk_1` FOREIGN KEY (`pk_id_con`) REFERENCES `contratos` (`id_con`);
+
+--
 -- Filtros para la tabla `contratos`
 --
 ALTER TABLE `contratos`
   ADD CONSTRAINT `contratos_ibfk_1` FOREIGN KEY (`pk_id_raci`) REFERENCES `raci` (`id_raci`),
-  ADD CONSTRAINT `contratos_ibfk_2` FOREIGN KEY (`pk_id_programa`) REFERENCES `programas` (`id_pro`),
-  ADD CONSTRAINT `contratos_ibfk_3` FOREIGN KEY (`id_con`) REFERENCES `beneficiarios` (`pk_id_con`);
+  ADD CONSTRAINT `contratos_ibfk_2` FOREIGN KEY (`pk_id_pro`) REFERENCES `programas` (`id_pro`);
 
 --
 -- Filtros para la tabla `otros_recursos`

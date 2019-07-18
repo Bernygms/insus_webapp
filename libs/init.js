@@ -6,7 +6,6 @@ $(function(){
 	$("#addaction").hide();
 	//funcion init()  se obtine del script insus_app.js
 	init();
-	
 	//Funcion de JQuery para la busqueda de estados en la tabla estados
 	$("#buscar").keyup(function(){
 	 		var _this = this;
@@ -24,8 +23,7 @@ $(function(){
 	//Agregamos el nombre perfil
 	$("#perfil_name").html(MaysInit(nombre_usu + " " + apellidos_usu));
 
-	// Modal -
-
+	//next en la primera btn del modal add
 	$("#btn_next_1").click(function(){
 		$("#div_datos_poblado").hide();
 		$("#div_accion_y_programa").show();
@@ -33,8 +31,11 @@ $(function(){
 		$("#nav2").addClass("active");
 		//$("#nav3").addClass("active"); 
 		//$("#nav4").addClass("active");
+		$("#btn_next_2").hide(); //Btn
+		$('#pk_id_pro').prop('selectedIndex',0);
+		hideInput();
 	});
-
+	//Btn regresar a la seccion  Datos del poblado.
 	$("#btn_before_2").click(function(){
 		$("#div_datos_poblado").show();
 		$("#div_accion_y_programa").hide();
@@ -43,24 +44,26 @@ $(function(){
 		$("#nav2").removeClass("active");
 		$("#nav3").removeClass("active");
 	});
-
+	//Validar onblur
+	$("#accion_con").blur(function(){
+		valAcciones();
+	});
+	//Btn para guardar las acciones
 	$("#btn_next_2").click(function(){
 		//Variables para contratos
-		
-
 		var accion_con = $("#accion_con").val();
 		var pago_ben_con = $("#pago_ben_con").val();
 		var apoyo_insus_con = $("#apoyo_insus_con").val();
 		var subsidio_con = $("#subsidio_con").val();
-		//var mes_con = $("#").val();
-		//var anno_con = $("#").val();
-		//var fecha_con = $("#").val();
-		//var fecha_edi_con = $("#").val();
-		//var pk_id_raci = $("#").val();
+		var rectificaciones_con = $("#rectificaciones_con").val();
+		var otros_con = $("#otros_con").val();
+
 		//Variables de apoyo de raci
 		var pk_id_raci = $("#id_raci").val();
 		var universo_de_lot_raci = $("#universo_de_lot_raci").val();
 		var total_con_raci = $("#total_con_raci").val();
+		console.log(accion_con +" " + pago_ben_con  +" " + apoyo_insus_con  +" " + subsidio_con  +" " + rectificaciones_con  +" " +otros_con)
+		console.log("Ok btn para guardar ");
 	});
 
 	$("#btn_before_3").click(function(){

@@ -67,7 +67,7 @@ if (isset($_POST['op'])) {
                 }
             }
             break;
-        case 'regla1':
+        case 'pro':
             # code...
             $objContratos = new Model_contratos();
             $response = $objContratos->getContratos($mes_con, $anno_con,$pk_id_pro);
