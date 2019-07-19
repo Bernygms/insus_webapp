@@ -20,6 +20,7 @@ if (isset($_POST['op'])) {
     $municipio_pro_raci =  (isset($_POST['municipio_pro_raci']) ? $_POST['municipio_pro_raci'] : NULL);
     $fecha_ini_con_raci =  (isset($_POST['fecha_ini_con_raci']) ? $_POST['fecha_ini_con_raci'] : NULL);
     $universo_de_lot_raci =  (isset($_POST['universo_de_lot_raci']) ? $_POST['universo_de_lot_raci'] : NULL);
+    $total_con_raci =  (isset($_POST['total_con_raci']) ? $_POST['total_con_raci'] : NULL);
 
     #variable para validar la consultas por roles
     $rol_usu =  (isset($_POST['rol_usu']) ? $_POST['rol_usu'] : NULL);

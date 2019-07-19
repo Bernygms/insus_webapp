@@ -1,15 +1,21 @@
- var url = '../controller/controller_insus_app.php';
- var navigation = 0;
- var estados = []; 
- var raci = [];
- var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
- var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
- var mes = null;
- var anno = null;
+  /******************************************************/
+	 var url = '../controller/controller_insus_app.php';
+	 var navigation = 0;
+	 var estados = []; 
+	 var raci = [];
+	 var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
+	 var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+	 var mes = null;
+	 var anno = null;
+	 var total_nuevo_con = null;
+	 var fecha = null;
+ /******************************************************/
  /******************************************************/
     //Variable de entrada para la tabla estados 
-    var id_est =  null;
+    var id_est =  0;
     var nombre_est =  null;
+ /******************************************************/
+ /******************************************************/
     //variables de entrada para la tabla raci
     var id_raci =  null;
     var entidad_raci = null;
@@ -22,17 +28,18 @@
     var municipio_pro_raci =  null;
     var fecha_ini_con_raci =  null;
     var universo_de_lot_raci =  null;
+    var total_con_raci = null;
     //variable para validar la consultas por roles
     var rol_usu =  0;
     //Variables de entrada contratos
-    var id_con =  null;
+    var id_con =  0;
     var accion_con =  null;
     var pago_ben_con =  null;
     var apoyo_insus_con =  null;
     var subsidio_con=  null;
     var mes_con =  null;
     var anno_con =  null;
-    var fecha_con=  null;
+    var fecha_con =  null;
     var fecha_edi_con =  null;
     var pk_id_raci =  null;
     var pk_id_pro =  null;
@@ -183,9 +190,9 @@ function getIdRaci(id_raci){
 
 /*Validamos programas, REGLA 1 , REGLA 2 , REGLA 3, PMU, PRH, PASPRAH, OTROS*/
 function valProgramas(){
-	var f = new Date();
-	mes = meses[f.getMonth()];
-	anno = f.getFullYear();
+	fecha = new Date();
+	mes = meses[fecha.getMonth()];
+	anno = fecha.getFullYear();
 	pk_id_pro = 0;
 	var data = {};
 	pk_id_pro = $("#pk_id_pro").val();
@@ -322,7 +329,7 @@ function valProgramas(){
 		}
 
 }
-
+//Ocultamos campos por grupo , en modal programas y acciones
 function hideInput(){
 	$("#ac1").hide(); //accion
 	$("#ac2").hide(); //pago beneficiario
@@ -338,12 +345,12 @@ function hideInput(){
 	$("#rectificaciones_con").val("");
 	$("#otros_con").val("");
 }
-
+ // Validacion del campo accion 
 function valAcciones(){
 	accion_con = $("#accion_con").val();
 	universo_de_lot_raci = $("#universo_de_lot_raci").val();
 	total_con_raci = $("#total_con_raci").val();
-	var total_nuevo_con = parseInt(total_con_raci) + parseInt(accion_con);
+	total_nuevo_con = parseInt(total_con_raci) + parseInt(accion_con);
 	console.log(accion_con);
 	console.log(universo_de_lot_raci);
 	console.log(total_con_raci);
@@ -361,4 +368,89 @@ function valAcciones(){
 	}
 	
 
+}
+
+function addAcciones(){
+	pk_id_pro = $("#pk_id_pro").val();
+	accion_con = $("#accion_con").val();
+	pago_ben_con = $("#pago_ben_con").val();
+	apoyo_insus_con = $("#apoyo_insus_con").val();
+	subsidio_con = $("#subsidio_con").val();
+	rectificaciones_con = $("#rectificaciones_con").val();
+	otros_con = $("#otros_con").val();
+	//Variables de apoyo de raci
+	pk_id_raci = $("#id_raci").val();
+	universo_de_lot_raci = $("#universo_de_lot_raci").val();
+	total_con_raci = $("#total_con_raci").val();
+	if (pk_id_pro == 1) {
+		if (accion_con == "") {
+			toastrError("El campo acción, es obligatorio.","Acción");
+		}else if (pago_ben_con == "") {
+			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
+		}else if (apoyo_insus_con == "") {
+			toastrError("El campo Apoyo INSUS, es obligatorio.","Apoyo INSUS");
+		}else{
+
+		}
+	}else if (pk_id_pro == 2) {
+		if (accion_con == "") {
+			toastrError("El campo acción, es obligatorio.","Acción");
+		}else if (pago_ben_con == "") {
+			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
+		}else{
+
+		}
+	}else if (pk_id_pro == 3) {
+		if (accion_con == "") {
+			toastrError("El campo acción, es obligatorio.","Acción");
+		}else if (pago_ben_con == "") {
+			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
+		}else{
+
+		}
+	}else if (pk_id_pro == 4) {
+		if (accion_con == "") {
+			toastrError("El campo acción, es obligatorio.","Acción");
+		}else if (pago_ben_con == "") {
+			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
+		}else if (subsidio_con == "") {
+			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
+		}else{
+
+		}
+
+	}else if (pk_id_pro == 5) {
+		if (accion_con == "") {
+			toastrError("El campo acción, es obligatorio.","Acción");
+		}else if (pago_ben_con == "") {
+			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
+		}else if (subsidio_con == "") {
+			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
+		}else{
+
+		}
+
+	}else if (pk_id_pro == 6) {
+		if (accion_con == "") {
+			toastrError("El campo acción, es obligatorio.","Acción");
+		}else if (apoyo_insus_con == "") {
+			toastrError("El campo Apoyo INSUS, es obligatorio.","Apoyo INSUS");
+		}else if (subsidio_con == "") {
+			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
+		}else{
+
+		}
+
+	}else if (pk_id_pro == 7) {
+
+	}else{
+		if (rectificaciones_con == "") {
+			toastrError("El campo Rectificaciones, es obligatorio.","Rectificaciones");
+		}else if (apoyo_insus_con == "") {
+			toastrError("El campo Otros, es obligatorio.","Otros");
+		}else{
+
+		}
+
+	}
 }

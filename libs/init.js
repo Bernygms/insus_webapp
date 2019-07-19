@@ -31,7 +31,7 @@ $(function(){
 		$("#nav2").addClass("active");
 		//$("#nav3").addClass("active"); 
 		//$("#nav4").addClass("active");
-		$("#btn_next_2").hide(); //Btn
+		//$("#btn_next_2").hide(); //Btn
 		$('#pk_id_pro').prop('selectedIndex',0);
 		hideInput();
 	});
@@ -51,19 +51,7 @@ $(function(){
 	//Btn para guardar las acciones
 	$("#btn_next_2").click(function(){
 		//Variables para contratos
-		var accion_con = $("#accion_con").val();
-		var pago_ben_con = $("#pago_ben_con").val();
-		var apoyo_insus_con = $("#apoyo_insus_con").val();
-		var subsidio_con = $("#subsidio_con").val();
-		var rectificaciones_con = $("#rectificaciones_con").val();
-		var otros_con = $("#otros_con").val();
-
-		//Variables de apoyo de raci
-		var pk_id_raci = $("#id_raci").val();
-		var universo_de_lot_raci = $("#universo_de_lot_raci").val();
-		var total_con_raci = $("#total_con_raci").val();
-		console.log(accion_con +" " + pago_ben_con  +" " + apoyo_insus_con  +" " + subsidio_con  +" " + rectificaciones_con  +" " +otros_con)
-		console.log("Ok btn para guardar ");
+		addAcciones();
 	});
 
 	$("#btn_before_3").click(function(){
@@ -80,7 +68,6 @@ $(function(){
 function MaysInit(intoText){
 	return intoText.toLowerCase()
             .trim()
-
             .split(' ')
             .map( v => v[0].toUpperCase() + v.substr(1) )
             .join(' '); 
