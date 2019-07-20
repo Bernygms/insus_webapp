@@ -31,7 +31,6 @@ $(function(){
 		$("#nav2").addClass("active");
 		//$("#nav3").addClass("active"); 
 		//$("#nav4").addClass("active");
-		//$("#btn_next_2").hide(); //Btn
 		$('#pk_id_pro').prop('selectedIndex',0);
 		hideInput();
 	});

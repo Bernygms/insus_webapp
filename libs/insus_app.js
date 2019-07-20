@@ -5,10 +5,9 @@
 	 var raci = [];
 	 var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
 	 var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-	 var mes = null;
-	 var anno = null;
 	 var total_nuevo_con = null;
 	 var fecha = null;
+	 var data = {};
  /******************************************************/
  /******************************************************/
     //Variable de entrada para la tabla estados 
@@ -62,7 +61,7 @@ function init(){
 		}else{
 			$("p#nombre_estado").html('&nbsp;/&nbsp;'+ MaysInit(estadosArray[id_est]));
 		};
-			var data = {op: "estados", id_est: id_est, rol_usu: rol_usu}
+			data = {op: "estados", id_est: id_est, rol_usu: rol_usu}
 			__Ajax_JSON(url,data).done(function(response){
 				estados = response; 
 				//console.log(response);
@@ -99,7 +98,7 @@ function getIdEstados(entidad_raci){
 		if (rol_usu == 1 || rol_usu == 2) {
 			$("p#nombre_estado").html('&nbsp;/&nbsp;'+ MaysInit(estadosArray[entidad_raci]));
 		};
-		var data = {op: "raci",entidad_raci: entidad_raci}
+		data = {op: "raci",entidad_raci: entidad_raci}
 		__Ajax_JSON(url,data).done(function(response){
 				raci = response;
 				//console.log(response);
@@ -178,6 +177,7 @@ function getIdRaci(id_raci){
 		$("#ac4").hide();
 		$("#ac5").hide();
 		$("#ac6").hide();
+		$("#btn_next_2").hide(); //Btn
 		$('#myModalAddAcciones').modal({backdrop: 'static', keyboard: false});
 		$("#myModalAddAcciones").modal('show');
 		$("#nav1").removeClass("active");
@@ -191,13 +191,12 @@ function getIdRaci(id_raci){
 /*Validamos programas, REGLA 1 , REGLA 2 , REGLA 3, PMU, PRH, PASPRAH, OTROS*/
 function valProgramas(){
 	fecha = new Date();
-	mes = meses[fecha.getMonth()];
-	anno = fecha.getFullYear();
+	mes_con = meses[fecha.getMonth()];
+	anno_con = fecha.getFullYear();
 	pk_id_pro = 0;
-	var data = {};
 	pk_id_pro = $("#pk_id_pro").val();
 		if(pk_id_pro == 1) {
-			data = {op: "pro", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
+			data = {op: "pro", mes_con: mes, anno_con:anno_con, pk_id_pro: pk_id_pro};
 			console.log(mes,anno, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				if ($.isEmptyObject(response.data.contratos) == true) {
@@ -209,9 +208,11 @@ function valProgramas(){
 					$("#ac4").hide(); //Subsidio
 					$("#ac5").hide(); //Rectificacion
 					$("#ac6").hide(); //Otros
+					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrInformativa("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 1");
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 1");
 					hideInput();
+					$("#btn_next_2").hide(); //Btn
 				}
 			});
 			
@@ -228,9 +229,11 @@ function valProgramas(){
 					$("#ac4").hide();
 					$("#ac5").hide();
 					$("#ac6").hide();
+					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrInformativa("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 2");
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 2");
 					hideInput();
+					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 3){
@@ -246,9 +249,11 @@ function valProgramas(){
 					$("#ac4").hide();
 					$("#ac5").hide();
 					$("#ac6").hide();
+					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrInformativa("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 3");
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 3");
 					hideInput();
+					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 4){
@@ -264,9 +269,11 @@ function valProgramas(){
 					$("#ac4").show();
 					$("#ac5").hide();
 					$("#ac6").hide();
+					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrInformativa("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PMU");
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PMU");
 					hideInput();
+					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 5){
@@ -282,9 +289,11 @@ function valProgramas(){
 					$("#ac4").show();
 					$("#ac5").hide();
 					$("#ac6").hide();
+					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrInformativa("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PRAH");
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PRAH");
 					hideInput();
+					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 6){
@@ -300,9 +309,11 @@ function valProgramas(){
 					$("#ac4").show();
 					$("#ac5").hide();
 					$("#ac6").hide();
+					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrInformativa("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PASPRAH");
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PASPRAH");
 					hideInput();
+					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 7){
@@ -318,14 +329,17 @@ function valProgramas(){
 					$("#ac4").hide();
 					$("#ac5").show();
 					$("#ac6").show();
+					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrInformativa("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","OTROS RECTIFICACIONES");
+					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","OTROS RECTIFICACIONES");
 					hideInput();
+					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else{
-			toastrInformativa("Selecciona un programa ","Programas");
+			toastrError("Selecciona un programa ","Programas");
 			hideInput();
+			$("#btn_next_2").hide(); //Btn
 		}
 
 }
@@ -356,7 +370,7 @@ function valAcciones(){
 	console.log(total_con_raci);
 	console.log(total_nuevo_con);
 	if (accion_con == "") { 
-		toastrError("El campo Acción es obligatorio.", "Campo obligatorio")
+		toastrError("El campo Acción es obligatorio.", "Acción")
 	}else{
 		if (total_nuevo_con <= universo_de_lot_raci){
 			toastrExito("Se valido con exito, posdemos agregar las acciones indicadas.", "Validación");
@@ -371,17 +385,22 @@ function valAcciones(){
 }
 
 function addAcciones(){
-	pk_id_pro = $("#pk_id_pro").val();
+	
 	accion_con = $("#accion_con").val();
 	pago_ben_con = $("#pago_ben_con").val();
 	apoyo_insus_con = $("#apoyo_insus_con").val();
 	subsidio_con = $("#subsidio_con").val();
 	rectificaciones_con = $("#rectificaciones_con").val();
 	otros_con = $("#otros_con").val();
+	mes_con = meses[fecha.getMonth()];
+	anno_con = fecha.getFullYear();
+	pk_id_pro = $("#pk_id_pro").val();
+
 	//Variables de apoyo de raci
 	pk_id_raci = $("#id_raci").val();
 	universo_de_lot_raci = $("#universo_de_lot_raci").val();
 	total_con_raci = $("#total_con_raci").val();
+
 	if (pk_id_pro == 1) {
 		if (accion_con == "") {
 			toastrError("El campo acción, es obligatorio.","Acción");
@@ -446,7 +465,7 @@ function addAcciones(){
 	}else{
 		if (rectificaciones_con == "") {
 			toastrError("El campo Rectificaciones, es obligatorio.","Rectificaciones");
-		}else if (apoyo_insus_con == "") {
+		}else if (otros_con == "") {
 			toastrError("El campo Otros, es obligatorio.","Otros");
 		}else{
 
