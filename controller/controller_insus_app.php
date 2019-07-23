@@ -31,12 +31,19 @@ if (isset($_POST['op'])) {
     $pago_ben_con =  (isset($_POST['pago_ben_con']) ? $_POST['pago_ben_con'] : NULL);
     $apoyo_insus_con =  (isset($_POST['apoyo_insus_con']) ? $_POST['apoyo_insus_con'] : NULL);
     $subsidio_con=  (isset($_POST['subsidio_con']) ? $_POST['subsidio_con'] : NULL);
+    $rectificaciones_con =  (isset($_POST['rectificaciones_con']) ? $_POST['rectificaciones_con'] : NULL);
+    $otros_con =  (isset($_POST['otros_con']) ? $_POST['otros_con'] : NULL);
     $mes_con =  (isset($_POST['mes_con']) ? $_POST['mes_con'] : NULL);
     $anno_con =  (isset($_POST['anno_con']) ? $_POST['anno_con'] : NULL);
     $fecha_con=  (isset($_POST['fecha_con']) ? $_POST['fecha_con'] : NULL);
     $fecha_edi_con =  (isset($_POST['fecha_edi_con']) ? $_POST['fecha_edi_con'] : NULL);
     $pk_id_raci =  (isset($_POST['pk_id_raci']) ? $_POST['pk_id_raci'] : NULL);
     $pk_id_pro =  (isset($_POST['pk_id_pro']) ? $_POST['pk_id_pro'] : NULL);
+
+    #Varible para el manego de errores. 
+    $mgs_error = "";
+
+    $objContratos = new Model_contratos();
 
     switch($op) {
         case 'estados':
@@ -70,8 +77,7 @@ if (isset($_POST['op'])) {
             break;
         case 'pro':
             # code...
-            $objContratos = new Model_contratos();
-            $response = $objContratos->getContratos($mes_con, $anno_con,$pk_id_pro);
+            $response = $objContratos->getContratos($mes_con, $anno_con,$pk_id_pro,$pk_id_raci);
            if (!empty($response)) {
                 header('Content-type: application/json; charset=utf-8');
                 echo json_encode($response);
@@ -79,6 +85,67 @@ if (isset($_POST['op'])) {
                 if ($response == false) {
                     echo "Lo sentimos, no encontramos resultados.";
                 }
+            }
+            break;
+        case 'insert':
+            if ($pk_id_pro == 1) {
+                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($apoyo_insus_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
+                    # write your function of the model.
+                    $response = $objContratos->addContratos($accion_con, $pago_ben_con, $apoyo_insus_con, 0, 0, 0, $mes_con, $anno_con,date("Y-m-d"),date("Y-m-d"), $pk_id_raci, $pk_id_pro);
+                    echo $response;
+                }else{
+                    echo "Error, datos incompletos.";
+                }   
+            }else if ($pk_id_pro == 2) {
+                # code...
+                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
+                # write your function of the model.
+                    echo "ok";
+                }else{
+                    echo "Error, datos incompletos.";
+                } 
+            }else if ($pk_id_pro == 3) {
+                # code...
+                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
+                # write your function of the model.
+                    echo "ok";
+                }else{
+                    echo "Error, datos incompletos.";
+                } 
+            }else if ($pk_id_pro == 4) {
+                # code...
+                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($subsidio_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
+                # write your function of the model.
+                    echo "ok";
+                }else{
+                    echo "Error, datos incompletos.";
+                } 
+            }else if ($pk_id_pro == 5) {
+                # code...
+                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($subsidio_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
+                # write your function of the model.
+                    echo "ok";
+                }else{
+                    echo "Error, datos incompletos.";
+                }
+            }else if ($pk_id_pro == 6) {
+                # code...
+                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($subsidio_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
+                # write your function of the model.
+                    echo "ok";
+                }else{
+                    echo "Error, datos incompletos.";
+                }
+            }else if ($pk_id_pro == 7) {
+                # code...
+                if (!empty($rectificaciones_con) && !empty($otros_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro)) {
+                # write your function of the model.
+                    echo "ok";
+                }else{
+                    echo "Error, datos incompletos.";
+                }
+            }else{
+                 echo "No encontramos los datos del programa.";
             }
             break;
         default:

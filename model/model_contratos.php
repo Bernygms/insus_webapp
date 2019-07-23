@@ -6,11 +6,12 @@ class Model_contratos{
 		$this->db = DB();
 	}
     #Val contratos por mes, año y programa 
-    public function getContratos($mes, $anno,$pk_id_pro){
-        $query = $this->db->prepare("SELECT * FROM contratos WHERE mes_con=:mes AND anno_con=:anno AND pk_id_pro=:pk_id_pro");
+    public function getContratos($mes, $anno,$pk_id_pro, $pk_id_raci){
+        $query = $this->db->prepare("SELECT * FROM contratos WHERE mes_con=:mes AND anno_con=:anno AND pk_id_pro=:pk_id_pro AND pk_id_raci=:pk_id_raci");
         $query->bindParam(":mes", $mes, PDO::PARAM_STR); 
         $query->bindParam(":anno", $anno, PDO::PARAM_STR); 
         $query->bindParam(":pk_id_pro", $pk_id_pro, PDO::PARAM_INT);
+        $query->bindParam(":pk_id_raci", $pk_id_raci, PDO::PARAM_INT);
         $valor = $query->execute();
         if ($valor) {   
             $data["success"] = true;
@@ -22,6 +23,28 @@ class Model_contratos{
         }else{
             return false;
         }
+    }
+
+    public function addContratos($accion_con, $pago_ben_con, $apoyo_insus_con, $subsidio_con, $rectificaciones_con, $otros_con, $mes_con, $anno_con, $fecha_con, $fecha_edi_con, $pk_id_raci, $pk_id_pro){
+        try {
+            $query =  $this->db->prepare("INSERT INTO contratos(accion_con,pago_ben_con,apoyo_insus_con,subsidio_con,rectificaciones_con,otros_con,mes_con,anno_con,fecha_con,fecha_edi_con,pk_id_raci,pk_id_pro) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+            #$result = $query->execute(array($num_prop ,$ofic_porp_encript ,$anexo6_encript,$anexo7_encript,$lis_de_bene_encript,'','','','','',date("Y-m-d"),'',$id_estado,date("Y"),$id_app_fk));
+            $result = $query->execute(array($accion_con, $pago_ben_con, $apoyo_insus_con, $subsidio_con, $rectificaciones_con, $otros_con, $mes_con, $anno_con, $fecha_con, $fecha_edi_con, $pk_id_raci, $pk_id_pro));
+            if ($result == true) {
+                $data["success"] = true;
+                $datos = [
+                            'id_con' =>$this->db->LastInsertId()
+                        ];
+                $data["data"]["contrato"] = $datos; 
+            }else{
+                $data["error"] = true;
+            }
+             header('Content-type: application/json; charset=utf-8');
+            return json_encode($data);
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+        
     }
 
 }

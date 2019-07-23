@@ -195,9 +195,10 @@ function valProgramas(){
 	anno_con = fecha.getFullYear();
 	pk_id_pro = 0;
 	pk_id_pro = $("#pk_id_pro").val();
+	pk_id_raci = $("#id_raci").val();
 		if(pk_id_pro == 1) {
-			data = {op: "pro", mes_con: mes, anno_con:anno_con, pk_id_pro: pk_id_pro};
-			console.log(mes,anno, pk_id_pro);
+			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				if ($.isEmptyObject(response.data.contratos) == true) {
 					hideInput();
@@ -210,15 +211,15 @@ function valProgramas(){
 					$("#ac6").hide(); //Otros
 					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 1");
+					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","Regla 1");
 					hideInput();
 					$("#btn_next_2").hide(); //Btn
 				}
 			});
 			
 		}else if(pk_id_pro == 2){
-			data = {op: "pro", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
-			console.log(mes,anno, pk_id_pro);
+			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
@@ -231,14 +232,14 @@ function valProgramas(){
 					$("#ac6").hide();
 					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 2");
+					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","Regla 2");
 					hideInput();
 					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 3){
-			data = {op: "pro", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
-			console.log(mes,anno, pk_id_pro);
+			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
@@ -251,14 +252,14 @@ function valProgramas(){
 					$("#ac6").hide();
 					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","Regla 3");
+					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","Regla 3");
 					hideInput();
 					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 4){
-			data = {op: "pro", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
-			console.log(mes,anno, pk_id_pro);
+			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
@@ -271,14 +272,14 @@ function valProgramas(){
 					$("#ac6").hide();
 					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PMU");
+					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","PMU");
 					hideInput();
 					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 5){
-			data = {op: "pro", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
-			console.log(mes,anno, pk_id_pro);
+			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
@@ -291,14 +292,14 @@ function valProgramas(){
 					$("#ac6").hide();
 					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PRAH");
+					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","PRAH");
 					hideInput();
 					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 6){
-			data = {op: "pro", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
-			console.log(mes,anno, pk_id_pro);
+			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
@@ -311,14 +312,14 @@ function valProgramas(){
 					$("#ac6").hide();
 					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","PASPRAH");
+					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","PASPRAH");
 					hideInput();
 					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 7){
-			data = {op: "pro", mes_con: mes, anno_con:anno, pk_id_pro: pk_id_pro};
-			console.log(mes,anno, pk_id_pro);
+			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
@@ -331,11 +332,11 @@ function valProgramas(){
 					$("#ac6").show();
 					$("#btn_next_2").show(); //Btn
 				}else{
-					toastrError("Ya existe un resgitro de este mes de "+ mes+", ve a consulta para editar.","OTROS RECTIFICACIONES");
+					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","OTROS RECTIFICACIONES");
 					hideInput();
 					$("#btn_next_2").hide(); //Btn
 				}
-			});
+			});	
 		}else{
 			toastrError("Selecciona un programa ","Programas");
 			hideInput();
@@ -380,8 +381,6 @@ function valAcciones(){
 		}
 
 	}
-	
-
 }
 
 function addAcciones(){
@@ -400,6 +399,21 @@ function addAcciones(){
 	pk_id_raci = $("#id_raci").val();
 	universo_de_lot_raci = $("#universo_de_lot_raci").val();
 	total_con_raci = $("#total_con_raci").val();
+	data = {
+			op: "insert", 
+			accion_con: accion_con,
+			pago_ben_con: pago_ben_con,
+			apoyo_insus_con: apoyo_insus_con,
+			subsidio_con: subsidio_con,
+			rectificaciones_con: rectificaciones_con,
+			otros_con: otros_con,
+			mes_con: mes_con,
+			anno_con:anno_con,
+			pk_id_raci: pk_id_raci,
+			pk_id_pro: pk_id_pro,
+			universo_de_lot_raci: universo_de_lot_raci,
+			total_con_raci: total_con_raci
+		  };
 
 	if (pk_id_pro == 1) {
 		if (accion_con == "") {
@@ -409,23 +423,29 @@ function addAcciones(){
 		}else if (apoyo_insus_con == "") {
 			toastrError("El campo Apoyo INSUS, es obligatorio.","Apoyo INSUS");
 		}else{
+			__Ajax_JSON(url,data).done(function(response){
 
+			});
 		}
 	}else if (pk_id_pro == 2) {
 		if (accion_con == "") {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (pago_ben_con == "") {
+		}else if (pago_ben_con == " ") {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
+			__Ajax_JSON(url,data).done(function(response){
 
+			});
 		}
 	}else if (pk_id_pro == 3) {
-		if (accion_con == "") {
+		if (accion_con == " ") {
 			toastrError("El campo acción, es obligatorio.","Acción");
 		}else if (pago_ben_con == "") {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
+			__Ajax_JSON(url,data).done(function(response){
 
+			});
 		}
 	}else if (pk_id_pro == 4) {
 		if (accion_con == "") {
@@ -435,7 +455,9 @@ function addAcciones(){
 		}else if (subsidio_con == "") {
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
+			__Ajax_JSON(url,data).done(function(response){
 
+			});
 		}
 
 	}else if (pk_id_pro == 5) {
@@ -446,7 +468,9 @@ function addAcciones(){
 		}else if (subsidio_con == "") {
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
+			__Ajax_JSON(url,data).done(function(response){
 
+			});
 		}
 
 	}else if (pk_id_pro == 6) {
@@ -457,19 +481,22 @@ function addAcciones(){
 		}else if (subsidio_con == "") {
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
+			__Ajax_JSON(url,data).done(function(response){
 
+			});
 		}
 
 	}else if (pk_id_pro == 7) {
-
-	}else{
-		if (rectificaciones_con == "") {
+		if (rectificaciones_con == "" || rectificaciones_con == null) {
 			toastrError("El campo Rectificaciones, es obligatorio.","Rectificaciones");
-		}else if (otros_con == "") {
+		}else if (otros_con == "" || otros_con == null) {
 			toastrError("El campo Otros, es obligatorio.","Otros");
 		}else{
+			__Ajax_JSON(url,data).done(function(response){
 
+			});
 		}
-
+	}else{
+		toastrError("No exist el programa.","Programa");
 	}
 }
