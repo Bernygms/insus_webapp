@@ -74,13 +74,13 @@
               <a id="nav1" class="nav-link">Datos del poblado</a>
             </li>
             <li class="nav-item">
-              <a id="nav2" class="nav-link">Acciones y programa</a>
+              <a id="nav2" class="nav-link">Programas y Acciones</a>
             </li>
             <li class="nav-item">
-              <a id="nav3" class="nav-link">Agregar beneficiarios</a>
+              <a id="nav3" class="nav-link">Agregar Beneficiarios</a>
             </li>
             <li class="nav-item">
-              <a id="nav4" class="nav-link">Terminar</a>
+              <a id="nav4" class="nav-link">Finalizar</a>
             </li>
           </ul>
         </div>
@@ -89,10 +89,7 @@
           <div id="div_datos_poblado">
             <div class="modal-body">
              <div class="row">
-              <div class="form-group col-md-3">
-                <label for="id">Identificador:</label>
-                <input id="id_raci" name="id_raci" type="text" class="form-control border border-primary" disabled/>
-              </div>
+              <input id="id_raci" name="id_raci" type="hidden" class="form-control border border-primary" disabled/>
               <div class="form-group col-md-3">
                 <label for="id">Entidad:</label>
                 <input id="entidad_raci" name="entidad_raci" type="text" class="form-control border border-primary" disabled/>

@@ -27,12 +27,12 @@ if (isset($_POST['op'])) {
 
     #Variables de entrada contratos
     $id_con =  (isset($_POST['id_con']) ? $_POST['id_con'] : NULL);
-    $accion_con =  (isset($_POST['accion_con']) ? $_POST['accion_con'] : NULL);
-    $pago_ben_con =  (isset($_POST['pago_ben_con']) ? $_POST['pago_ben_con'] : NULL);
-    $apoyo_insus_con =  (isset($_POST['apoyo_insus_con']) ? $_POST['apoyo_insus_con'] : NULL);
-    $subsidio_con=  (isset($_POST['subsidio_con']) ? $_POST['subsidio_con'] : NULL);
-    $rectificaciones_con =  (isset($_POST['rectificaciones_con']) ? $_POST['rectificaciones_con'] : NULL);
-    $otros_con =  (isset($_POST['otros_con']) ? $_POST['otros_con'] : NULL);
+    $accion_con =  trim((isset($_POST['accion_con']) ? $_POST['accion_con'] : NULL));
+    $pago_ben_con =  trim((isset($_POST['pago_ben_con']) ? $_POST['pago_ben_con'] : NULL));
+    $apoyo_insus_con =  trim((isset($_POST['apoyo_insus_con']) ? $_POST['apoyo_insus_con'] : NULL));
+    $subsidio_con=  trim((isset($_POST['subsidio_con']) ? $_POST['subsidio_con'] : NULL));
+    $rectificaciones_con =  trim((isset($_POST['rectificaciones_con']) ? $_POST['rectificaciones_con'] : NULL));
+    $otros_con =  trim((isset($_POST['otros_con']) ? $_POST['otros_con'] : NULL));
     $mes_con =  (isset($_POST['mes_con']) ? $_POST['mes_con'] : NULL);
     $anno_con =  (isset($_POST['anno_con']) ? $_POST['anno_con'] : NULL);
     $fecha_con=  (isset($_POST['fecha_con']) ? $_POST['fecha_con'] : NULL);
@@ -42,8 +42,10 @@ if (isset($_POST['op'])) {
 
     #Varible para el manego de errores. 
     $mgs_error = "";
+    $new_total_cont_raci = 0;
 
     $objContratos = new Model_contratos();
+    $objRaci = new Model_raci();
 
     switch($op) {
         case 'estados':
@@ -64,18 +66,17 @@ if (isset($_POST['op'])) {
             }
             break;
         case 'raci':
-            $objRaci = new Model_raci();
-            $response = $objRaci->getRaci($entidad_raci);
-            if (!empty($response)) {
+            $responseRaci = $objRaci->getRaci($entidad_raci);
+            if (!empty($responseRaci)) {
                 header('Content-type: application/json; charset=utf-8');
-                echo json_encode($response);
+                echo json_encode($responseRaci);
             }else{
-                if ($response == false) {
+                if ($responseRaci == false) {
                     echo "Lo sentimos, no encontramos resultados.";
                 }
             }
             break;
-        case 'pro':
+        case 'programa':
             # code...
             $response = $objContratos->getContratos($mes_con, $anno_con,$pk_id_pro,$pk_id_raci);
            if (!empty($response)) {
@@ -89,45 +90,186 @@ if (isset($_POST['op'])) {
             break;
         case 'insert':
             if ($pk_id_pro == 1) {
-                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($apoyo_insus_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
-                    # write your function of the model.
-                    $response = $objContratos->addContratos($accion_con, $pago_ben_con, $apoyo_insus_con, 0, 0, 0, $mes_con, $anno_con,date("Y-m-d"),date("Y-m-d"), $pk_id_raci, $pk_id_pro);
-                    echo $response;
+                if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
+                    echo "Algo salio mal, llena el campo Acción";
+                } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
+                    echo "Algo salio mal, llena el campo Pago Beneficiarios";
+                } elseif ($apoyo_insus_con == '' || $apoyo_insus_con == 0 || !is_numeric($apoyo_insus_con) ){
+                    echo "Algo salio mal, llena el campo Apoyo INSUS";
                 }else{
-                    echo "Error, datos incompletos.";
+                    $responseRaci = $objRaci->getIdRaci($pk_id_raci);
+                    if ($responseRaci==false) {#If init / consulta de raci
+                        echo "Algo salio mal intentalo de nuevo.";
+                    }else{ 
+                        foreach ($responseRaci as  $raci) {                       
+                            if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
+                                $new_total_cont_raci =  $total_con_raci+$accion_con;
+                                if ($new_total_cont_raci <= $universo_de_lot_raci) {
+                                    $response_contratos = $objContratos->addContratos($accion_con, $pago_ben_con, $apoyo_insus_con, 0, 0, 0, $mes_con, $anno_con,date("Y-m-d"),date("Y-m-d"), $pk_id_raci, $pk_id_pro);
+                                    if (!empty($response_contratos)) {
+                                        $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
+                                        if ($responseUpdate ==  true) {
+                                            #echo $responseUpdate;
+                                            header('Content-type: applicat  ion/json; charset=utf-8');
+                                            echo $response_contratos;
+                                        }
+                                    }else{
+                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                    }
+                                }else{
+                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                }
+                                
+                            } else {
+                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                            }
+                        }
+                   } #If end / consulta de raci
                 }   
             }else if ($pk_id_pro == 2) {
-                # code...
-                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
-                # write your function of the model.
-                    echo "ok";
+                if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
+                    echo "Algo salio mal, llena el campo Acción";
+                } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
+                    echo "Algo salio mal, llena el campo Pago Beneficiarios";
                 }else{
-                    echo "Error, datos incompletos.";
-                } 
+                    $responseRaci = $objRaci->getIdRaci($pk_id_raci);
+                    if ($responseRaci==false) {#If init / consulta de raci
+                        echo "Algo salio mal intentalo de nuevo.";
+                    }else{ 
+                        foreach ($responseRaci as  $raci) {                       
+                            if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
+                                $new_total_cont_raci =  $total_con_raci+$accion_con;
+                                if ($new_total_cont_raci <= $universo_de_lot_raci) {
+                                    $response_contratos = $objContratos->addContratos($accion_con, $pago_ben_con, 0, 0, 0, 0, $mes_con, $anno_con,date("Y-m-d"),date("Y-m-d"), $pk_id_raci, $pk_id_pro);
+                                    if (!empty($response_contratos)) {
+                                        $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
+                                        if ($responseUpdate ==  true) {
+                                            #echo $responseUpdate;
+                                            header('Content-type: applicat  ion/json; charset=utf-8');
+                                            echo $response_contratos;
+                                        }
+                                    }else{
+                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                    }
+                                }else{
+                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                }
+                                
+                            } else {
+                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                            }
+                        }
+                   } #If end / consulta de raci
+                }  
             }else if ($pk_id_pro == 3) {
-                # code...
-                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
-                # write your function of the model.
-                    echo "ok";
+                if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
+                    echo "Algo salio mal, llena el campo Acción";
+                } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
+                    echo "Algo salio mal, llena el campo Pago Beneficiarios";
                 }else{
-                    echo "Error, datos incompletos.";
-                } 
+                    $responseRaci = $objRaci->getIdRaci($pk_id_raci);
+                    if ($responseRaci==false) {#If init / consulta de raci
+                        echo "Algo salio mal intentalo de nuevo.";
+                    }else{ 
+                        foreach ($responseRaci as  $raci) {                       
+                            if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
+                                $new_total_cont_raci =  $total_con_raci+$accion_con;
+                                if ($new_total_cont_raci <= $universo_de_lot_raci) {
+                                    $response_contratos = $objContratos->addContratos($accion_con, $pago_ben_con, 0, 0, 0, 0, $mes_con, $anno_con,date("Y-m-d"),date("Y-m-d"), $pk_id_raci, $pk_id_pro);
+                                    if (!empty($response_contratos)) {
+                                        $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
+                                        if ($responseUpdate ==  true) {
+                                            #echo $responseUpdate;
+                                            header('Content-type: applicat  ion/json; charset=utf-8');
+                                            echo $response_contratos;
+                                        }
+                                    }else{
+                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                    }
+                                }else{
+                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                }
+                                
+                            } else {
+                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                            }
+                        }
+                   } #If end / consulta de raci
+                }  
             }else if ($pk_id_pro == 4) {
-                # code...
-                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($subsidio_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
-                # write your function of the model.
-                    echo "ok";
+                if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
+                    echo "Algo salio mal, llena el campo Acción";
+                } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
+                    echo "Algo salio mal, llena el campo Pago Beneficiarios";
+                } elseif ($subsidio_con == '' || $subsidio_con == 0 || !is_numeric($subsidio_con)){
+                    echo "Algo salio mal, llena el campo Subsidio";
                 }else{
-                    echo "Error, datos incompletos.";
-                } 
+                    $responseRaci = $objRaci->getIdRaci($pk_id_raci);
+                    if ($responseRaci==false) {#If init / consulta de raci
+                        echo "Algo salio mal intentalo de nuevo.";
+                    }else{ 
+                        foreach ($responseRaci as  $raci) {                       
+                            if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
+                                $new_total_cont_raci =  $total_con_raci+$accion_con;
+                                if ($new_total_cont_raci <= $universo_de_lot_raci) {
+                                    $response_contratos = $objContratos->addContratos($accion_con, $pago_ben_con, 0,$subsidio_con, 0, 0, $mes_con, $anno_con,date("Y-m-d"),date("Y-m-d"), $pk_id_raci, $pk_id_pro);
+                                    if (!empty($response_contratos)) {
+                                        $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
+                                        if ($responseUpdate ==  true) {
+                                            #echo $responseUpdate;
+                                            header('Content-type: applicat  ion/json; charset=utf-8');
+                                            echo $response_contratos;
+                                        }
+                                    }else{
+                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                    }
+                                }else{
+                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                }
+                                
+                            } else {
+                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                            }
+                        }
+                   } #If end / consulta de raci
+                }  
             }else if ($pk_id_pro == 5) {
-                # code...
-                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($subsidio_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
-                # write your function of the model.
-                    echo "ok";
+                if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
+                    echo "Algo salio mal, llena el campo Acción";
+                } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
+                    echo "Algo salio mal, llena el campo Pago Beneficiarios";
+                } elseif ($subsidio_con == '' || $subsidio_con == 0 || !is_numeric($subsidio_con)){
+                    echo "Algo salio mal, llena el campo Subsidio";
                 }else{
-                    echo "Error, datos incompletos.";
-                }
+                    $responseRaci = $objRaci->getIdRaci($pk_id_raci);
+                    if ($responseRaci==false) {#If init / consulta de raci
+                        echo "Algo salio mal intentalo de nuevo.";
+                    }else{ 
+                        foreach ($responseRaci as  $raci) {                       
+                            if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
+                                $new_total_cont_raci =  $total_con_raci+$accion_con;
+                                if ($new_total_cont_raci <= $universo_de_lot_raci) {
+                                    $response_contratos = $objContratos->addContratos($accion_con, $pago_ben_con, 0,$subsidio_con, 0, 0, $mes_con, $anno_con,date("Y-m-d"),date("Y-m-d"), $pk_id_raci, $pk_id_pro);
+                                    if (!empty($response_contratos)) {
+                                        $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
+                                        if ($responseUpdate ==  true) {
+                                            #echo $responseUpdate;
+                                            header('Content-type: applicat  ion/json; charset=utf-8');
+                                            echo $response_contratos;
+                                        }
+                                    }else{
+                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                    }
+                                }else{
+                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                }
+                                
+                            } else {
+                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                            }
+                        }
+                   } #If end / consulta de raci
+                }  
             }else if ($pk_id_pro == 6) {
                 # code...
                 if (!empty($accion_con) && !empty($pago_ben_con) && !empty($subsidio_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
@@ -136,6 +278,43 @@ if (isset($_POST['op'])) {
                 }else{
                     echo "Error, datos incompletos.";
                 }
+
+                if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
+                    echo "Algo salio mal, llena el campo Acción";
+                } elseif ($apoyo_insus_con == '' || $apoyo_insus_con == 0 || !is_numeric($apoyo_insus_con) ){
+                    echo "Algo salio mal, llena el campo Apoyo INSUS";
+                } elseif ($subsidio_con == '' || $subsidio_con == 0 || !is_numeric($subsidio_con)){
+                    echo "Algo salio mal, llena el campo Subsidio";
+                }else{
+                    $responseRaci = $objRaci->getIdRaci($pk_id_raci);
+                    if ($responseRaci==false) {#If init / consulta de raci
+                        echo "Algo salio mal intentalo de nuevo.";
+                    }else{ 
+                        foreach ($responseRaci as  $raci) {                       
+                            if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
+                                $new_total_cont_raci =  $total_con_raci+$accion_con;
+                                if ($new_total_cont_raci <= $universo_de_lot_raci) {
+                                    $response_contratos = $objContratos->addContratos($accion_con,0,$apoyo_insus_con ,$subsidio_con, 0, 0, $mes_con, $anno_con,date("Y-m-d"),date("Y-m-d"), $pk_id_raci, $pk_id_pro);
+                                    if (!empty($response_contratos)) {
+                                        $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
+                                        if ($responseUpdate ==  true) {
+                                            #echo $responseUpdate;
+                                            header('Content-type: applicat  ion/json; charset=utf-8');
+                                            echo $response_contratos;
+                                        }
+                                    }else{
+                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                    }
+                                }else{
+                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                }
+                                
+                            } else {
+                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                            }
+                        }
+                   } #If end / consulta de raci
+                }  
             }else if ($pk_id_pro == 7) {
                 # code...
                 if (!empty($rectificaciones_con) && !empty($otros_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro)) {

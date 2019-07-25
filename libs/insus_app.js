@@ -122,7 +122,7 @@ function getIdEstados(entidad_raci){
 					html_raci +='<td>'+pend_contratar+'</td>';
 					html_raci +='<td>';
 					if(rol_usu == 1 || rol_usu == 2 ) html_raci +='<button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil" data-toggle="tooltip" data-placement="right" title="Actualizar universo de lotes" ></button>&nbsp;&nbsp;';
-					if (value['universo_de_lot_raci'] == value['total_con_raci'] ) {
+					if (value['universo_de_lot_raci'] == value['total_con_raci'] || value['universo_de_lot_raci'] < value['total_con_raci'] ) {
 						html_raci +='<button type="button" class="btn  btn-inverse-danger btn-rounded mdi mdi-account-multiple-plus" data-toggle="tooltip" data-placement="right" title="Acciones completadas"  ></button>&nbsp;&nbsp;';
 					}else{
 						html_raci +='<button type="button" onClick="getIdRaci('+ value['id_raci'] +')" class="btn  btn-inverse-success btn-rounded mdi mdi-account-multiple-plus data-toggle="tooltip" data-placement="right" title="Agregar nuevas acciones"></button>&nbsp;&nbsp;';
@@ -197,7 +197,7 @@ function valProgramas(){
 	pk_id_pro = $("#pk_id_pro").val();
 	pk_id_raci = $("#id_raci").val();
 		if(pk_id_pro == 1) {
-			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				if ($.isEmptyObject(response.data.contratos) == true) {
@@ -210,6 +210,7 @@ function valProgramas(){
 					$("#ac5").hide(); //Rectificacion
 					$("#ac6").hide(); //Otros
 					$("#btn_next_2").show(); //Btn
+					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","Regla 1");
 					hideInput();
@@ -218,7 +219,7 @@ function valProgramas(){
 			});
 			
 		}else if(pk_id_pro == 2){
-			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
@@ -231,6 +232,7 @@ function valProgramas(){
 					$("#ac5").hide();
 					$("#ac6").hide();
 					$("#btn_next_2").show(); //Btn
+					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","Regla 2");
 					hideInput();
@@ -238,7 +240,7 @@ function valProgramas(){
 				}
 			});
 		}else if(pk_id_pro == 3){
-			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
@@ -251,6 +253,7 @@ function valProgramas(){
 					$("#ac5").hide();
 					$("#ac6").hide();
 					$("#btn_next_2").show(); //Btn
+					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","Regla 3");
 					hideInput();
@@ -258,7 +261,7 @@ function valProgramas(){
 				}
 			});
 		}else if(pk_id_pro == 4){
-			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
@@ -271,6 +274,7 @@ function valProgramas(){
 					$("#ac5").hide();
 					$("#ac6").hide();
 					$("#btn_next_2").show(); //Btn
+					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","PMU");
 					hideInput();
@@ -278,7 +282,7 @@ function valProgramas(){
 				}
 			});
 		}else if(pk_id_pro == 5){
-			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
@@ -291,6 +295,7 @@ function valProgramas(){
 					$("#ac5").hide();
 					$("#ac6").hide();
 					$("#btn_next_2").show(); //Btn
+					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","PRAH");
 					hideInput();
@@ -298,7 +303,7 @@ function valProgramas(){
 				}
 			});
 		}else if(pk_id_pro == 6){
-			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
@@ -311,6 +316,7 @@ function valProgramas(){
 					$("#ac5").hide();
 					$("#ac6").hide();
 					$("#btn_next_2").show(); //Btn
+					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","PASPRAH");
 					hideInput();
@@ -318,7 +324,7 @@ function valProgramas(){
 				}
 			});
 		}else if(pk_id_pro == 7){
-			data = {op: "pro", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
+			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
 			__Ajax_JSON(url,data).done(function(response){
 				hideInput();
@@ -331,6 +337,7 @@ function valProgramas(){
 					$("#ac5").show();
 					$("#ac6").show();
 					$("#btn_next_2").show(); //Btn
+					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","OTROS RECTIFICACIONES");
 					hideInput();
@@ -338,7 +345,7 @@ function valProgramas(){
 				}
 			});	
 		}else{
-			toastrError("Selecciona un programa ","Programas");
+			toastrError("Debes de seleccionar al menos un programa.","Programas");
 			hideInput();
 			$("#btn_next_2").hide(); //Btn
 		}
@@ -374,31 +381,37 @@ function valAcciones(){
 		toastrError("El campo Acción es obligatorio.", "Acción")
 	}else{
 		if (total_nuevo_con <= universo_de_lot_raci){
-			toastrExito("Se valido con exito, posdemos agregar las acciones indicadas.", "Validación");
+			toastrExito("Se valido con exito, posdemos agregar las acciones indicadas.", "Acción");
 		}else{
-			toastrError("La suma total de acciones, supera el universo de lotes.", "Vuelve a intentar");
+			toastrError("La suma total de acciones, supera el universo de lotes.", "Acción");
 			$("#accion_con").val("");
 		}
 
 	}
 }
-
+function desabledBtnAddAcciones(){
+		$('#btn_next_2').attr("disabled", true);
+		$('#btn_before_2').attr("disabled", true);
+}
+function enabledBtnAddAcciones(){
+		$('#btn_next_2').attr("disabled", false);
+		$('#btn_before_2').attr("disabled", false);
+}
 function addAcciones(){
-	
-	accion_con = $("#accion_con").val();
-	pago_ben_con = $("#pago_ben_con").val();
-	apoyo_insus_con = $("#apoyo_insus_con").val();
-	subsidio_con = $("#subsidio_con").val();
-	rectificaciones_con = $("#rectificaciones_con").val();
-	otros_con = $("#otros_con").val();
+	accion_con = $("#accion_con").val().trim();
+	pago_ben_con = $("#pago_ben_con").val().trim();
+	apoyo_insus_con = $("#apoyo_insus_con").val().trim();
+	subsidio_con = $("#subsidio_con").val().trim();
+	rectificaciones_con = $("#rectificaciones_con").val().trim();
+	otros_con = $("#otros_con").val().trim();
 	mes_con = meses[fecha.getMonth()];
 	anno_con = fecha.getFullYear();
-	pk_id_pro = $("#pk_id_pro").val();
+	pk_id_pro = $("#pk_id_pro").val().trim();
 
 	//Variables de apoyo de raci
-	pk_id_raci = $("#id_raci").val();
-	universo_de_lot_raci = $("#universo_de_lot_raci").val();
-	total_con_raci = $("#total_con_raci").val();
+	pk_id_raci = $("#id_raci").val().trim();
+	universo_de_lot_raci = $("#universo_de_lot_raci").val().trim();
+	total_con_raci = $("#total_con_raci").val().trim();
 	data = {
 			op: "insert", 
 			accion_con: accion_con,
@@ -416,59 +429,69 @@ function addAcciones(){
 		  };
 
 	if (pk_id_pro == 1) {
-		if (accion_con == "") {
+		if (accion_con == "" ||  accion_con == 0 || !$.isNumeric(accion_con)) {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (pago_ben_con == "") {
+		}else if (pago_ben_con == "" || pago_ben_con == 0 || !$.isNumeric(pago_ben_con)) {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
-		}else if (apoyo_insus_con == "") {
+		}else if (apoyo_insus_con == "" || apoyo_insus_con == 0 || !$.isNumeric(apoyo_insus_con)) {
 			toastrError("El campo Apoyo INSUS, es obligatorio.","Apoyo INSUS");
 		}else{
+			desabledBtnAddAcciones();
 			__Ajax_JSON(url,data).done(function(response){
+				
+
 
 			});
 		}
 	}else if (pk_id_pro == 2) {
-		if (accion_con == "") {
+		if (accion_con == "" || accion_con == 0) {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (pago_ben_con == " ") {
+		}else if (pago_ben_con == "" || pago_ben_con == 0) {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
+			desabledBtnAddAcciones();
 			__Ajax_JSON(url,data).done(function(response){
+
 
 			});
 		}
 	}else if (pk_id_pro == 3) {
-		if (accion_con == " ") {
+		if (accion_con == " " || accion_con == 0) {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (pago_ben_con == "") {
+		}else if (pago_ben_con == "" || pago_ben_con == 0) {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
+			desabledBtnAddAcciones();
 			__Ajax_JSON(url,data).done(function(response){
+
 
 			});
 		}
 	}else if (pk_id_pro == 4) {
-		if (accion_con == "") {
+		if (accion_con == "" || accion_con == 0) {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (pago_ben_con == "") {
+		}else if (pago_ben_con == "" || pago_ben_con == 0) {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
-		}else if (subsidio_con == "") {
+		}else if (subsidio_con == "" || subsidio_con == 0) {
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
+			desabledBtnAddAcciones();
 			__Ajax_JSON(url,data).done(function(response){
 
 			});
 		}
 
 	}else if (pk_id_pro == 5) {
-		if (accion_con == "") {
+		if (accion_con == "" || accion_con == 0) {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (pago_ben_con == "") {
+		}else if (pago_ben_con == "" || pago_ben_con == 0) {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
-		}else if (subsidio_con == "") {
+		}else if (subsidio_con == "" || subsidio_con == 0) {
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
+			desabledBtnAddAcciones();
 			__Ajax_JSON(url,data).done(function(response){
+
 
 			});
 		}
@@ -476,27 +499,31 @@ function addAcciones(){
 	}else if (pk_id_pro == 6) {
 		if (accion_con == "") {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (apoyo_insus_con == "") {
+		}else if (apoyo_insus_con == "" || apoyo_insus_con == 0) {
 			toastrError("El campo Apoyo INSUS, es obligatorio.","Apoyo INSUS");
-		}else if (subsidio_con == "") {
+		}else if (subsidio_con == "" || subsidio_con == 0) {
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
+			desabledBtnAddAcciones();
 			__Ajax_JSON(url,data).done(function(response){
+
 
 			});
 		}
 
 	}else if (pk_id_pro == 7) {
-		if (rectificaciones_con == "" || rectificaciones_con == null) {
+		if (rectificaciones_con == "" || rectificaciones_con == 0) {
 			toastrError("El campo Rectificaciones, es obligatorio.","Rectificaciones");
-		}else if (otros_con == "" || otros_con == null) {
+		}else if (otros_con == "" || otros_con == 0) {
 			toastrError("El campo Otros, es obligatorio.","Otros");
 		}else{
+			desabledBtnAddAcciones();
 			__Ajax_JSON(url,data).done(function(response){
+
 
 			});
 		}
 	}else{
-		toastrError("No exist el programa.","Programa");
+		toastrError("Debes de seleccionar al menos un programa.","Programa");
 	}
 }

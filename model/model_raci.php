@@ -26,13 +26,10 @@ class Model_raci{
         }        
         
     }
-    public function acceso($correo,$password,$app){
-        $query = $this->db->prepare("SELECT id_usuario, nombre, usuario, correo, password, status, id_app_fk,id_estado_fk, nombre_app
-            FROM usuarios INNER JOIN apps 
-            ON usuarios.id_app_fk = apps.id_app  WHERE correo =:correo AND password=:password AND id_app_fk=:app");
-        $query->bindParam(":correo", $correo, PDO::PARAM_STR);
-        $query->bindParam(":password", $password, PDO::PARAM_STR);
-        $query->bindParam(":app", $app, PDO::PARAM_INT);
+    #Funcion de apoyo en controlador, para agrgar aciones y editar en raci editRaciPoblado()
+    public function getIdRaci($id_raci){
+        $query = $this->db->prepare("SELECT * FROM raci WHERE id_raci=:id_raci");
+        $query->bindParam(":id_raci", $id_raci, PDO::PARAM_INT);
         $query->execute();
         $result = $query-> fetchAll();
         if ($result) {
@@ -42,8 +39,19 @@ class Model_raci{
         }
     }
 
-    public function addAcciones(){
-        #Write your code ...
+    public function editRaciPoblado($id_raci, $new_total_cont_raci){
+        try {
+            $query = $this->db->prepare("UPDATE raci SET  total_con_raci=:total_con_raci  WHERE id_raci = :id_raci");
+            $query->bindParam(":total_con_raci", $new_total_cont_raci, PDO::PARAM_STR);
+            $query->bindParam(":id_raci", $id_raci, PDO::PARAM_INT);
+            $r = $query->execute();
+            if ($r == true) {
+                return $r;
+            }else{
+                return $r;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
-
 }
