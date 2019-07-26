@@ -271,14 +271,6 @@ if (isset($_POST['op'])) {
                    } #If end / consulta de raci
                 }  
             }else if ($pk_id_pro == 6) {
-                # code...
-                if (!empty($accion_con) && !empty($pago_ben_con) && !empty($subsidio_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro) && !empty($universo_de_lot_raci)  && !empty($total_con_raci)) {
-                # write your function of the model.
-                    echo "ok";
-                }else{
-                    echo "Error, datos incompletos.";
-                }
-
                 if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
                     echo "Algo salio mal, llena el campo Acción";
                 } elseif ($apoyo_insus_con == '' || $apoyo_insus_con == 0 || !is_numeric($apoyo_insus_con) ){
@@ -316,13 +308,28 @@ if (isset($_POST['op'])) {
                    } #If end / consulta de raci
                 }  
             }else if ($pk_id_pro == 7) {
-                # code...
-                if (!empty($rectificaciones_con) && !empty($otros_con) && !empty($mes_con) && !empty($anno_con) && !empty($pk_id_raci) && !empty($pk_id_pro)) {
-                # write your function of the model.
-                    echo "ok";
+                 if($rectificaciones_con == '' || $rectificaciones_con == 0 || !is_numeric($rectificaciones_con)){
+                    echo "Algo salio mal, llena el campo Acción";
+                } elseif ($otros_con == '' || $otros_con == 0 || !is_numeric($otros_con) ){
+                    echo "Algo salio mal, llena el campo Apoyo INSUS";
                 }else{
-                    echo "Error, datos incompletos.";
-                }
+                    $responseRaci = $objRaci->getIdRaci($pk_id_raci);
+                    if ($responseRaci==false) {#If init / consulta de raci
+                        echo "Algo salio mal intentalo de nuevo.";
+                    }else{ 
+                        foreach ($responseRaci as  $raci) {                       
+                            if ($pk_id_raci == $raci['id_raci']) {
+                                    $response_contratos = $objContratos->addContratos(0,0,0 ,0, $rectificaciones_con, $otros_con, $mes_con, $anno_con,date("Y-m-d"),date("Y-m-d"), $pk_id_raci, $pk_id_pro);
+                                    if (!empty($response_contratos)) {
+                                            echo $response_contratos;
+                                        }
+                                    }else{
+                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                    }
+                                
+                            }
+                        }
+                   } #If end / consulta de raci  
             }else{
                  echo "No encontramos los datos del programa.";
             }
