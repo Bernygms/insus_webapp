@@ -184,6 +184,8 @@ function getIdRaci(id_raci){
 		$("#nav2").removeClass("active");
 		$("#nav3").removeClass("active");
 		$("#nav1").addClass("active");
+		$("#pk_id_pro").attr("disabled", false);
+		$("#msg_exito_acciones").hide();
 	}
 	
 }
@@ -392,10 +394,33 @@ function valAcciones(){
 function desabledBtnAddAcciones(){
 		$('#btn_next_2').attr("disabled", true);
 		$('#btn_before_2').attr("disabled", true);
+		$("#pk_id_pro").attr("disabled", true);
+		$("#accion_con").attr("disabled", true);
+		$("#pago_ben_con").attr("disabled", true);
+		$("#apoyo_insus_con").attr("disabled", true);
+		$("#subsidio_con").attr("disabled", true);
+		$("#rectificaciones_con").attr("disabled", true);
+		$("#otros_con").attr("disabled", true);
 }
 function enabledBtnAddAcciones(){
 		$('#btn_next_2').attr("disabled", false);
 		$('#btn_before_2').attr("disabled", false);
+		$("#pk_id_pro").attr("disabled", false);
+		$("#accion_con").attr("disabled", false);
+		$("#pago_ben_con").attr("disabled", false);
+		$("#apoyo_insus_con").attr("disabled", false);
+		$("#subsidio_con").attr("disabled", false);
+		$("#rectificaciones_con").attr("disabled", false);
+		$("#otros_con").attr("disabled", false);
+}
+
+function hideBtnAndShowNavBenef(){
+			$("#btn_before_2").hide();
+			$("#btn_next_2").hide();
+			$("#nav2").removeClass("active");
+			$("#nav3").addClass("active");
+			$("#msg_exito_acciones").show();
+			$("#div_beneficiarios").show();
 }
 function addAcciones(){
 	accion_con = $("#accion_con").val().trim();
@@ -437,10 +462,20 @@ function addAcciones(){
 			toastrError("El campo Apoyo INSUS, es obligatorio.","Apoyo INSUS");
 		}else{
 			desabledBtnAddAcciones();
+			
 			__Ajax_JSON(url,data).done(function(response){
-				
-
-
+				if (response.success == true) {
+					$("#msg_exito_acciones").addClass("text-success");
+					if (accion_con == 1) {
+						$("#msg_exito_acciones").text("Bien hecho, se agrego "+accion_con+" acción, para continuar puedes agregar los datos de los beneficiario.");
+					}else{
+						$("#msg_exito_acciones").text("Bien hecho, se agregarón "+accion_con+" acciones, para continuar puedes agregar los datos de los beneficiarios.");
+					}
+					hideBtnAndShowNavBenef();
+					autoCreateInputBenef(accion_con);
+				}else{
+					toastrError(response, "Error al agregar");
+				}
 			});
 		}
 	}else if (pk_id_pro == 2) {
@@ -450,18 +485,20 @@ function addAcciones(){
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
 			desabledBtnAddAcciones();
+			hideBtnAndShowNavBenef();
 			__Ajax_JSON(url,data).done(function(response){
 
 
 			});
 		}
-	}else if (pk_id_pro == 3) {
+	}else if (pk_id_pro == 3) {	
 		if (accion_con == " " || accion_con == 0) {
 			toastrError("El campo acción, es obligatorio.","Acción");
 		}else if (pago_ben_con == "" || pago_ben_con == 0) {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
 			desabledBtnAddAcciones();
+			hideBtnAndShowNavBenef()
 			__Ajax_JSON(url,data).done(function(response){
 
 
@@ -476,6 +513,7 @@ function addAcciones(){
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
+			hideBtnAndShowNavBenef()
 			__Ajax_JSON(url,data).done(function(response){
 
 			});
@@ -490,6 +528,7 @@ function addAcciones(){
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
+			hideBtnAndShowNavBenef()
 			__Ajax_JSON(url,data).done(function(response){
 
 
@@ -505,6 +544,7 @@ function addAcciones(){
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
+			hideBtnAndShowNavBenef()
 			__Ajax_JSON(url,data).done(function(response){
 
 
@@ -518,6 +558,7 @@ function addAcciones(){
 			toastrError("El campo Otros, es obligatorio.","Otros");
 		}else{
 			desabledBtnAddAcciones();
+			hideBtnAndShowNavBenef()
 			__Ajax_JSON(url,data).done(function(response){
 
 
@@ -526,4 +567,8 @@ function addAcciones(){
 	}else{
 		toastrError("Debes de seleccionar al menos un programa.","Programa");
 	}
+}
+
+function autoCreateInputBenef(acciones){
+	alert(acciones);
 }

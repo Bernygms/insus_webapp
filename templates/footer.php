@@ -181,7 +181,13 @@
               <div id="ac6" class="form-group col-md-2">
                 <label for="id">Otros:</label>
                 <input id="otros_con" name="otros_con" type="text" class="form-control border border-primary" />
-              </div>       
+              </div>
+              <div class="col-md-12">
+                <p id="msg_exito_acciones"></p>
+              </div>
+              <!--<div class="alert alert-success alert-dismissable col-md-12">
+                <strong>¡Bien hecho!</strong> OK se agregaron 4 acciones.
+              </div>   -->    
             </div>
           <!--footer modal-->
           <div class="modal-footer">
