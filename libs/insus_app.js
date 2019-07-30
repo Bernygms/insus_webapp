@@ -467,7 +467,7 @@ function addAcciones(){
 				if (response.success == true) {
 					$("#msg_exito_acciones").addClass("text-success");
 					if (accion_con == 1) {
-						$("#msg_exito_acciones").text("Bien hecho, se agrego "+accion_con+" acción, para continuar puedes agregar los datos de los beneficiario.");
+						$("#msg_exito_acciones").text("Bien hecho, se agrego "+accion_con+" acción, para continuar puedes agregar los datos del beneficiario.");
 					}else{
 						$("#msg_exito_acciones").text("Bien hecho, se agregarón "+accion_con+" acciones, para continuar puedes agregar los datos de los beneficiarios.");
 					}
@@ -475,6 +475,7 @@ function addAcciones(){
 					autoCreateInputBenef(accion_con);
 				}else{
 					toastrError(response, "Error al agregar");
+					enabledBtnAddAcciones();
 				}
 			});
 		}
@@ -570,5 +571,43 @@ function addAcciones(){
 }
 
 function autoCreateInputBenef(acciones){
-	alert(acciones);
+	var inputAcc = "";
+
+	for (var i = 1; i <= acciones; i++) {
+		inputAcc +='<div class="table-responsive">';
+		inputAcc +='<table id="tabla" class="table  table-bordered"><thead><tr><th>Identeficador Temporal </th><th>---- Columna ----</th><th>----Valor----</th></tr></thead>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ i +'</td>';
+		inputAcc +='<td><label for="">Nombre</label></td>';
+		inputAcc +='<td><input type="text" class="form-control border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ i +'</td>';
+		inputAcc +='<td><label for="">Apellido Parterno</label></td>';
+		inputAcc +='<td><input type="text" class="form-control border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ i +'</td>';
+		inputAcc +='<td><label for="">Apellido Materno</label></td>';
+		inputAcc +='<td><input type="text" class="form-control border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='</tbody></table>';
+		inputAcc +='</div>';
+		/*inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
+		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';*/
+
+	}
+	$("#inputBeneficiarios").html(inputAcc);
 }

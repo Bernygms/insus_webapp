@@ -158,27 +158,27 @@
                       <option value="7">OTROS</option>
                 </select>
               </div>
-              <div id="ac1" class="form-group col-md-2">
+              <div id="ac1" class="form-group col-md-3">
                 <label for="id">Accion:</label>
                 <input id="accion_con" name="accion_con" type="text" class="form-control border border-primary" />
               </div>
-              <div id="ac2" class="form-group col-md-2">
+              <div id="ac2" class="form-group col-md-3">
                 <label for="id">Pago Beneficiario:</label>
                 <input id="pago_ben_con" name="pago_ben_con" type="text" class="form-control border border-primary" />
               </div>   
-              <div id="ac3" class="form-group col-md-2">
+              <div id="ac3" class="form-group col-md-3">
                 <label for="id">Apoyo INSUS:</label>
                 <input id="apoyo_insus_con" name="apoyo_insus_con" type="text" class="form-control border border-primary" />
               </div> 
-              <div id="ac4" class="form-group col-md-2">
+              <div id="ac4" class="form-group col-md-3">
                 <label for="id">Subsidio:</label>
                 <input id="subsidio_con" name="subsidio_con" type="text" class="form-control border border-primary" />
               </div> 
-              <div id="ac5" class="form-group col-md-2">
+              <div id="ac5" class="form-group col-md-3">
                 <label for="id">Rectificaciones:</label>
                 <input id="rectificaciones_con" name="rectificaciones_con" type="text" class="form-control border border-primary" />
               </div> 
-              <div id="ac6" class="form-group col-md-2">
+              <div id="ac6" class="form-group col-md-3">
                 <label for="id">Otros:</label>
                 <input id="otros_con" name="otros_con" type="text" class="form-control border border-primary" />
               </div>
@@ -200,18 +200,7 @@
         <div id="div_beneficiarios">
           <div class="modal-body">
            <div class="row">
-            <div class="form-group col-md-4">
-              <label for="id">Fecha de Contratacion:</label>
-              <input id="fecha_ini_con_raci" name="fecha_ini_con_raci" type="text" class="form-control border border-primary" />
-            </div> 
-            <div class="form-group col-md-4">
-              <label for="id">Universo de lotes:</label>
-              <input id="universo_de_lot_raci" name="universo_de_lot_raci" type="text" class="form-control border border-primary" />
-            </div> 
-            <div class="form-group col-md-4">
-              <label for="id">Contratados:</label>
-              <input id="total_con_raci" name="total_con_raci" type="text" class="form-control border border-primary" />
-            </div> 
+            <div id="inputBeneficiarios"></div>
           </div>
           <!--footer modal-->
           <div class="modal-footer">
