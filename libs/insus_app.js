@@ -1,13 +1,13 @@
-  /******************************************************/
-	 var url = '../controller/controller_insus_app.php';
-	 var navigation = 0;
-	 var estados = []; 
-	 var raci = [];
-	 var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
-	 var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-	 var total_nuevo_con = null;
-	 var fecha = null;
-	 var data = {};
+  /******************************************************/ 
+  	
+  	var navigation = 0;
+	var estados = []; 
+	var raci = [];
+	var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
+	var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+	var total_nuevo_con = null;
+	var fecha = null;
+	var data = {};
  /******************************************************/
  /******************************************************/
     //Variable de entrada para la tabla estados 
@@ -42,6 +42,7 @@
     var fecha_edi_con =  null;
     var pk_id_raci =  null;
     var pk_id_pro =  null;
+    var url = "../controller/controller_insus_app.php";
 
 
  //Cosulta de estados 
@@ -572,42 +573,108 @@ function addAcciones(){
 
 function autoCreateInputBenef(acciones){
 	var inputAcc = "";
-
+	inputAcc +='<form action="" id="from_addBeneficiarios">';
 	for (var i = 1; i <= acciones; i++) {
 		inputAcc +='<div class="table-responsive">';
-		inputAcc +='<table id="tabla" class="table  table-bordered"><thead><tr><th>Identeficador Temporal </th><th>---- Columna ----</th><th>----Valor----</th></tr></thead>';
+		inputAcc +='<table id="tabla" class="table "><thead><tr><th>Identeficador </th><th>---Tipo--- </th><th>---- Columna ----</th><th>----Valor----</th></tr></thead>';
 		inputAcc +='<tr>';
-		inputAcc +='<td>'+ i +'</td>';
-		inputAcc +='<td><label for="">Nombre</label></td>';
-		inputAcc +='<td><input type="text" class="form-control border border-primary"</td>';
+		inputAcc +='<td>'+ 1 +'</td>';
+		inputAcc +='<td><label>Texto</label></td>';
+		inputAcc +='<td><label>Nombre(s)</label></td>';
+		inputAcc +='<td><input type="text" id="nombre_ben" name="nombre_ben[]" class="form-control-sm border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
-		inputAcc +='<td>'+ i +'</td>';
-		inputAcc +='<td><label for="">Apellido Parterno</label></td>';
-		inputAcc +='<td><input type="text" class="form-control border border-primary"</td>';
+		inputAcc +='<td>'+ 2 +'</td>';
+		inputAcc +='<td><label>Texto</label></td>';
+		inputAcc +='<td><label>Apellido Parterno</label></td>';
+		inputAcc +='<td><input type="text" id="apellido_pat_ben" name="apellido_pat_ben[]" class="form-control form-control-sm border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
-		inputAcc +='<td>'+ i +'</td>';
-		inputAcc +='<td><label for="">Apellido Materno</label></td>';
-		inputAcc +='<td><input type="text" class="form-control border border-primary"</td>';
+		inputAcc +='<td>'+ 3 +'</td>';
+		inputAcc +='<td><label>Texto</label></td>';
+		inputAcc +='<td><label>Apellido Materno</label></td>';
+		inputAcc +='<td><input type="text" id="apellido_mat_ben" name="apellido_mat_ben[]" class="form-control form-control-sm border border-primary"</td>';
 		inputAcc +='</tr>';
-		inputAcc +='</tbody></table>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 4 +'</td>';
+		inputAcc +='<td><label>Automático</label></td>';
+		inputAcc +='<td><label>Genero</label></td>';
+		inputAcc +='<td><input type="text" id="genero_ben" name="genero_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<td>'+ 5 +'</td>';
+		inputAcc +='<td><label>Automático</label></td>';
+		inputAcc +='<td><label>Estado Civil</label></td>';
+		inputAcc +='<td><input type="text" id="estado_ben" name="estado_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 6 +'</td>';
+		inputAcc +='<td><label>Numerico</label></td>';
+		inputAcc +='<td><label>Zona</label></td>';
+		inputAcc +='<td><input type="text" id="zona_ben" name="zona_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 7 +'</td>';
+		inputAcc +='<td><label>Numerico</label></td>';
+		inputAcc +='<td><label>Manzana</label></td>';
+		inputAcc +='<td><input type="text" id="manazana_ben" name="manazana_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 8 +'</td>';
+		inputAcc +='<td><label>Numerico</label></td>';
+		inputAcc +='<td><label>Lote</label></td>';
+		inputAcc +='<td><input type="text" id="lote_ben" name="lote_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 9 +'</td>';
+		inputAcc +='<td><label>Numerico</label></td>';
+		inputAcc +='<td><label>Superficie Mts&sup2;</label></td>';
+		inputAcc +='<td><input type="text" id="superficie_ben" name="superficie_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 10 +'</td>';
+		inputAcc +='<td><label>Automático</label></td>';
+		inputAcc +='<td><label>Uso</label></td>';
+		inputAcc +='<td><input type="text" id="uso_ben" name="uso_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 11 +'</td>';
+		inputAcc +='<td><label>Letras y Número</label></td>';
+		inputAcc +='<td><label>Número de contrato (DJ 1)</label></td>';
+		inputAcc +='<td><input type="text" id="numero_con_ben" name="numero_con_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 12+'</td>';
+		inputAcc +='<td><label>Letras y Número</label></td>';
+		inputAcc +='<td><label>Número de contrato (DJ 2)</label></td>';
+		inputAcc +='<td><input type="text" id="numero_con_compro_ben" name="numero_con_compro_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 13+'</td>';
+		inputAcc +='<td><label>Fecha</label></td>';
+		inputAcc +='<td><label>Fecha de contrato</label></td>';
+		inputAcc +='<td><input type="text" id="fecha_ben" name="fecha_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 14+'</td>';
+		inputAcc +='<td><label>Numerico</label></td>';
+		inputAcc +='<td><label>Pago Beneficiario</label></td>';
+		inputAcc +='<td><input type="text" id="pago_ben" name="pago_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 15+'</td>';
+		inputAcc +='<td><label>Numerico</label></td>';
+		inputAcc +='<td><label>Apoyo Beneficiario</label></td>';
+		inputAcc +='<td><input type="text" id="apoyo_ben" name="apoyo_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 16+'</td>';
+		inputAcc +='<td><label>pk_id_con</label></td>';
+		inputAcc +='<td><label>Id Contrato</label></td>';
+		inputAcc +='<td><input type="text" id="pk_id_con" name="pk_id_con[]" class="form-control form-control-sm border border-primary disabled"</td>';
+		inputAcc +='</tr>';
+	    inputAcc +='</tbody></table>';
 		inputAcc +='</div>';
-		/*inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';
-		inputAcc +='<div class="form-group col-md-4"><input id="" name="" type="text" class="form-control border border-primary"/></div>';*/
-
-	}
+    }
+    inputAcc +='</form>';
 	$("#inputBeneficiarios").html(inputAcc);
 }

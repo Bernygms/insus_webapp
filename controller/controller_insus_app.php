@@ -1,9 +1,9 @@
-<?php 
-require_once('../model/model_estados.php');
-require_once('../model/model_raci.php');
-require_once('../model/model_contratos.php');
-
+<?php
 if (isset($_POST['op'])) {
+    require_once('../model/model_contratos.php');
+    require_once('../model/model_estados.php');
+    require_once('../model/model_raci.php'); 
+
     $op =  (isset($_POST['op']) ? $_POST['op'] : NULL);#Dato para la consulta de de cada case 
     #Variable de entrada para la tabla estados 
     $id_est =  (isset($_POST['id_est']) ? $_POST['id_est'] : NULL);#Identificador de cada estado 
@@ -341,4 +341,6 @@ if (isset($_POST['op'])) {
     }
 }else{
     echo "Datos incompletos, respuesta default.";
-}?>
+}
+
+?>
