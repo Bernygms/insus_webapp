@@ -148,7 +148,7 @@
               <div class="form-group col-md-2">
                 <label for="id">Programa:</label>
                 <select id="pk_id_pro" name="pk_id_pro" class="form-control border border-primary" onchange="valProgramas()">
-                      <option selected>Secciona un programa</option>
+                      <option selected>Selecciona un programa</option>
                       <option value="1">REGLA 1</option>
                       <option value="2">REGLA 2</option>
                       <option value="3">REGLA 3</option>
@@ -183,7 +183,7 @@
                 <input id="otros_con" name="otros_con" type="text" class="form-control border border-primary" />
               </div>
               <div class="col-md-12">
-                <p id="msg_exito_acciones"></p>
+                <div id="msg_exito_acciones"></div>
               </div>
               <!--<div class="alert alert-success alert-dismissable col-md-12">
                 <strong>¡Bien hecho!</strong> OK se agregaron 4 acciones.
@@ -193,6 +193,9 @@
           <div class="modal-footer">
             <button type="button" id="btn_before_2" class="btn btn-light">Regresar</button>
             <button type="button" id="btn_next_2" class="btn btn-primary">Guardar</button>
+            <button type="button" id="btn_cancel_2" class="btn btn-danger">Cancelar</button>
+            <button type="button" id="btn_input_benef" class="btn btn-primary">Agregar Beneficiario(s)</button>
+            <button type="button" id="btn_omit" class="btn btn-primary">Omitir</button>
           </div>
         </div>
         </div>
@@ -203,11 +206,18 @@
             <div id="inputBeneficiarios"></div>
           </div>
           <!--footer modal-->
-          <div class="modal-footer">
-            <button type="button" id="" class="btn btn-light">Regresar</button>
-            <button type="button" id="" class="btn btn-primary">Continuar</button>
+          <div class="modal-footer"> 
+             <button type="button" id="" class="btn btn-primary">Continuar</button>
           </div>
         </div>
+        </div>
+        <!--Init  Finalizar -->
+        <div id="div_finalizar">
+          <div class="modal-body text-center">
+            <h5 class="card-title">Fin del proceso de registro</h5>
+            <p class="card-text">Hemos terminado de registrar las acciones.</p>
+            <a href="#" class="btn btn-primary">Finalizar</a>
+          </div>
         </div>
       </div>
     </div>

@@ -52,6 +52,14 @@ $(function(){
 		//Variables para contratos
 		addAcciones();
 	});
+	$("#btn_input_benef").click(function(){
+		$("#div_beneficiarios").show();
+		$("#btn_input_benef").show();
+	});
+
+	$("#btn_omit").click(function(){
+		funcFinalizar();
+	});
 
 	$("#btn_before_3").click(function(){
 		$("#div_datos_poblado").hide();
@@ -59,6 +67,7 @@ $(function(){
 		$("#div_beneficiarios").hide();
 		$("#nav2").addClass("active");
 		$("#nav3").removeClass("active");
+		$("#btn_next_2").hide();	
 	});
 });
 

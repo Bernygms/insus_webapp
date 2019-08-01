@@ -172,18 +172,23 @@ function getIdRaci(id_raci){
 		$("#div_datos_poblado").show();
 		$("#div_accion_y_programa").hide();
 		$("#div_beneficiarios").hide();
+		$("#div_finalizar").hide();
 		$("#ac1").hide();
 		$("#ac2").hide();
 		$("#ac3").hide();
 		$("#ac4").hide();
 		$("#ac5").hide();
 		$("#ac6").hide();
-		$("#btn_next_2").hide(); //Btn
+		$("#btn_before_2").show(); 
+		$("#btn_next_2").hide(); 
+		$("#btn_input_benef").hide(); 
+		$("#btn_omit").hide(); 
 		$('#myModalAddAcciones').modal({backdrop: 'static', keyboard: false});
 		$("#myModalAddAcciones").modal('show');
 		$("#nav1").removeClass("active");
 		$("#nav2").removeClass("active");
 		$("#nav3").removeClass("active");
+		$("#nav4").removeClass("active");
 		$("#nav1").addClass("active");
 		$("#pk_id_pro").attr("disabled", false);
 		$("#msg_exito_acciones").hide();
@@ -212,12 +217,10 @@ function valProgramas(){
 					$("#ac4").hide(); //Subsidio
 					$("#ac5").hide(); //Rectificacion
 					$("#ac6").hide(); //Otros
-					$("#btn_next_2").show(); //Btn
 					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","Regla 1");
 					hideInput();
-					$("#btn_next_2").hide(); //Btn
 				}
 			});
 			
@@ -234,12 +237,10 @@ function valProgramas(){
 					$("#ac4").hide();
 					$("#ac5").hide();
 					$("#ac6").hide();
-					$("#btn_next_2").show(); //Btn
 					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","Regla 2");
 					hideInput();
-					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 3){
@@ -255,12 +256,10 @@ function valProgramas(){
 					$("#ac4").hide();
 					$("#ac5").hide();
 					$("#ac6").hide();
-					$("#btn_next_2").show(); //Btn
 					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","Regla 3");
 					hideInput();
-					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 4){
@@ -276,12 +275,10 @@ function valProgramas(){
 					$("#ac4").show();
 					$("#ac5").hide();
 					$("#ac6").hide();
-					$("#btn_next_2").show(); //Btn
 					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","PMU");
 					hideInput();
-					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 5){
@@ -297,12 +294,10 @@ function valProgramas(){
 					$("#ac4").show();
 					$("#ac5").hide();
 					$("#ac6").hide();
-					$("#btn_next_2").show(); //Btn
 					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","PRAH");
 					hideInput();
-					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 6){
@@ -318,12 +313,10 @@ function valProgramas(){
 					$("#ac4").show();
 					$("#ac5").hide();
 					$("#ac6").hide();
-					$("#btn_next_2").show(); //Btn
 					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","PASPRAH");
 					hideInput();
-					$("#btn_next_2").hide(); //Btn
 				}
 			});
 		}else if(pk_id_pro == 7){
@@ -339,18 +332,16 @@ function valProgramas(){
 					$("#ac4").hide();
 					$("#ac5").show();
 					$("#ac6").show();
-					$("#btn_next_2").show(); //Btn
 					enabledBtnAddAcciones();
 				}else{
 					toastrError("Ya existe un resgitro de este mes de "+ mes_con+", ve a consulta para editar.","OTROS RECTIFICACIONES");
 					hideInput();
-					$("#btn_next_2").hide(); //Btn
 				}
 			});	
 		}else{
 			toastrError("Debes de seleccionar al menos un programa.","Programas");
 			hideInput();
-			$("#btn_next_2").hide(); //Btn
+			
 		}
 
 }
@@ -369,6 +360,9 @@ function hideInput(){
 	$("#subsidio_con").val("");
 	$("#rectificaciones_con").val("");
 	$("#otros_con").val("");
+
+	$("#btn_next_2").hide(); //Btn
+    $("#btn_cancel_2").hide();
 }
  // Validacion del campo accion 
 function valAcciones(){
@@ -395,6 +389,7 @@ function valAcciones(){
 function desabledBtnAddAcciones(){
 		$('#btn_next_2').attr("disabled", true);
 		$('#btn_before_2').attr("disabled", true);
+		$('#btn_cancel_2').attr("disabled", true);
 		$("#pk_id_pro").attr("disabled", true);
 		$("#accion_con").attr("disabled", true);
 		$("#pago_ben_con").attr("disabled", true);
@@ -404,8 +399,12 @@ function desabledBtnAddAcciones(){
 		$("#otros_con").attr("disabled", true);
 }
 function enabledBtnAddAcciones(){
+		$("#btn_next_2").show(); //Btn
+		$("#btn_cancel_2").show(); //Btn
+
 		$('#btn_next_2').attr("disabled", false);
 		$('#btn_before_2').attr("disabled", false);
+		$('#btn_cancel_2').attr("disabled", false);
 		$("#pk_id_pro").attr("disabled", false);
 		$("#accion_con").attr("disabled", false);
 		$("#pago_ben_con").attr("disabled", false);
@@ -418,10 +417,13 @@ function enabledBtnAddAcciones(){
 function hideBtnAndShowNavBenef(){
 			$("#btn_before_2").hide();
 			$("#btn_next_2").hide();
+			$("#btn_cancel_2").hide();
 			$("#nav2").removeClass("active");
 			$("#nav3").addClass("active");
 			$("#msg_exito_acciones").show();
-			$("#div_beneficiarios").show();
+			//$("#div_beneficiarios").show();
+			$("#btn_input_benef").show();
+			$("#btn_omit").show();
 }
 function addAcciones(){
 	accion_con = $("#accion_con").val().trim();
@@ -463,19 +465,17 @@ function addAcciones(){
 			toastrError("El campo Apoyo INSUS, es obligatorio.","Apoyo INSUS");
 		}else{
 			desabledBtnAddAcciones();
-			
 			__Ajax_JSON(url,data).done(function(response){
 				if (response.success == true) {
-					$("#msg_exito_acciones").addClass("text-success");
 					if (accion_con == 1) {
-						$("#msg_exito_acciones").text("Bien hecho, se agrego "+accion_con+" acción, para continuar puedes agregar los datos del beneficiario.");
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
 					}else{
-						$("#msg_exito_acciones").text("Bien hecho, se agregarón "+accion_con+" acciones, para continuar puedes agregar los datos de los beneficiarios.");
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
 					}
 					hideBtnAndShowNavBenef();
 					autoCreateInputBenef(accion_con);
 				}else{
-					toastrError(response, "Error al agregar");
+					toastrError(response, "Error al agregar.");
 					enabledBtnAddAcciones();
 				}
 			});
@@ -487,10 +487,19 @@ function addAcciones(){
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
 			desabledBtnAddAcciones();
-			hideBtnAndShowNavBenef();
 			__Ajax_JSON(url,data).done(function(response){
-
-
+				if (response.success == true) {
+					if (accion_con == 1) {
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
+					}else{
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
+					}
+					hideBtnAndShowNavBenef();
+					autoCreateInputBenef(accion_con);
+				}else{
+					toastrError(response, "Error al agregar.");
+					enabledBtnAddAcciones();
+				}
 			});
 		}
 	}else if (pk_id_pro == 3) {	
@@ -500,10 +509,19 @@ function addAcciones(){
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
 			desabledBtnAddAcciones();
-			hideBtnAndShowNavBenef()
 			__Ajax_JSON(url,data).done(function(response){
-
-
+				if (response.success == true) {
+					if (accion_con == 1) {
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
+					}else{
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
+					}
+					hideBtnAndShowNavBenef();
+					autoCreateInputBenef(accion_con);
+				}else{
+					toastrError(response, "Error al agregar.");
+					enabledBtnAddAcciones();
+				}
 			});
 		}
 	}else if (pk_id_pro == 4) {
@@ -515,9 +533,19 @@ function addAcciones(){
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
-			hideBtnAndShowNavBenef()
 			__Ajax_JSON(url,data).done(function(response){
-
+				if (response.success == true) {
+					if (accion_con == 1) {
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
+					}else{
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
+					}
+					hideBtnAndShowNavBenef();
+					autoCreateInputBenef(accion_con);
+				}else{
+					toastrError(response, "Error al agregar.");
+					enabledBtnAddAcciones();
+				}
 			});
 		}
 
@@ -530,10 +558,19 @@ function addAcciones(){
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
-			hideBtnAndShowNavBenef()
 			__Ajax_JSON(url,data).done(function(response){
-
-
+				if (response.success == true) {
+					if (accion_con == 1) {
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
+					}else{
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
+					}
+					hideBtnAndShowNavBenef();
+					autoCreateInputBenef(accion_con);
+				}else{
+					toastrError(response, "Error al agregar.");
+					enabledBtnAddAcciones();
+				}
 			});
 		}
 
@@ -546,10 +583,19 @@ function addAcciones(){
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
-			hideBtnAndShowNavBenef()
 			__Ajax_JSON(url,data).done(function(response){
-
-
+				if (response.success == true) {
+					if (accion_con == 1) {
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
+					}else{
+						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
+					}
+					hideBtnAndShowNavBenef();
+					autoCreateInputBenef(accion_con);
+				}else{
+					toastrError(response, "Error al agregar.");
+					enabledBtnAddAcciones();
+				}
 			});
 		}
 
@@ -560,10 +606,12 @@ function addAcciones(){
 			toastrError("El campo Otros, es obligatorio.","Otros");
 		}else{
 			desabledBtnAddAcciones();
-			hideBtnAndShowNavBenef()
-			__Ajax_JSON(url,data).done(function(response){
-
-
+			__Ajax_JSON(url,data).done(function(response){ 
+				if (response.success == true) {
+					funcFinalizar();	
+				}else{
+					toastrError(response, "Error al agregar.");
+				}
 			});
 		}
 	}else{
@@ -571,106 +619,119 @@ function addAcciones(){
 	}
 }
 
+function funcFinalizar(){
+		$("#nav1").removeClass("active");
+		$("#nav2").removeClass("active");
+		$("#nav3").removeClass("active");
+		$("#nav4").addClass("active");
+		$("#div_accion_y_programa").hide();
+		$("#div_beneficiarios").hide();
+		$("#div_finalizar").show();
+}
+
 function autoCreateInputBenef(acciones){
+	//$("#btn_input_benef").hide();
+	//$("#btn_omit").hide();
 	var inputAcc = "";
 	inputAcc +='<form action="" id="from_addBeneficiarios">';
 	for (var i = 1; i <= acciones; i++) {
-		inputAcc +='<div class="table-responsive">';
-		inputAcc +='<table id="tabla" class="table "><thead><tr><th>Identeficador </th><th>---Tipo--- </th><th>---- Columna ----</th><th>----Valor----</th></tr></thead>';
-		inputAcc +='<tr>';
+		inputAcc +='<div class="">';
+		inputAcc +='<h5 class="text-center">Beneficiario &nbsp;'+i+'</h5>';
+		inputAcc +='<table id="tabla" class=""><thead><tr><th>#&nbsp;&nbsp;&nbsp;&nbsp; </th><th>---Tipo--- </th><th>---- Columna ----</th><th>----Valor----</th></tr></thead>';
+		inputAcc +='<tr  width="1">';
 		inputAcc +='<td>'+ 1 +'</td>';
 		inputAcc +='<td><label>Texto</label></td>';
 		inputAcc +='<td><label>Nombre(s)</label></td>';
-		inputAcc +='<td><input type="text" id="nombre_ben" name="nombre_ben[]" class="form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="nombre_ben" name="nombre_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 2 +'</td>';
 		inputAcc +='<td><label>Texto</label></td>';
 		inputAcc +='<td><label>Apellido Parterno</label></td>';
-		inputAcc +='<td><input type="text" id="apellido_pat_ben" name="apellido_pat_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="apellido_pat_ben" name="apellido_pat_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 3 +'</td>';
 		inputAcc +='<td><label>Texto</label></td>';
 		inputAcc +='<td><label>Apellido Materno</label></td>';
-		inputAcc +='<td><input type="text" id="apellido_mat_ben" name="apellido_mat_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="apellido_mat_ben" name="apellido_mat_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 4 +'</td>';
 		inputAcc +='<td><label>Automático</label></td>';
 		inputAcc +='<td><label>Genero</label></td>';
-		inputAcc +='<td><input type="text" id="genero_ben" name="genero_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="genero_ben" name="genero_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<td>'+ 5 +'</td>';
 		inputAcc +='<td><label>Automático</label></td>';
 		inputAcc +='<td><label>Estado Civil</label></td>';
-		inputAcc +='<td><input type="text" id="estado_ben" name="estado_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="estado_ben" name="estado_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 6 +'</td>';
 		inputAcc +='<td><label>Numerico</label></td>';
 		inputAcc +='<td><label>Zona</label></td>';
-		inputAcc +='<td><input type="text" id="zona_ben" name="zona_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="zona_ben" name="zona_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 7 +'</td>';
 		inputAcc +='<td><label>Numerico</label></td>';
 		inputAcc +='<td><label>Manzana</label></td>';
-		inputAcc +='<td><input type="text" id="manazana_ben" name="manazana_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="manazana_ben" name="manazana_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 8 +'</td>';
 		inputAcc +='<td><label>Numerico</label></td>';
 		inputAcc +='<td><label>Lote</label></td>';
-		inputAcc +='<td><input type="text" id="lote_ben" name="lote_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="lote_ben" name="lote_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 9 +'</td>';
 		inputAcc +='<td><label>Numerico</label></td>';
 		inputAcc +='<td><label>Superficie Mts&sup2;</label></td>';
-		inputAcc +='<td><input type="text" id="superficie_ben" name="superficie_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="superficie_ben" name="superficie_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 10 +'</td>';
 		inputAcc +='<td><label>Automático</label></td>';
 		inputAcc +='<td><label>Uso</label></td>';
-		inputAcc +='<td><input type="text" id="uso_ben" name="uso_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="uso_ben" name="uso_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 11 +'</td>';
-		inputAcc +='<td><label>Letras y Número</label></td>';
-		inputAcc +='<td><label>Número de contrato (DJ 1)</label></td>';
-		inputAcc +='<td><input type="text" id="numero_con_ben" name="numero_con_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><label>Letras y Número&nbsp;&nbsp;</label></td>';
+		inputAcc +='<td><label>Número de contrato (DJ 1&nbsp;&nbsp;</label></td>';
+		inputAcc +='<td><input type="text" id="numero_con_ben" name="numero_con_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 12+'</td>';
-		inputAcc +='<td><label>Letras y Número</label></td>';
-		inputAcc +='<td><label>Número de contrato (DJ 2)</label></td>';
-		inputAcc +='<td><input type="text" id="numero_con_compro_ben" name="numero_con_compro_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><label>Letras y Número&nbsp;&nbsp; </label></td>';
+		inputAcc +='<td><label>Número de contrato (DJ 2)&nbsp;&nbsp; </label></td>';
+		inputAcc +='<td><input type="text" id="numero_con_compro_ben" name="numero_con_compro_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 13+'</td>';
 		inputAcc +='<td><label>Fecha</label></td>';
 		inputAcc +='<td><label>Fecha de contrato</label></td>';
-		inputAcc +='<td><input type="text" id="fecha_ben" name="fecha_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="fecha_ben" name="fecha_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 14+'</td>';
 		inputAcc +='<td><label>Numerico</label></td>';
 		inputAcc +='<td><label>Pago Beneficiario</label></td>';
-		inputAcc +='<td><input type="text" id="pago_ben" name="pago_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="pago_ben" name="pago_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 15+'</td>';
 		inputAcc +='<td><label>Numerico</label></td>';
 		inputAcc +='<td><label>Apoyo Beneficiario</label></td>';
-		inputAcc +='<td><input type="text" id="apoyo_ben" name="apoyo_ben[]" class="form-control form-control-sm border border-primary"</td>';
+		inputAcc +='<td><input type="text" id="apoyo_ben" name="apoyo_ben[]" class="border border-primary"</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 16+'</td>';
 		inputAcc +='<td><label>pk_id_con</label></td>';
 		inputAcc +='<td><label>Id Contrato</label></td>';
-		inputAcc +='<td><input type="text" id="pk_id_con" name="pk_id_con[]" class="form-control form-control-sm border border-primary disabled"</td>';
+		inputAcc +='<td><input type="text" id="pk_id_con" name="pk_id_con[]" class="disabled"</td>';
 		inputAcc +='</tr>';
 	    inputAcc +='</tbody></table>';
 		inputAcc +='</div>';
