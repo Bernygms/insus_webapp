@@ -114,14 +114,23 @@ if (isset($_POST['op'])) {
                                             echo $response_contratos;
                                         }
                                     }else{
-                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                        if($response_contratos == false){
+                                            $data["success"] = false;
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            echo json_encode($data);
+                                        } 
                                     }
                                 }else{
-                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["success"] = false;
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    echo json_encode($data);
+
                                 }
                                 
                             } else {
-                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["success"] = false;
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                echo json_encode($data);
                             }
                         }
                    } #If end / consulta de raci
@@ -149,14 +158,23 @@ if (isset($_POST['op'])) {
                                             echo $response_contratos;
                                         }
                                     }else{
-                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                        if($response_contratos == false){
+                                            $data["success"] = false;
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            echo json_encode($data);
+                                        } 
                                     }
                                 }else{
-                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["success"] = false;
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    echo json_encode($data);
+
                                 }
                                 
                             } else {
-                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["success"] = false;
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                echo json_encode($data);
                             }
                         }
                    } #If end / consulta de raci
@@ -184,14 +202,23 @@ if (isset($_POST['op'])) {
                                             echo $response_contratos;
                                         }
                                     }else{
-                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                        if($response_contratos == false){
+                                            $data["success"] = false;
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            echo json_encode($data);
+                                        } 
                                     }
                                 }else{
-                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["success"] = false;
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    echo json_encode($data);
+
                                 }
                                 
                             } else {
-                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["success"] = false;
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                echo json_encode($data);
                             }
                         }
                    } #If end / consulta de raci
@@ -221,14 +248,23 @@ if (isset($_POST['op'])) {
                                             echo $response_contratos;
                                         }
                                     }else{
-                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                        if($response_contratos == false){
+                                            $data["success"] = false;
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            echo json_encode($data);
+                                        } 
                                     }
                                 }else{
-                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["success"] = false;
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    echo json_encode($data);
+
                                 }
                                 
                             } else {
-                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["success"] = false;
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                echo json_encode($data);
                             }
                         }
                    } #If end / consulta de raci
@@ -258,14 +294,23 @@ if (isset($_POST['op'])) {
                                             echo $response_contratos;
                                         }
                                     }else{
-                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                        if($response_contratos == false){
+                                            $data["success"] = false;
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            echo json_encode($data);
+                                        } 
                                     }
                                 }else{
-                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["success"] = false;
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    echo json_encode($data);
+
                                 }
                                 
                             } else {
-                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["success"] = false;
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                echo json_encode($data);
                             }
                         }
                    } #If end / consulta de raci
@@ -295,14 +340,23 @@ if (isset($_POST['op'])) {
                                             echo $response_contratos;
                                         }
                                     }else{
-                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                        if($response_contratos == false){
+                                            $data["success"] = false;
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            echo json_encode($data);
+                                        } 
                                     }
                                 }else{
-                                    echo "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["success"] = false;
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    echo json_encode($data);
+
                                 }
                                 
                             } else {
-                                echo "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["success"] = false;
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                echo json_encode($data);
                             }
                         }
                    } #If end / consulta de raci
@@ -324,7 +378,11 @@ if (isset($_POST['op'])) {
                                             echo $response_contratos;
                                         }
                                     }else{
-                                        if($response_contratos == false) echo "No se pudo agregar, revice su conección.";
+                                         if($response_contratos == false){
+                                            $data["success"] = false;
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            echo json_encode($data);
+                                        } 
                                     }
                                 
                             }

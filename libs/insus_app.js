@@ -474,8 +474,8 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					autoCreateInputBenef(accion_con);
-				}else{
-					toastrError(response, "Error al agregar.");
+				}else if(response.success == false){
+					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
 				}
 			});
@@ -496,8 +496,8 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					autoCreateInputBenef(accion_con);
-				}else{
-					toastrError(response, "Error al agregar.");
+				}else if(response.success == false){
+					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
 				}
 			});
@@ -518,8 +518,8 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					autoCreateInputBenef(accion_con);
-				}else{
-					toastrError(response, "Error al agregar.");
+				}else if(response.success == false){
+					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
 				}
 			});
@@ -542,8 +542,8 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					autoCreateInputBenef(accion_con);
-				}else{
-					toastrError(response, "Error al agregar.");
+				}else if(response.success == false){
+					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
 				}
 			});
@@ -567,8 +567,8 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					autoCreateInputBenef(accion_con);
-				}else{
-					toastrError(response, "Error al agregar.");
+				}else if(response.success == false){
+					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
 				}
 			});
@@ -584,7 +584,7 @@ function addAcciones(){
 		}else{
 			desabledBtnAddAcciones();
 			__Ajax_JSON(url,data).done(function(response){
-				if (response.success == true) {
+				if (response.success == true){
 					if (accion_con == 1) {
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
 					}else{
@@ -592,10 +592,11 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					autoCreateInputBenef(accion_con);
-				}else{
-					toastrError(response, "Error al agregar.");
+				}else if(response.success == false){
+					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
 				}
+				
 			});
 		}
 
@@ -609,8 +610,9 @@ function addAcciones(){
 			__Ajax_JSON(url,data).done(function(response){ 
 				if (response.success == true) {
 					funcFinalizar();	
-				}else{
-					toastrError(response, "Error al agregar.");
+				}else if(response.success == false){
+					toastrError(response.data.mensaje);
+					enabledBtnAddAcciones();
 				}
 			});
 		}
