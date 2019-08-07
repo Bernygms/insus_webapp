@@ -362,14 +362,16 @@ if (isset($_POST['op'])) {
                    } #If end / consulta de raci
                 }  
             }else if ($pk_id_pro == 7) {
-                 if($rectificaciones_con == '' || $rectificaciones_con == 0 || !is_numeric($rectificaciones_con)){
-                    echo "Algo salio mal, llena el campo Acción";
+                $data["success"] = false;
+                if($rectificaciones_con == '' || $rectificaciones_con == 0 || !is_numeric($rectificaciones_con)){
+                    echo "";
+                    echo json_encode($data["data"]["mensaje"] = "Algo salio mal, llena el campo Rectificaciones");
                 } elseif ($otros_con == '' || $otros_con == 0 || !is_numeric($otros_con) ){
-                    echo "Algo salio mal, llena el campo Apoyo INSUS";
+                    echo json_encode($data["data"]["mensaje"] = "Algo salio mal, llena el campo Otros");
                 }else{
                     $responseRaci = $objRaci->getIdRaci($pk_id_raci);
                     if ($responseRaci==false) {#If init / consulta de raci
-                        echo "Algo salio mal intentalo de nuevo.";
+                        echo json_encode($data["data"]["mensaje"] = "Algo salio mal intentalo de nuevo.");
                     }else{ 
                         foreach ($responseRaci as  $raci) {                       
                             if ($pk_id_raci == $raci['id_raci']) {
@@ -379,9 +381,7 @@ if (isset($_POST['op'])) {
                                         }
                                     }else{
                                          if($response_contratos == false){
-                                            $data["success"] = false;
-                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
-                                            echo json_encode($data);
+                                            echo json_encode($data["data"]["mensaje"] = "No se pudo agregar, revice su conección.");
                                         } 
                                     }
                                 
