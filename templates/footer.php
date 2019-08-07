@@ -37,7 +37,7 @@
   <script src="../js/jquery.dataTables.js"></script>
   <!--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>-->
   <script src="../js/dataTables.bootstrap4.js"></script>
-  <!-- End custom js for this page-->
+  <!-- End custom js for this page--> 
 
   <!-- framework toastr:js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -207,7 +207,7 @@
           </div>
           <!--footer modal-->
           <div class="modal-footer"> 
-             <button type="button" id="" class="btn btn-primary">Continuar</button>
+             <button type="button" id="btn_save_ben" class="btn btn-primary">Continuar</button>
           </div>
         </div>
         </div>

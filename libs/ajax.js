@@ -30,4 +30,5 @@ function __Ajax_FormData(url,data){
 		contentType: false,
 		processData: false
 	})
+	return ajax;
 }

@@ -89,17 +89,19 @@ if (isset($_POST['op'])) {
             }
             break;
         case 'insert':
+            header('Content-type: application/json; charset=utf-8');
+            $data["success"] = false;
             if ($pk_id_pro == 1) {
                 if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
-                    echo "Algo salio mal, llena el campo Acción";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Acción";
                 } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
-                    echo "Algo salio mal, llena el campo Pago Beneficiarios";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Pago Beneficiarios";
                 } elseif ($apoyo_insus_con == '' || $apoyo_insus_con == 0 || !is_numeric($apoyo_insus_con) ){
-                    echo "Algo salio mal, llena el campo Apoyo INSUS";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Apoyo INSUS";
                 }else{
                     $responseRaci = $objRaci->getIdRaci($pk_id_raci);
                     if ($responseRaci==false) {#If init / consulta de raci
-                        echo "Algo salio mal intentalo de nuevo.";
+                        $data["data"]["mensaje"] = "Algo salio mal intentalo de nuevo.";
                     }else{ 
                         foreach ($responseRaci as  $raci) {                       
                             if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
@@ -110,26 +112,22 @@ if (isset($_POST['op'])) {
                                         $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
                                         if ($responseUpdate ==  true) {
                                             #echo $responseUpdate;
-                                            header('Content-type: applicat  ion/json; charset=utf-8');
-                                            echo $response_contratos;
+                                            echo $response_contratos; 
                                         }
                                     }else{
-                                        if($response_contratos == false){
-                                            $data["success"] = false;
+                                        if($response_contratos == false){ 
                                             $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
                                             echo json_encode($data);
                                         } 
                                     }
                                 }else{
-                                    $data["success"] = false;
-                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes."; 
                                     echo json_encode($data);
 
                                 }
                                 
                             } else {
-                                $data["success"] = false;
-                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web."; 
                                 echo json_encode($data);
                             }
                         }
@@ -137,13 +135,13 @@ if (isset($_POST['op'])) {
                 }   
             }else if ($pk_id_pro == 2) {
                 if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
-                    echo "Algo salio mal, llena el campo Acción";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Acción";
                 } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
-                    echo "Algo salio mal, llena el campo Pago Beneficiarios";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Pago Beneficiarios";
                 }else{
                     $responseRaci = $objRaci->getIdRaci($pk_id_raci);
                     if ($responseRaci==false) {#If init / consulta de raci
-                        echo "Algo salio mal intentalo de nuevo.";
+                        $data["data"]["mensaje"] = "Algo salio mal intentalo de nuevo.";
                     }else{ 
                         foreach ($responseRaci as  $raci) {                       
                             if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
@@ -154,26 +152,22 @@ if (isset($_POST['op'])) {
                                         $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
                                         if ($responseUpdate ==  true) {
                                             #echo $responseUpdate;
-                                            header('Content-type: applicat  ion/json; charset=utf-8');
-                                            echo $response_contratos;
+                                            echo $response_contratos; 
                                         }
                                     }else{
                                         if($response_contratos == false){
-                                            $data["success"] = false;
-                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección."; 
                                             echo json_encode($data);
                                         } 
                                     }
                                 }else{
-                                    $data["success"] = false;
-                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes."; 
                                     echo json_encode($data);
 
                                 }
                                 
                             } else {
-                                $data["success"] = false;
-                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web."; 
                                 echo json_encode($data);
                             }
                         }
@@ -181,13 +175,13 @@ if (isset($_POST['op'])) {
                 }  
             }else if ($pk_id_pro == 3) {
                 if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
-                    echo "Algo salio mal, llena el campo Acción";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Acción";
                 } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
-                    echo "Algo salio mal, llena el campo Pago Beneficiarios";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Pago Beneficiarios";
                 }else{
                     $responseRaci = $objRaci->getIdRaci($pk_id_raci);
                     if ($responseRaci==false) {#If init / consulta de raci
-                        echo "Algo salio mal intentalo de nuevo.";
+                        $data["data"]["mensaje"] = "Algo salio mal intentalo de nuevo.";
                     }else{ 
                         foreach ($responseRaci as  $raci) {                       
                             if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
@@ -198,26 +192,22 @@ if (isset($_POST['op'])) {
                                         $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
                                         if ($responseUpdate ==  true) {
                                             #echo $responseUpdate;
-                                            header('Content-type: applicat  ion/json; charset=utf-8');
-                                            echo $response_contratos;
+                                            echo $response_contratos; 
                                         }
                                     }else{
                                         if($response_contratos == false){
-                                            $data["success"] = false;
-                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección."; 
                                             echo json_encode($data);
                                         } 
                                     }
                                 }else{
-                                    $data["success"] = false;
-                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes."; 
                                     echo json_encode($data);
 
                                 }
                                 
                             } else {
-                                $data["success"] = false;
-                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web."; 
                                 echo json_encode($data);
                             }
                         }
@@ -225,15 +215,15 @@ if (isset($_POST['op'])) {
                 }  
             }else if ($pk_id_pro == 4) {
                 if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
-                    echo "Algo salio mal, llena el campo Acción";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Acción";
                 } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
-                    echo "Algo salio mal, llena el campo Pago Beneficiarios";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Pago Beneficiarios";
                 } elseif ($subsidio_con == '' || $subsidio_con == 0 || !is_numeric($subsidio_con)){
-                    echo "Algo salio mal, llena el campo Subsidio";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Subsidio";
                 }else{
                     $responseRaci = $objRaci->getIdRaci($pk_id_raci);
                     if ($responseRaci==false) {#If init / consulta de raci
-                        echo "Algo salio mal intentalo de nuevo.";
+                        $data["data"]["mensaje"] = "Algo salio mal intentalo de nuevo.";
                     }else{ 
                         foreach ($responseRaci as  $raci) {                       
                             if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
@@ -244,26 +234,22 @@ if (isset($_POST['op'])) {
                                         $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
                                         if ($responseUpdate ==  true) {
                                             #echo $responseUpdate;
-                                            header('Content-type: applicat  ion/json; charset=utf-8');
-                                            echo $response_contratos;
+                                            echo $response_contratos; 
                                         }
                                     }else{
                                         if($response_contratos == false){
-                                            $data["success"] = false;
-                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección."; 
                                             echo json_encode($data);
                                         } 
                                     }
                                 }else{
-                                    $data["success"] = false;
-                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes."; 
                                     echo json_encode($data);
 
                                 }
                                 
                             } else {
-                                $data["success"] = false;
-                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web."; 
                                 echo json_encode($data);
                             }
                         }
@@ -271,15 +257,15 @@ if (isset($_POST['op'])) {
                 }  
             }else if ($pk_id_pro == 5) {
                 if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
-                    echo "Algo salio mal, llena el campo Acción";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Acción";
                 } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
-                    echo "Algo salio mal, llena el campo Pago Beneficiarios";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Pago Beneficiarios";
                 } elseif ($subsidio_con == '' || $subsidio_con == 0 || !is_numeric($subsidio_con)){
-                    echo "Algo salio mal, llena el campo Subsidio";
+                    $data["data"]["mensaje"] = "Algo salio mal, llena el campo Subsidio";
                 }else{
                     $responseRaci = $objRaci->getIdRaci($pk_id_raci);
                     if ($responseRaci==false) {#If init / consulta de raci
-                        echo "Algo salio mal intentalo de nuevo.";
+                        $data["data"]["mensaje"] = "Algo salio mal intentalo de nuevo.";
                     }else{ 
                         foreach ($responseRaci as  $raci) {                       
                             if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
@@ -290,26 +276,22 @@ if (isset($_POST['op'])) {
                                         $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
                                         if ($responseUpdate ==  true) {
                                             #echo $responseUpdate;
-                                            header('Content-type: applicat  ion/json; charset=utf-8');
-                                            echo $response_contratos;
+                                            echo $response_contratos; 
                                         }
                                     }else{
                                         if($response_contratos == false){
-                                            $data["success"] = false;
-                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección."; 
                                             echo json_encode($data);
                                         } 
                                     }
                                 }else{
-                                    $data["success"] = false;
-                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes."; 
                                     echo json_encode($data);
 
                                 }
                                 
                             } else {
-                                $data["success"] = false;
-                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web."; 
                                 echo json_encode($data);
                             }
                         }
@@ -336,26 +318,22 @@ if (isset($_POST['op'])) {
                                         $responseUpdate = $objRaci->editRaciPoblado($pk_id_raci, $new_total_cont_raci);
                                         if ($responseUpdate ==  true) {
                                             #echo $responseUpdate;
-                                            header('Content-type: applicat  ion/json; charset=utf-8');
-                                            echo $response_contratos;
+                                            echo $response_contratos; 
                                         }
                                     }else{
                                         if($response_contratos == false){
-                                            $data["success"] = false;
-                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección.";
+                                            $data["data"]["mensaje"] = "No se pudo agregar, revice su conección."; 
                                             echo json_encode($data);
                                         } 
                                     }
                                 }else{
-                                    $data["success"] = false;
-                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes.";
+                                    $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes."; 
                                     echo json_encode($data);
 
                                 }
                                 
                             } else {
-                                $data["success"] = false;
-                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web.";
+                                $data["data"]["mensaje"] = "Algo salio mal intentalo con una nueva conección, recarga tu navegador web."; 
                                 echo json_encode($data);
                             }
                         }

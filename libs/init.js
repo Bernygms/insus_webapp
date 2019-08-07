@@ -61,13 +61,8 @@ $(function(){
 		funcFinalizar();
 	});
 
-	$("#btn_before_3").click(function(){
-		$("#div_datos_poblado").hide();
-		$("#div_accion_y_programa").show();
-		$("#div_beneficiarios").hide();
-		$("#nav2").addClass("active");
-		$("#nav3").removeClass("active");
-		$("#btn_next_2").hide();	
+	$("#btn_save_ben").click(function(){
+		addBeneficiarios();
 	});
 });
 

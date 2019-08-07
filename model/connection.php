@@ -1,7 +1,7 @@
 <?php
 define('HOST', 'localhost'); // Host de la base de datos
 define('USER', 'root'); // Usuario
-define('PASSWORD', ''); // Contraseña
+define('PASSWORD', 'insus02'); // Contraseña
 define('DATABASE', 'insus_webapp'); // Nombre de Base de Datos
 
 function DB()
@@ -15,9 +15,8 @@ function DB()
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
         );
         $dsn = 'mysql:host=' . HOST . ';dbname=' . DATABASE;
-        $instance = new PDO($dsn, USER, PASSWORD, $opt);
-
-    }
+        $instance = new PDO($dsn, USER, PASSWORD, $opt); 
+    }   
     return $instance;
 }
 
