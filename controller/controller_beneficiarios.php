@@ -38,7 +38,7 @@ if (isset($_POST['op'])) {
             $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
             if ($response == true) {
                 $data["success"] = true;
-                $data["data"]["mensaje"] = $response;
+                $data["data"]["mensaje"] = "Los datos fueron registrados correctamente.";
             }else{
                 $data["data"]["mensaje"] = "No se registraron los datos, puede continuar dando click en omitir.";
             }

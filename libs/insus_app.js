@@ -183,7 +183,9 @@ function getIdRaci(id_raci){
 		$("#btn_before_2").show(); 
 		$("#btn_next_2").hide(); 
 		$("#btn_input_benef").hide(); 
-		$("#btn_omit").hide(); 
+		$("#btn_omit").hide();
+		$("#btn_next_ben").hide();
+
 		$('#myModalAddAcciones').modal({backdrop: 'static', keyboard: false});
 		$("#myModalAddAcciones").modal('show');
 		$("#nav1").removeClass("active");
@@ -765,10 +767,7 @@ function autoCreateInputBenef(acciones, id_con){
 		inputAcc +='<td><input type="text" id="apoyo_ben" name="apoyo_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
-		inputAcc +='<td>'+ 16+'</td>';
-		inputAcc +='<td><label>pk_id_con</label></td>';
-		inputAcc +='<td><label>Id Contrato</label></td>';
-		inputAcc +='<td><input type="text" hidden="true" id="pk_id_con" name="pk_id_con[]" value="'+id_con+'" class="border border-primary"> </td>';
+		inputAcc +='<td><input type="text" hidden="true" id="pk_id_con" name="pk_id_con[]" value="'+id_con+'"> </td>';
 		inputAcc +='</tr>';
 	    inputAcc +='</tbody></table>';
     } 
@@ -781,9 +780,11 @@ function addBeneficiarios(){
 	data = new FormData($("#from_addBeneficiarios")[0]);
 	__Ajax_FormData(urlBenef,data).done(function(response){
 		if (response.success == true) {
-			//toastrExito(response.data.mensaje,"Beneficiario´s");
-			var obj = JSON.parse(response.data.mensaje); 
-			console.log(obj);
+			toastrExito(response.data.mensaje,"Beneficiario´s");
+			$("#btn_omit").hide();
+			$("#btn_input_benef").hide();
+			$("#btn_save_ben").hide();
+			$("#btn_next_ben").show();
 		}else if(response.success == false){
 			toastrExito(response.data.mensaje,"Beneficiario´s");
 		}

@@ -207,7 +207,8 @@
           </div>
           <!--footer modal-->
           <div class="modal-footer"> 
-             <button type="button" id="btn_save_ben" class="btn btn-primary">Continuar</button>
+             <button type="button" id="btn_save_ben" class="btn btn-primary">Guardar</button>
+             <button type="button" id="btn_next_ben" class="btn btn-primary">Continuar</button>
           </div>
         </div>
         </div>
