@@ -54,7 +54,7 @@ $(function(){
 	});
 	$("#btn_input_benef").click(function(){
 		$("#div_beneficiarios").show();
-		$("#btn_input_benef").show();
+		$("#btn_save_ben").show();
 	}); 
 	$("#btn_omit").click(function(){
 		funcFinalizar();
@@ -72,10 +72,9 @@ $(function(){
 	$("#myModalAddAcciones").modal('hide');
 	});
 	$("#btn_cancel_2").click(function(){
+		$("#form_DatosPoblado")[0].reset();
 		$("#myModalAddAcciones").modal('hide');
-	});
-
-	
+	});	
 });
 
 
