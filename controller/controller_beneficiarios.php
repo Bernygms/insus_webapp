@@ -25,15 +25,24 @@ if (isset($_POST['op'])) {
     $pk_id_con =  (isset($_POST['pk_id_con']) ? $_POST['pk_id_con'] : NULL);
     #Variable de apoyo donde guardamos una cadena  de datos que seran enviados a la bd 
     $cadena_beneficiarios = "";
+    $cadena = "";
     #Instancia a la funcion modelo beneficiarios 
     $objBeneficiarios = new Model_beneficiarios();
     switch ($op) {
         case 'benef':
-            for ($i=0; $i < count($pk_id_con); $i++) { 
-                $cadena_beneficiarios.="'".$nombre_ben[$i]."','".$apellido_pat_ben[$i]."','".$apellido_mat_ben[$i]."'";
+            for ($i = 0; $i < count($nombre_ben); $i++) { 
+                $cadena.="('".$nombre_ben[$i]."','".$apellido_pat_ben[$i]."','".$apellido_mat_ben[$i]."','".$genero_ben[$i]."','".$estado_ben[$i]."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".$pago_ben[$i]."','".$apoyo_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
             }
-            $data["success"] = true;
-            $data["data"]["mensaje"] = $cadena_beneficiarios;
+            $cadena_beneficiarios =substr($cadena, 0,-1);
+            $cadena_beneficiarios.=";";
+            $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
+            if ($response == true) {
+                $data["success"] = true;
+                $data["data"]["mensaje"] = $response;
+            }else{
+                $data["data"]["mensaje"] = "No se registraron los datos, puede continuar dando click en omitir.";
+            }
+            //$data["data"]["mensaje"] = array("cadena" => $cadena_beneficiarios);
             echo json_encode($data);
             break;
         

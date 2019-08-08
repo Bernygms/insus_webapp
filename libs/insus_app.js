@@ -645,7 +645,7 @@ function autoCreateInputBenef(acciones, id_con){
 	console.log(acciones +"--- ok ---"+id_con)
 	var inputAcc = "";
 	inputAcc +='<form action="" id="from_addBeneficiarios">';
-	inputAcc +='<input type="text" id="op" name="op" value="benef" class="border border-primary">';
+	inputAcc +='<input type="text" hidden="true" id="op" name="op" value="benef" class="border border-primary">';
 	for (var i = 1; i <= acciones; i++) { 
 		inputAcc +='<h5 class="text-center">Beneficiario &nbsp;'+i+'</h5>'; 
 		inputAcc +='<table id="tabla" class=""><thead><tr><th>#&nbsp;&nbsp;&nbsp;&nbsp; </th><th>---Tipo--- </th><th>---- Columna ----</th><th>----Valor----</th></tr></thead>';
@@ -768,7 +768,7 @@ function autoCreateInputBenef(acciones, id_con){
 		inputAcc +='<td>'+ 16+'</td>';
 		inputAcc +='<td><label>pk_id_con</label></td>';
 		inputAcc +='<td><label>Id Contrato</label></td>';
-		inputAcc +='<td><input type="" id="pk_id_con" name="pk_id_con[]" value="'+id_con+'" class="border border-primary" disabled> </td>';
+		inputAcc +='<td><input type="text" hidden="true" id="pk_id_con" name="pk_id_con[]" value="'+id_con+'" class="border border-primary"> </td>';
 		inputAcc +='</tr>';
 	    inputAcc +='</tbody></table>';
     } 
@@ -781,7 +781,9 @@ function addBeneficiarios(){
 	data = new FormData($("#from_addBeneficiarios")[0]);
 	__Ajax_FormData(urlBenef,data).done(function(response){
 		if (response.success == true) {
-			toastrExito(response.data.mensaje,"Beneficiario´s");
+			//toastrExito(response.data.mensaje,"Beneficiario´s");
+			var obj = JSON.parse(response.data.mensaje); 
+			console.log(obj);
 		}else if(response.success == false){
 			toastrExito(response.data.mensaje,"Beneficiario´s");
 		}
