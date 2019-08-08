@@ -646,7 +646,7 @@ function autoCreateInputBenef(acciones, id_con){
 	//$("#btn_omit").hide();
 	console.log(acciones +"--- ok ---"+id_con)
 	var inputAcc = "";
-	inputAcc +='<form action="" id="from_addBeneficiarios">';
+	inputAcc +='<form action="" id="form_addBeneficiarios">';
 	inputAcc +='<input type="text" hidden="true" id="op" name="op" value="benef" class="border border-primary">';
 	for (var i = 1; i <= acciones; i++) { 
 		inputAcc +='<h5 class="text-center">Beneficiario &nbsp;'+i+'</h5>'; 
@@ -777,7 +777,7 @@ function autoCreateInputBenef(acciones, id_con){
 
 /*Funcion para agregar*/
 function addBeneficiarios(){
-	data = new FormData($("#from_addBeneficiarios")[0]);
+	data = new FormData($("#form_addBeneficiarios")[0]);
 	__Ajax_FormData(urlBenef,data).done(function(response){
 		if (response.success == true) {
 			toastrExito(response.data.mensaje,"Beneficiario´s");
@@ -791,4 +791,10 @@ function addBeneficiarios(){
 	}).fail(function(resp){
 		console.log(resp);
 	});
+}
+/*Funcion para vaciar las variables y compos que se utilizaron para agregar acciones y beneficiariosx*/
+function vaciarCamposAccBenef(){
+	hideInput();
+	$("#form_DatosPoblado")[0].reset();
+	$("#form_addBeneficiarios")[0].reset();
 }

@@ -88,53 +88,55 @@
         <!--body del modal-->
           <div id="div_datos_poblado">
             <div class="modal-body">
-             <div class="row">
-              <input id="id_raci" name="id_raci" type="hidden" class="form-control border border-primary" disabled/>
-              <div class="form-group col-md-3">
-                <label for="id">Entidad:</label>
-                <input id="entidad_raci" name="entidad_raci" type="text" class="form-control border border-primary" disabled/>
-              </div>   
-              <div class="form-group col-md-3">
-                <label for="id">Clave INSUS:</label>
-                <input id="clave_insus_raci" name="clave_insus_raci" type="text" class="form-control border border-primary" disabled/>
-              </div> 
-              <div class="form-group col-md-3">
-                <label for="id">Clave INEGI:</label>
-                <input id="clave_inegi_raci" name="clave_inegi_raci" type="text" class="form-control border border-primary" disabled/>
-              </div> 
-              <div class="form-group col-md-3">
-                <label for="id">Modalidad:</label>
-                <input id="modalidad_raci" name="modalidad_raci" type="text" class="form-control border border-primary" disabled/>
-              </div>  
-              <div class="form-group col-md-3">
-                <label for="id">Poblado:</label>
-                <input id="nombre_de_pob_raci" name="nombre_de_pob_raci" type="text" class="form-control border border-primary" disabled/>
-              </div> 
-              <div class="form-group col-md-3">
-                <label for="id">Municipio:</label>
-                <input id="municipio_raci" name="municipio_raci" type="text" class="form-control border border-primary" disabled/>
-              </div>     
-              <div class="form-group col-md-3">
-                <label for="id">Superficie:</label>
-                <input id="superficie_de_pob_raci" name="superficie_de_pob_raci" type="text" class="form-control border border-primary" disabled/>
-              </div>  
-              <div class="form-group col-md-3">
-                <label for="id">Programa Municipio:</label>
-                <input id="municipio_pro_raci" name="municipio_pro_raci" type="text" class="form-control border border-primary" disabled/>
-              </div> 
-              <div class="form-group col-md-3">
-                <label for="id">Fecha de Contratacion:</label>
-                <input id="fecha_ini_con_raci" name="fecha_ini_con_raci" type="text" class="form-control border border-primary" disabled/>
-              </div> 
-              <div class="form-group col-md-3">
-                <label for="id">Universo de lotes:</label>
-                <input id="universo_de_lot_raci" name="universo_de_lot_raci" type="text" class="form-control border border-primary" disabled/>
-              </div> 
-              <div class="form-group col-md-3">
-                <label for="id">Contratados:</label>
-                <input id="total_con_raci" name="total_con_raci" type="text" class="form-control border border-primary" disabled/>
-              </div> 
-            </div>
+                <form id="form_DatosPoblado">
+                 <div class="row">
+                      <input id="id_raci" name="id_raci" type="hidden" class="form-control border border-primary" disabled/>
+                      <div class="form-group col-md-3">
+                        <label for="id">Entidad:</label>
+                        <input id="entidad_raci" name="entidad_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div>   
+                      <div class="form-group col-md-3">
+                        <label for="id">Clave INSUS:</label>
+                        <input id="clave_insus_raci" name="clave_insus_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div> 
+                      <div class="form-group col-md-3">
+                        <label for="id">Clave INEGI:</label>
+                        <input id="clave_inegi_raci" name="clave_inegi_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div> 
+                      <div class="form-group col-md-3">
+                        <label for="id">Modalidad:</label>
+                        <input id="modalidad_raci" name="modalidad_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div>  
+                      <div class="form-group col-md-3">
+                        <label for="id">Poblado:</label>
+                        <input id="nombre_de_pob_raci" name="nombre_de_pob_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div> 
+                      <div class="form-group col-md-3">
+                        <label for="id">Municipio:</label>
+                        <input id="municipio_raci" name="municipio_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div>     
+                      <div class="form-group col-md-3">
+                        <label for="id">Superficie:</label>
+                        <input id="superficie_de_pob_raci" name="superficie_de_pob_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div>  
+                      <div class="form-group col-md-3">
+                        <label for="id">Programa Municipio:</label>
+                        <input id="municipio_pro_raci" name="municipio_pro_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div> 
+                      <div class="form-group col-md-3">
+                        <label for="id">Fecha de Contratacion:</label>
+                        <input id="fecha_ini_con_raci" name="fecha_ini_con_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div> 
+                      <div class="form-group col-md-3">
+                        <label for="id">Universo de lotes:</label>
+                        <input id="universo_de_lot_raci" name="universo_de_lot_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div> 
+                      <div class="form-group col-md-3">
+                        <label for="id">Contratados:</label>
+                        <input id="total_con_raci" name="total_con_raci" type="text" class="form-control border border-primary" disabled/>
+                      </div>  
+                  </div>
+              </form>
             <!--footer modal-->
             <div class="modal-footer">
               <button id="btn_next_1" type="button" class="btn btn-primary">Continuar</button>
@@ -217,7 +219,7 @@
           <div class="modal-body text-center">
             <h5 class="card-title">Fin del proceso de registro</h5>
             <p class="card-text">Hemos terminado de registrar las acciones.</p>
-            <a href="#" class="btn btn-primary">Finalizar</a>
+            <a id="btn_finalizar" class="btn btn-primary">Finalizar</a>
           </div>
         </div>
       </div>

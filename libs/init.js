@@ -55,15 +55,27 @@ $(function(){
 	$("#btn_input_benef").click(function(){
 		$("#div_beneficiarios").show();
 		$("#btn_input_benef").show();
-	});
-
+	}); 
 	$("#btn_omit").click(function(){
 		funcFinalizar();
-	});
-
+	}); 
 	$("#btn_save_ben").click(function(){
 		addBeneficiarios();
 	});
+	$("#btn_next_ben").click(function(){
+		vaciarCamposAccBenef();
+		funcFinalizar();
+	});
+	$("#btn_finalizar").click(function(){
+	hideInput();
+	$("#form_DatosPoblado")[0].reset();
+	$("#myModalAddAcciones").modal('hide');
+	});
+	$("#btn_cancel_2").click(function(){
+		$("#myModalAddAcciones").modal('hide');
+	});
+
+	
 });
 
 
