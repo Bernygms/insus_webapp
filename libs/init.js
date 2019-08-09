@@ -15,14 +15,14 @@ $(function(){
 				if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
 					 $(this).hide();
 	 			else
-					 $(this).show();
+					 $(this).show();X
 	 		});
 	});
 	var nombre_usu = $("#nombre_usu").val();
 	var apellidos_usu = $("#apellidos_usu").val();
 	//Agregamos el nombre perfil
 	$("#perfil_name").html(MaysInit(nombre_usu + " " + apellidos_usu));
-
+	/*Inicia validacion del modal add acciones y beneficiarios*/
 	//next en la primera btn del modal add
 	$("#btn_next_1").click(function(){
 		$("#div_datos_poblado").hide();
@@ -75,60 +75,23 @@ $(function(){
 		$("#form_DatosPoblado")[0].reset();
 		$("#myModalAddAcciones").modal('hide');
 	});	
-});
+	/*Finaliza validacion del modal add acciones y beneficiarios*/
+	/*before  and next */
+	$("#btn_nextPage").click(function(){
 
-
-/*Convertidor de texto mayusculas al inicio*/
-function MaysInit(intoText){
-	return intoText.toLowerCase()
-            .trim()
-            .split(' ')
-            .map( v => v[0].toUpperCase() + v.substr(1) )
-            .join(' '); 
-}
-//Libreria de JQuery DataTable() + Lenguage Espanol 
-function DataTable(IdOrClass){
-	$(IdOrClass).DataTable({
-		language: {
-				    "sProcessing":     "Procesando...",
-				    "sLengthMenu":     "Mostrar _MENU_ registros",
-				    "sZeroRecords":    "No se encontraron resultados",
-				    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-				    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-				    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-				    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-				    "sInfoPostFix":    "",
-				    "sSearch":         "Buscar:",
-				    "sUrl":            "",
-				    "sInfoThousands":  ",",
-				    "sLoadingRecords": "Cargando...",
-				    "oPaginate": {
-				        "sFirst":    "Primero",
-				        "sLast":     "Último",
-				        "sNext":     "Siguiente",
-				        "sPrevious": "Anterior"
-				    },
-				    "oAria": {
-				        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-				    }
-				}
+		
+		if (count >= 1 && count < 3) {
+			count++;
+			next_and_before(count);
+		}
+		console.log(count);
 	});
-}
-/*Navegacion para el modal  siguiente y anterior */
-function next_and_before(argument) {
-  // body...
-  if (argument == 1) { 
-
-   };
-}
-
-/*Navegacion para la  pagina siguiente y anterior */
-function nextPage(){
-	navigation++;
-	console.log('' + navigation + '' );
-}
-
-function beforePage(){
-	navigation--;
-}
+	$("#btn_beaforPage").click(function(){
+		if (count > 1) {
+			count--;
+			next_and_before(count);
+		}
+		
+	});
+	 
+}); 

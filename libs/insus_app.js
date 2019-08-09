@@ -1,12 +1,14 @@
   /******************************************************/ 
   	
-  	var navigation = 0;
+  	var navigation = 0;/*1:estados, 2: Raci,  3:Acciones y beneficiarios.*/
+  	var count = 0;
 	var estados = []; 
 	var raci = [];
 	var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
 	var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 	var total_nuevo_con = null;
 	var fecha = null;
+	var language = null;
 	var data = {};
  /******************************************************/
  /******************************************************/
@@ -45,6 +47,30 @@
     var url = "../controller/controller_insus_app.php";
     var urlBenef = "../controller/controller_beneficiarios.php";
 
+    var idioma_espanol = {
+			"sProcessing":     "Procesando...",
+			"sLengthMenu":     "Mostrar _MENU_ registros",
+			"sZeroRecords":    "No se encontraron resultados",
+			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			"sInfoPostFix":    "",
+			"sSearch":         "Buscar:",
+			"sUrl":            "",
+			"sInfoThousands":  ",",
+			"sLoadingRecords": "Cargando...",
+			"oPaginate":{
+			"sFirst":    "Primero",
+			"sLast":     "Último",
+			"sNext":     "Siguiente",
+			"sPrevious": "Anterior"
+			},
+			"oAria":{
+				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			}
+		};
 
  //Cosulta de estados 
 function init(){
@@ -81,7 +107,7 @@ function init(){
 				html_est += '</tbody></table>';
 				$("p#titulo_est").html("Estados");
 				$("div#tab_est").html(html_est);
-				navigation = 1;
+				count = 1;
 		    });
 		}else{
 			alert("No se encontro ningun resultado.");
@@ -137,9 +163,10 @@ function getIdEstados(entidad_raci){
 				$("p#titulo_raci").html("Raci");
 				$("div#tab_raci").html(html_raci);
 				$("div#div_raci").show();
-				//$("#table_raci").DataTable();
-				DataTable('.mytable');
-				navigation = 2;
+				$(".mytable").DataTable({
+					"language": idioma_espanol
+				});
+				count = 2;
 			});		
 	}else{
 		console.log('no ok');
@@ -797,4 +824,38 @@ function vaciarCamposAccBenef(){
 	hideInput();
 	$("#form_DatosPoblado")[0].reset();
 	$("#form_addBeneficiarios")[0].reset();
+}
+
+/*Convertidor de texto mayusculas al inicio*/
+function MaysInit(intoText){
+	return intoText.toLowerCase()
+            .trim()
+            .split(' ')
+            .map( v => v[0].toUpperCase() + v.substr(1) )
+            .join(' '); 
+} 
+
+/*Navegacion para el modal  siguiente y anterior */
+function next_and_before(argument) {
+
+  	if (argument == 1) { 
+	  	console.log("estads");	
+	  	$("#div_est").show();
+	  	$("#div_raci").hide();
+		$("#div_pro_benef").hide();
+		
+	   }else if(argument == 2){
+	   	console.log("raci");
+	   	$("#div_est").hide();
+	  	$("#div_raci").show();
+		$("#div_pro_benef").hide();
+	   }else if(argument == 3){
+	   	console.log("acciones y beneficiarios");
+	   	$("#div_est").hide();
+	  	$("#div_raci").hide();
+		$("#div_pro_benef").show();
+		
+	   }else{
+	   	console.log("estados por defecto");
+	   }
 }

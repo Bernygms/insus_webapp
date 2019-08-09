@@ -15,15 +15,15 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
-                  <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                  <!--btn regresar : regresar a pagina anterior -->
+                  <button type="button" id="btn_beaforPage" class="btn btn-primary bg-white btn-icon mr-3 d-none d-md-block">
                     <i class="mdi mdi-arrow-left-bold text-muted"></i>
                   </button>
-                  <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
+                  <!--btn continuar: buscar la pagina ya visitada.-->
+                  <button type="button" id="btn_nextPage" class="btn btn-primary bg-white btn-icon mr-3 d-none d-md-block ">
                     <i class="mdi mdi-arrow-right-bold text-muted"></i>
                   </button>
-                  <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                    <i class="mdi mdi-clock-outline text-muted"></i>
-                  </button>
+                  <!--btn para agregar nuevo poblado en el raci, solo admin-->
                   <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
                     <i class="mdi mdi-plus text-muted"></i>
                   </button>
@@ -48,7 +48,6 @@
                   <div id="tab_progra_benef" class="table-responsive"></div>
                   <br>
                 </div>
-                
               </div>
             </div>
           </div>
