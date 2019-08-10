@@ -155,7 +155,7 @@ function getIdEstados(entidad_raci){
 					}else{
 						html_raci +='<button type="button" onClick="getIdRaci('+ value['id_raci'] +')" class="btn  btn-inverse-success btn-rounded mdi mdi-account-multiple-plus data-toggle="tooltip" data-placement="right" title="Agregar nuevas acciones"></button>&nbsp;&nbsp;';
 					}
-					html_raci +='<button type="button"  class="btn btn-md btn-inverse-info btn-rounded mdi mdi-magnify data-toggle="tooltip" data-placement="right" title="Consultar acciones"></button>&nbsp;&nbsp;';
+					html_raci +='<button type="button" onClick="searchAccAndBenef('+ value['id_raci'] +')" class="btn btn-md btn-inverse-info btn-rounded mdi mdi-magnify data-toggle="tooltip" data-placement="right" title="Consultar acciones"></button>&nbsp;&nbsp;';
 					html_raci +='</td>';
 					html_raci +='</tr>';
 				});
@@ -841,21 +841,40 @@ function next_and_before(argument) {
   	if (argument == 1) { 
 	  	console.log("estads");	
 	  	$("#div_est").show();
+	  	$("#buscador_estados").show();
 	  	$("#div_raci").hide();
 		$("#div_pro_benef").hide();
 		
 	   }else if(argument == 2){
 	   	console.log("raci");
 	   	$("#div_est").hide();
+	   	$("#buscador_estados").hide();
 	  	$("#div_raci").show();
 		$("#div_pro_benef").hide();
 	   }else if(argument == 3){
 	   	console.log("acciones y beneficiarios");
 	   	$("#div_est").hide();
+	   	$("#buscador_estados").hide();
 	  	$("#div_raci").hide();
 		$("#div_pro_benef").show();
 		
 	   }else{
 	   	console.log("estados por defecto");
 	   }
+}
+
+/*Cunsulta de acciones y beneficiarios*/
+function searchAccAndBenef(id_raci){
+	$("div#div_raci").hide();
+	data = {op: "raci",pk_id_raci: id_raci}
+	$("p#titulo_prog_benef").html("Acciones y Beneficiarios");
+	$("div#tab_progra_benef").html("Suscces -------"+ id_raci);
+	$("div#div_pro_benef").show();
+
+	/*$(".mytable").DataTable({
+		"language": idioma_espanol
+	});*/
+	count = 3;
+
+
 }

@@ -77,12 +77,12 @@ $(function(){
 	});	
 	/*Finaliza validacion del modal add acciones y beneficiarios*/
 	/*before  and next */
-	$("#btn_nextPage").click(function(){
-
-		
+	$("#btn_nextPage").click(function(){ 		
 		if (count >= 1 && count < 3) {
 			count++;
 			next_and_before(count);
+		}else{
+
 		}
 		console.log(count);
 	});
@@ -90,8 +90,9 @@ $(function(){
 		if (count > 1) {
 			count--;
 			next_and_before(count);
-		}
-		
-	});
+		}else{
+
+		} 
+	}); 
 	 
 }); 
