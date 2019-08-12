@@ -14,7 +14,7 @@ if (isset($_POST['op'])) {
     $estado_ben =  (isset($_POST['estado_ben']) ? $_POST['estado_ben'] : NULL);
     $zona_ben =  (isset($_POST['zona_ben']) ? $_POST['zona_ben'] : NULL);
     $manazana_ben =  (isset($_POST['manazana_ben']) ? $_POST['manazana_ben'] : NULL);
-    $lote_ben =  (isset($_POST['lote_ben']) ? $_POST['lote_ben'] : NULL);
+    $lote_ben =  (isset($_POST['lote_ben']) ? $_POST['lote_ben'] : NULL);   
     $superficie_ben =  (isset($_POST['superficie_ben']) ? $_POST['superficie_ben'] : NULL);
     $uso_ben =  (isset($_POST['uso_ben']) ? $_POST['uso_ben'] : NULL);
     $numero_con_ben =  (isset($_POST['numero_con_ben']) ? $_POST['numero_con_ben'] : NULL);
@@ -44,8 +44,7 @@ if (isset($_POST['op'])) {
             }
             //$data["data"]["mensaje"] = array("cadena" => $cadena_beneficiarios);
             echo json_encode($data);
-            break;
-        
+            break; 
         default:
             $data["data"]["mensaje"] = "Datos incompletos, respuesta default.";
             echo json_encode($data);

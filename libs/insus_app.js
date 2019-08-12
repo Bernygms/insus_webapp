@@ -1,7 +1,5 @@
   /******************************************************/ 
-  	
-  	var navigation = 0;/*1:estados, 2: Raci,  3:Acciones y beneficiarios.*/
-  	var count = 0;
+   	var count = 0; /*1:estados, 2: Raci,  3:Acciones y beneficiarios.*/
 	var estados = []; 
 	var raci = [];
 	var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
@@ -45,6 +43,7 @@
     var pk_id_raci =  null;
     var pk_id_pro =  null;
     var url = "../controller/controller_insus_app.php";
+    var urlCont = "../controller/controller_contratos.php";
     var urlBenef = "../controller/controller_beneficiarios.php";
 
     var idioma_espanol = {
@@ -100,7 +99,7 @@ function init(){
 					html_est += '<tr>';
 					html_est +='<td>'+value['id_est']+'</td>';
 					html_est +='<td>'+MaysInit(value['nombre_est'])+'</td>';
-					html_est +='<td><button type="button" onClick="javascript:getIdEstados(' + value['id_est'] +')" class="btn btn-inverse-primary btn-rounded mdi mdi-magnify btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';
+					html_est +='<td><button type="button" onClick="javascript:getIdEstForShowRaci(' + value['id_est'] +')" class="btn btn-inverse-primary btn-rounded mdi mdi-magnify btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';
 					html_est += '</tr>';
 					total_estados = total_estados + key;
 				});
@@ -116,7 +115,7 @@ function init(){
 }
 
 //Consulta de raci
-function getIdEstados(entidad_raci){
+function getIdEstForShowRaci(entidad_raci){
 	console.log("ID de entidad: " + entidad_raci);
 	$("#buscador").hide();
 	var html_raci = "";
@@ -237,7 +236,7 @@ function valProgramas(){
 		if(pk_id_pro == 1) {
 			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				if ($.isEmptyObject(response.data.contratos) == true) {
 					hideInput();
 					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","Regla 1");
@@ -257,7 +256,7 @@ function valProgramas(){
 		}else if(pk_id_pro == 2){
 			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
 					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","Regla 2");
@@ -276,7 +275,7 @@ function valProgramas(){
 		}else if(pk_id_pro == 3){
 			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
 					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","Regla 3");
@@ -295,7 +294,7 @@ function valProgramas(){
 		}else if(pk_id_pro == 4){
 			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
 					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","PMU");
@@ -314,7 +313,7 @@ function valProgramas(){
 		}else if(pk_id_pro == 5){
 			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
 					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","PRAH");
@@ -333,7 +332,7 @@ function valProgramas(){
 		}else if(pk_id_pro == 6){
 			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
 					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","PASPRAH");
@@ -352,7 +351,7 @@ function valProgramas(){
 		}else if(pk_id_pro == 7){
 			data = {op: "programa", mes_con: mes_con, anno_con:anno_con, pk_id_pro: pk_id_pro, pk_id_raci:pk_id_raci};
 			console.log(mes_con,anno_con, pk_id_pro);
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				hideInput();
 				if ($.isEmptyObject(response.data.contratos) == true) {
 					toastrExito("Bienvenido a la ventana de agregar nuevas acciones.","OTROS");
@@ -496,7 +495,7 @@ function addAcciones(){
 			toastrError("El campo Apoyo INSUS, es obligatorio.","Apoyo INSUS");
 		}else{
 			desabledBtnAddAcciones();
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				if (response.success == true) {
 					if (accion_con == 1) {
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
@@ -504,7 +503,7 @@ function addAcciones(){
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
 					}
 					hideBtnAndShowNavBenef();
-					getIdEstados(entidad_raci);
+					getIdEstForShowRaci(entidad_raci);
 					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
@@ -519,7 +518,7 @@ function addAcciones(){
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
 			desabledBtnAddAcciones();
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				if (response.success == true) {
 					if (accion_con == 1) {
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
@@ -527,7 +526,7 @@ function addAcciones(){
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
 					}
 					hideBtnAndShowNavBenef();
-					getIdEstados(entidad_raci);
+					getIdEstForShowRaci(entidad_raci);
 					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
@@ -542,7 +541,7 @@ function addAcciones(){
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
 			desabledBtnAddAcciones();
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				if (response.success == true) {
 					if (accion_con == 1) {
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
@@ -550,7 +549,7 @@ function addAcciones(){
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
 					}
 					hideBtnAndShowNavBenef();
-					getIdEstados(entidad_raci);
+					getIdEstForShowRaci(entidad_raci);
 					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
@@ -567,7 +566,7 @@ function addAcciones(){
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				if (response.success == true) {
 					if (accion_con == 1) {
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
@@ -575,7 +574,7 @@ function addAcciones(){
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
 					}
 					hideBtnAndShowNavBenef();
-					getIdEstados(entidad_raci);
+					getIdEstForShowRaci(entidad_raci);
 					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
@@ -593,7 +592,7 @@ function addAcciones(){
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				if (response.success == true) {
 					if (accion_con == 1) {
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
@@ -601,7 +600,7 @@ function addAcciones(){
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
 					}
 					hideBtnAndShowNavBenef();
-					getIdEstados(entidad_raci);
+					getIdEstForShowRaci(entidad_raci);
 					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
@@ -619,7 +618,7 @@ function addAcciones(){
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
-			__Ajax_JSON(url,data).done(function(response){
+			__Ajax_JSON(urlCont,data).done(function(response){
 				if (response.success == true){
 					if (accion_con == 1) {
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>Una acción agregada con éxito, para continuar puedes agregar los datos del beneficiario dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
@@ -627,7 +626,7 @@ function addAcciones(){
 						$("#msg_exito_acciones").html('<div class="alert alert-success" role="alert"><strong>Bien hecho!&nbsp;</strong>'+accion_con+' Acciones agregadas con éxito, para continuar puedes agregar los datos de los beneficiarios dando click en continuar o dar click en omitir para terminar el proceso de registro.</div>');
 					}
 					hideBtnAndShowNavBenef();
-					getIdEstados(entidad_raci);
+					getIdEstForShowRaci(entidad_raci);
 					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
@@ -644,7 +643,7 @@ function addAcciones(){
 			toastrError("El campo Otros, es obligatorio.","Otros");
 		}else{
 			desabledBtnAddAcciones();
-			__Ajax_JSON(url,data).done(function(response){ 
+			__Ajax_JSON(urlCont,data).done(function(response){ 
 				if (response.success == true) {
 					funcFinalizar();	
 				}else if(response.success == false){
@@ -866,11 +865,13 @@ function next_and_before(argument) {
 /*Cunsulta de acciones y beneficiarios*/
 function searchAccAndBenef(id_raci){
 	$("div#div_raci").hide();
-	data = {op: "raci",pk_id_raci: id_raci}
+	data = {op: "cont_benef",pk_id_raci: id_raci}
 	$("p#titulo_prog_benef").html("Acciones y Beneficiarios");
 	$("div#tab_progra_benef").html("Suscces -------"+ id_raci);
 	$("div#div_pro_benef").show();
+	__Ajax_JSON(data).done(function(response){
 
+	});
 	/*$(".mytable").DataTable({
 		"language": idioma_espanol
 	});*/
