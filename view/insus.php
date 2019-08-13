@@ -7,7 +7,7 @@
                   <div class="mr-md-3 mr-xl-5">
                     
                   </div>
-                  <div class="d-flex">
+                  <div class="d-flex mr-top-10">
                     <i class="mdi mdi-home text-muted hover-cursor"></i>
                     <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Inicio</p>
                     <p class="text-primary mb-0 hover-cursor" id="name_user"></p>

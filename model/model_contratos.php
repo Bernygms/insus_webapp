@@ -62,16 +62,14 @@ class Model_contratos{
     #SELECT * FROM products t1 INNER JOIN productlines t2 ON t1.productline = t2.productline;
 
     public function consultaContratos($anno, $pk_id_raci){
-        $query = $this->db->prepare("SELECT * FROM contratos c INNER JOIN beneficiarios b 
-
-          ON c.id_con = b.id_ben  WHERE c.anno_con=:anno AND c.pk_id_raci=:pk_id_raci");
+        $query = $this->db->prepare("SELECT * FROM contratos c INNER JOIN beneficiarios b ON c.id_con = b.pk_id_con WHERE c.anno_con=:anno AND c.pk_id_raci=:pk_id_raci");
         $query->bindParam(":anno", $anno, PDO::PARAM_INT); 
         $query->bindParam(":pk_id_raci", $pk_id_raci, PDO::PARAM_INT);
         $valor = $query->execute();
         if ($valor) {   
             $data["success"] = true;
             $data["data"]["contratos"] = array();
-            while($row = $query->fetch(PDO::FETCH_ASSOC)){
+            while($row = $query->fetchAll(PDO::FETCH_ASSOC)){
                 $data["data"]["contratos"]  = $row;
             }
             return $data;   

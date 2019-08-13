@@ -5,6 +5,7 @@
 	var contratos_beneficiarios = [];
 	var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
 	var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+	var programasArray = new Array ("undefined[0]","Regla 1","Regla 2","Regla 3","PMU","PRAH","PASPRAH","OTROS");
 	var total_nuevo_con = null;
 	var fecha = null;
 	var language = null;
@@ -12,6 +13,7 @@
 	var html_est = "";
 	var html_raci = "";
 	var html_acc_benef = "";
+	var contador = 0;
  /******************************************************/
  /******************************************************/
     //Variable de entrada para la tabla estados 
@@ -834,8 +836,7 @@ function MaysInit(intoText){
             .split(' ')
             .map( v => v[0].toUpperCase() + v.substr(1) )
             .join(' '); 
-} 
-
+}  
 /*Navegacion para el modal  siguiente y anterior */
 function next_and_before(argument) {
 
@@ -860,27 +861,73 @@ function next_and_before(argument) {
 		$("#div_pro_benef").show();
 		
 	   }else{
-	   	console.log("Estados por defecto----");
+	   	console.log("Estados por defecto----"+argument);
 	   }
-}
+} 
 
 /*Cunsulta de acciones y beneficiarios*/
 function searchAccAndBenef(id_raci){
-	$("div#div_raci").hide();
+	html_acc_benef = "";
 	fecha = new Date();
 	anno_con = fecha.getFullYear();
-
-	data = {op: "cont_benef",pk_id_raci: id_raci, anno_con: anno_con}
-	$("p#titulo_prog_benef").html("Acciones y Beneficiarios");
-	$("div#tab_progra_benef").html("Suscces -------"+ id_raci);
-	$("div#div_pro_benef").show();
+	data = {op: "cont_benef",pk_id_raci: id_raci, anno_con: anno_con}; 
 	__Ajax_JSON(urlCont,data).done(function(response){
 		console.log(response);
+		if ($.isEmptyObject(response.data.contratos) == true) {
+				toastrInformativa(response.data.mensaje,"Consulta Acciones/Beneficiarios");	
+		}else{
+			contador = 0;
+			contratos_beneficiarios = response;
+			html_acc_benef += '<table id="tabla" class="table  table-hover mytable1"><thead><tr><th>#</th><th>Acción</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Programa</th><th>Nombre</th><th>Appelido Paterno</th><th>Apellido Materno</th><th>Genero</th>';
+			html_acc_benef += '<th>Estado</th><th>Zona</th><th>Manzana</th><th>Lote</th><th>Superficie Mts²</th><th>Uso</th><th>Número de contrato (DJ 1)</th><th>Número de contrato (DJ 2)</th><th>Pago Beneficiario</th><th>Apoyo Beneficiario</th><th>Fecha de contrato</th><th>Accion</th></tr></thead>';
+			$.each(response.data.contratos, function(key,value){
+				//console.log(value['nombre_est']);
+				contador++;
+				html_acc_benef += '<tr>';
+				html_acc_benef +='<td>'+contador+'</td>';
+				html_acc_benef +='<td>'+value['accion_con']+'</td>';
+				html_acc_benef +='<td>'+value['pago_ben_con']+'</td>';
+				html_acc_benef +='<td>'+value['apoyo_insus_con']+'</td>';
+				html_acc_benef +='<td>'+value['subsidio_con']+'</td>';
+				/*html_acc_benef +='<td>'+value['rectificaciones_con']+'</td>';
+				html_acc_benef +='<td>'+value['otros_con']+'</td>';*/
+				html_acc_benef +='<td>'+value['mes_con']+'</td>';
+				html_acc_benef +='<td>'+value['anno_con']+'</td>';
+				/*html_acc_benef +='<td>'+value['fecha_con']+'</td>';
+				html_acc_benef +='<td>'+value['fecha_edi_con']+'</td>';
+				html_acc_benef +='<td>'+value['pk_id_raci']+'</td>';*/
+				html_acc_benef +='<td>'+programasArray[value['pk_id_pro']]+" "+ value['pk_id_pro']+'</td>';
+				/*html_acc_benef +='<td>'+value['id_ben']+'</td>';*/
+				html_acc_benef +='<td>'+value['nombre_ben']+'</td>';
+				html_acc_benef +='<td>'+value['apellido_pat_ben']+'</td>';
+				html_acc_benef +='<td>'+value['apellido_mat_ben']+'</td>';
+				html_acc_benef +='<td>'+value['genero_ben']+'</td>';
+				html_acc_benef +='<td>'+value['estado_ben']+'</td>';
+				html_acc_benef +='<td>'+value['zona_ben']+'</td>';
+				html_acc_benef +='<td>'+value['manazana_ben']+'</td>';
+				html_acc_benef +='<td>'+value['lote_ben']+'</td>';
+				html_acc_benef +='<td>'+value['superficie_ben']+'</td>';
+				html_acc_benef +='<td>'+value['uso_ben']+'</td>';
+				html_acc_benef +='<td>'+value['numero_con_ben']+'</td>';
+				html_acc_benef +='<td>'+value['numero_con_compro_ben']+'</td>';
+				html_acc_benef +='<td>'+value['pago_ben']+'</td>';
+				html_acc_benef +='<td>'+value['apoyo_ben']+'</td>';
+				html_acc_benef +='<td>'+value['fecha_ben']+'</td>';
+				/*html_acc_benef +='<td>'+value['pk_id_con']+'</td>';*/
+				html_acc_benef +='<td><button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-magnify btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';
+				html_acc_benef += '</tr>';
+			});
+			html_acc_benef += '</tbody></table>';
+			$("div#div_raci").hide();
+			$("div#div_pro_benef").show();
+			$("p#titulo_prog_benef").html("Acciones y Beneficiarios");
+			$("div#tab_progra_benef").html(html_acc_benef);
+			count = 3;
+			$(".mytable1").DataTable({
+					"language": idioma_espanol
+			});
+		}
 	}).fail(function(resp){
 		console.log(resp);
-	});
-	/*$(".mytable").DataTable({
-		"language": idioma_espanol
-	});*/
-	count = 3; 
-}
+	}); 
+} 

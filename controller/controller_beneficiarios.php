@@ -30,20 +30,23 @@ if (isset($_POST['op'])) {
     $objBeneficiarios = new Model_beneficiarios();
     switch ($op) {
         case 'benef':
+
             for ($i = 0; $i < count($nombre_ben); $i++) { 
                 $cadena.="('".$nombre_ben[$i]."','".$apellido_pat_ben[$i]."','".$apellido_mat_ben[$i]."','".$genero_ben[$i]."','".$estado_ben[$i]."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".$pago_ben[$i]."','".$apoyo_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
             }
-            $cadena_beneficiarios = substr($cadena, 0,-1);
+            $cadena_beneficiarios = substr($cadena,0,-1);
             $cadena_beneficiarios.=";";
             $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
             if ($response == true) {
                 $data["success"] = true;
-                $data["data"]["mensaje"] = "Los datos fueron registrados correctamente.";   
+                $data["data"]["mensaje"] = "Los datos fueron registrados correctamente.";  
+                echo json_encode($data); 
             }else{
                 $data["data"]["mensaje"] = "No se registraron los datos, puede continuar dando click en omitir.";
+                echo json_encode($data);
             }
             //$data["data"]["mensaje"] = array("cadena" => $cadena_beneficiarios);
-            echo json_encode($data);
+            
             break; 
         default:
             $data["data"]["mensaje"] = "Datos incompletos, respuesta default.";
