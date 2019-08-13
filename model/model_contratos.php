@@ -24,7 +24,7 @@ class Model_contratos{
             return false;
         }
     }
-
+    #Funcion para agregar nuevo contrato o accion 
     public function addContratos($accion_con, $pago_ben_con, $apoyo_insus_con, $subsidio_con, $rectificaciones_con, $otros_con, $mes_con, $anno_con, $fecha_con, $fecha_edi_con, $pk_id_raci, $pk_id_pro){
         try {
             $query =  $this->db->prepare("INSERT INTO contratos(accion_con,pago_ben_con,apoyo_insus_con,subsidio_con,rectificaciones_con,otros_con,mes_con,anno_con,fecha_con,fecha_edi_con,pk_id_raci,pk_id_pro) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -57,5 +57,28 @@ class Model_contratos{
         }
         
     }
+    #Consulta de acciones + beneficiarios in process 
+    
+    #SELECT * FROM products t1 INNER JOIN productlines t2 ON t1.productline = t2.productline;
+
+    public function consultaContratos($anno, $pk_id_raci){
+        $query = $this->db->prepare("SELECT * FROM contratos c INNER JOIN beneficiarios b 
+
+          ON c.id_con = b.id_ben  WHERE c.anno_con=:anno AND c.pk_id_raci=:pk_id_raci");
+        $query->bindParam(":anno", $anno, PDO::PARAM_INT); 
+        $query->bindParam(":pk_id_raci", $pk_id_raci, PDO::PARAM_INT);
+        $valor = $query->execute();
+        if ($valor) {   
+            $data["success"] = true;
+            $data["data"]["contratos"] = array();
+            while($row = $query->fetch(PDO::FETCH_ASSOC)){
+                $data["data"]["contratos"]  = $row;
+            }
+            return $data;   
+        }else{
+            return false;
+        }
+    }
+
 
 }

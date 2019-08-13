@@ -324,16 +324,24 @@ if (isset($_POST['op'])) {
                         }
                    } #If end / consulta de raci  
             }else{
-                 echo "No encontramos los datos del programa.";
+                echo json_encode($data["data"]["mensaje"] = "No encontramos los datos del programa.");
+            }
+            break;
+        case 'cont_benef':
+            $response_contratos = $objContratos->consultaContratos($anno_con, $pk_id_raci);
+            if ($response_contratos) {
+                echo json_encode($response_contratos);
+            }else{
+                echo json_encode($data["data"]["mensaje"] = "No encontramos resultados sobre contratos.");
             }
             break;
         default:
             # mensaje por default
-            echo "Default, datos no encontrados";
+            echo json_encode($data["data"]["mensaje"] = "Default, datos no encontrados.");
             break;
     }
 }else{
-    echo "Datos incompletos, respuesta default.";
+    echo json_encode($data["data"]["mensaje"] = "Datos incompletos, respuesta default.");
 }
 
 ?>

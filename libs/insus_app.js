@@ -2,12 +2,16 @@
    	var count = 0; /*1:estados, 2: Raci,  3:Acciones y beneficiarios.*/
 	var estados = []; 
 	var raci = [];
+	var contratos_beneficiarios = [];
 	var estadosArray = ['undefined','AGUASCALIENTES','BAJA CALIFORNIA','BAJA CALIFORNIA SUR','CAMPECHE','COAHUILA','COLIMA','CHIAPAS','CHIHUAHUA','DISTRITO FEDERAL','DURANGO','GUANAJUATO','GUERRERO','HIDALGO','JALISCO','MÉXICO','MICHOACAN','MORELOS','NAYARIT','NUEVO LEON','OAXACA','PUEBLA','QUERETARO','QUINTANA ROO','SAN LUIS POTOSI','SINALOA','SONORA','TABASCO','TAMAULIPAS','TLAXCALA','VERACRUZ','YUCATAN','ZACATECAS'];
 	var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 	var total_nuevo_con = null;
 	var fecha = null;
 	var language = null;
 	var data = {};
+	var html_est = "";
+	var html_raci = "";
+	var html_acc_benef = "";
  /******************************************************/
  /******************************************************/
     //Variable de entrada para la tabla estados 
@@ -75,11 +79,10 @@
 function init(){
 	rol_usu = $("#rol_usu").val();
 	id_est = $("#pk_id_est").val();
+	html_est = "";
 	if (rol_usu == "" ||  id_est == "") {
 		$("#tab_est").html("<p>No termino de cargar la pagina, revisa tu coneccion de internet.</p>");
-	}else{
-		var html_est = "";
-		var total_estados = 0;
+	}else{ 
 		if (rol_usu==1 || rol_usu == 2 || rol_usu == 3) {	
 		$("div#search_est").html('<input id="buscar" type="text" class="form-control" placeholder="Buscar ahora" aria-label="search" aria-describedby="search">');	
 		
@@ -101,7 +104,6 @@ function init(){
 					html_est +='<td>'+MaysInit(value['nombre_est'])+'</td>';
 					html_est +='<td><button type="button" onClick="javascript:getIdEstForShowRaci(' + value['id_est'] +')" class="btn btn-inverse-primary btn-rounded mdi mdi-magnify btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';
 					html_est += '</tr>';
-					total_estados = total_estados + key;
 				});
 				html_est += '</tbody></table>';
 				$("p#titulo_est").html("Estados");
@@ -117,9 +119,9 @@ function init(){
 //Consulta de raci
 function getIdEstForShowRaci(entidad_raci){
 	console.log("ID de entidad: " + entidad_raci);
-	$("#buscador").hide();
-	var html_raci = "";
-	if (entidad_raci) {
+	$("#buscador").hide(); 
+	if (entidad_raci) { 
+		html_raci = "";
 		$("div#div_est").hide();
 		$("#buscador_estados").hide();
 		if (rol_usu == 1 || rol_usu == 2) {
@@ -838,44 +840,47 @@ function MaysInit(intoText){
 function next_and_before(argument) {
 
   	if (argument == 1) { 
-	  	console.log("estads");	
+	  	console.log("Estads----");	
 	  	$("#div_est").show();
 	  	$("#buscador_estados").show();
 	  	$("#div_raci").hide();
 		$("#div_pro_benef").hide();
-		
+			
 	   }else if(argument == 2){
-	   	console.log("raci");
+	   	console.log("Raci----");
 	   	$("#div_est").hide();
 	   	$("#buscador_estados").hide();
 	  	$("#div_raci").show();
 		$("#div_pro_benef").hide();
 	   }else if(argument == 3){
-	   	console.log("acciones y beneficiarios");
+	   	console.log("Acciones y Beneficiarios----");
 	   	$("#div_est").hide();
 	   	$("#buscador_estados").hide();
 	  	$("#div_raci").hide();
 		$("#div_pro_benef").show();
 		
 	   }else{
-	   	console.log("estados por defecto");
+	   	console.log("Estados por defecto----");
 	   }
 }
 
 /*Cunsulta de acciones y beneficiarios*/
 function searchAccAndBenef(id_raci){
 	$("div#div_raci").hide();
-	data = {op: "cont_benef",pk_id_raci: id_raci}
+	fecha = new Date();
+	anno_con = fecha.getFullYear();
+
+	data = {op: "cont_benef",pk_id_raci: id_raci, anno_con: anno_con}
 	$("p#titulo_prog_benef").html("Acciones y Beneficiarios");
 	$("div#tab_progra_benef").html("Suscces -------"+ id_raci);
 	$("div#div_pro_benef").show();
-	__Ajax_JSON(data).done(function(response){
-
+	__Ajax_JSON(urlCont,data).done(function(response){
+		console.log(response);
+	}).fail(function(resp){
+		console.log(resp);
 	});
 	/*$(".mytable").DataTable({
 		"language": idioma_espanol
 	});*/
-	count = 3;
-
-
+	count = 3; 
 }

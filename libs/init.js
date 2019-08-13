@@ -15,7 +15,7 @@ $(function(){
 				if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
 					 $(this).hide();
 	 			else
-					 $(this).show();X
+					 $(this).show();
 	 		});
 	});
 	var nombre_usu = $("#nombre_usu").val();
@@ -93,6 +93,7 @@ $(function(){
 		}else{
 
 		} 
+		console.log(count);
 	}); 
 	 
 }); 
