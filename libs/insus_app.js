@@ -133,7 +133,7 @@ function getIdEstForShowRaci(entidad_raci){
 		__Ajax_JSON(url,data).done(function(response){
 				raci = response;
 				//console.log(response);
-				html_raci += '<table id="raci" class="table table-hover mytable"><thead><tr><!--<th>#</th>--><th>Cv.INSUS</th><th>Cv.INEGI</th><th>Tipo</th><th>Poblado</th><th>Municipio</th><th>Superficie</th><!--<th>Municipio</th><th>Contrataciòn</th>--><th>Lotes</th><th>Contratados</th><th>Pendientes</th><th>Accion</th></tr>';
+				html_raci += '<table id="raci" class="table table-hover mytable"><thead><tr><!--<th>#</th>--><th data-toggle="tooltip" data-placement="top" title="Tooltip on top">Cv.INSUS</th><th>Cv.INEGI</th><th>Tipo</th><th>Poblado</th><th>Municipio</th><th>Superficie</th><!--<th>Municipio</th><th>Contrataciòn</th>--><th>Lotes</th><th>Contratados</th><th>Pendientes</th><th>Accion</th></tr>';
 				html_raci += '</thead><tbody>';
 				$.each(response.data.raci, function(key,value){
 					//console.log(value['nombre_est']);
@@ -508,7 +508,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -531,7 +531,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -554,7 +554,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -579,7 +579,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -605,7 +605,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -631,7 +631,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -671,7 +671,7 @@ function funcFinalizar(){
 		$("#div_finalizar").show();
 }
 
-function autoCreateInputBenef(acciones, id_con){
+function autoCreateInputBenef(acciones, id_con,id_pro){
 	//$("#btn_input_benef").hide();
 	//$("#btn_omit").hide();
 	console.log(acciones +"--- ok ---"+id_con)
@@ -681,31 +681,27 @@ function autoCreateInputBenef(acciones, id_con){
 	for (var i = 1; i <= acciones; i++) { 
 		inputAcc +='<h5 class="text-center">Beneficiario &nbsp;'+i+'</h5>'; 
 		inputAcc +='<table id="tabla" class=""><thead><tr><th>#&nbsp;&nbsp;&nbsp;&nbsp; </th><th>---Tipo--- </th><th>---- Columna ----</th><th>----Valor----</th></tr></thead>';
-		inputAcc +='<tr  width="1">';
+		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 1 +'</td>';
-		inputAcc +='<td><label>Texto</label></td>';
-		inputAcc +='<td><label>Nombre(s)</label></td>';
+		inputAcc +='<td><label>Nombre(s)</label></td>'; 
 		inputAcc +='<td><input type="text" id="nombre_ben" name="nombre_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 2 +'</td>';
-		inputAcc +='<td><label>Texto</label></td>';
-		inputAcc +='<td><label>Apellido Parterno</label></td>';
+		inputAcc +='<td><label>Apellido Parterno</label></td>'; 
 		inputAcc +='<td><input type="text" id="apellido_pat_ben" name="apellido_pat_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
-		inputAcc +='<td>'+ 3 +'</td>';
-		inputAcc +='<td><label>Texto</label></td>';
-		inputAcc +='<td><label>Apellido Materno</label></td>';
+		inputAcc +='<td>'+ 3 +'</td>'; 
+		inputAcc +='<td><label>Apellido Materno</label></td>'; 
 		inputAcc +='<td><input type="text" id="apellido_mat_ben" name="apellido_mat_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 4 +'</td>';
-		inputAcc +='<td><label>Automático</label></td>';
-		inputAcc +='<td><label>Genero</label></td>';
+		inputAcc +='<td><label>Genero</label></td>'; 
 		inputAcc +='<td>';
-		inputAcc +='<select id="genero_ben" name="genero_ben" class="border border-primary">';
-            inputAcc +='<option selected>Selecciona el genero</option>';
+		inputAcc +='<select id="genero_ben" name="genero_ben[]" class="border border-primary">';
+            inputAcc +='<option selected></option>';
             inputAcc +='<option value="1">Hombre</option>';
             inputAcc +='<option value="2">Mujer</option>';
             inputAcc +='<option value="3">Otro</option>';
@@ -713,53 +709,43 @@ function autoCreateInputBenef(acciones, id_con){
         inputAcc +='</td>';
 		inputAcc +='</tr>';
 		inputAcc +='<td>'+ 5 +'</td>';
-		inputAcc +='<td><label>Automático</label></td>';
-		inputAcc +='<td><label>Estado Civil</label></td>';
+		inputAcc +='<td><label>Estado Civil</label></td>'; 
 		inputAcc +='<td>';
-		inputAcc +='<select id="estado_ben" name="estado_ben" class="border border-primary">';
-            inputAcc +='<option selected>Selecciona el estado civil</option>';
-            inputAcc +='<option value="Soltero">Soltero</option>';
-            inputAcc +='<option value="Soltera">Soltera</option>';
-            inputAcc +='<option value="Casado">Casado</option>';
-            inputAcc +='<option value="Casada">Casada</option>';
-            inputAcc +='<option value="Viudo">Viudo</option>';
-            inputAcc +='<option value="Viuda">Viuda</option>';
-            inputAcc +='<option value="Divorciado">Divorciado</option>';
-            inputAcc +='<option value="Divorciada">Divorciada</option>';
+		inputAcc +='<select id="estado_ben" name="estado_ben[]" class="border border-primary">';
+            inputAcc +='<option selected></option>';
+            inputAcc +='<option value="Solter@">Solter@</option>';
+            inputAcc +='<option value="Casado@">Casad@</option>';
+            inputAcc +='<option value="Viud@">Viud@</option>';
+            inputAcc +='<option value="Divorciado@">Divorciad@</option>';
         inputAcc +='</select>';
         inputAcc +='</td>';
 		inputAcc +='</tr>'; 
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 6 +'</td>';
-		inputAcc +='<td><label>Numerico</label></td>';
-		inputAcc +='<td><label>Zona</label></td>';
+		inputAcc +='<td><label>Zona</label></td>'; 
 		inputAcc +='<td><input type="text" id="zona_ben" name="zona_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 7 +'</td>';
-		inputAcc +='<td><label>Numerico</label></td>';
-		inputAcc +='<td><label>Manzana</label></td>';
+		inputAcc +='<td><label>Manzana</label></td>'; 
 		inputAcc +='<td><input type="text" id="manazana_ben" name="manazana_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 8 +'</td>';
-		inputAcc +='<td><label>Numerico</label></td>';
-		inputAcc +='<td><label>Lote</label></td>';
+		inputAcc +='<td><label>Lote</label></td>'; 
 		inputAcc +='<td><input type="text" id="lote_ben" name="lote_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
-		inputAcc +='<td>'+ 9 +'</td>';
-		inputAcc +='<td><label>Numerico</label></td>';
-		inputAcc +='<td><label>Superficie Mts&sup2;</label></td>';
+		inputAcc +='<td>'+ 9 +'</td>'; 
+		inputAcc +='<td><label>Superficie Mts&sup2;</label></td>'; 
 		inputAcc +='<td><input type="text" id="superficie_ben" name="superficie_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 10 +'</td>';
-		inputAcc +='<td><label>Automático</label></td>';
-		inputAcc +='<td><label>Uso</label></td>';
+		inputAcc +='<td><label>Uso</label></td>'; 
 		inputAcc +='<td>';
 		inputAcc +='<select id="uso_ben" name="uso_ben[]" class="border border-primary">';
-            inputAcc +='<option selected>Selecciona el tipo de uso</option>';
+            inputAcc +='<option selected></option>';
             inputAcc +='<option value="D">D</option>';
             inputAcc +='<option value="CH">CH</option>';
             inputAcc +='<option value="EC">EC</option>';
@@ -768,33 +754,33 @@ function autoCreateInputBenef(acciones, id_con){
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 11 +'</td>';
-		inputAcc +='<td><label>Letras y Número&nbsp;&nbsp;</label></td>';
-		inputAcc +='<td><label>Número de contrato (DJ 1)&nbsp;&nbsp;</label></td>';
+		inputAcc +='<td><label>Número de contrato (DJ 1)&nbsp;&nbsp;</label></td>'; 
 		inputAcc +='<td><input type="text" id="numero_con_ben" name="numero_con_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 12+'</td>';
-		inputAcc +='<td><label>Letras y Número&nbsp;&nbsp; </label></td>';
-		inputAcc +='<td><label>Número de contrato (DJ 2)&nbsp;&nbsp; </label></td>';
+		inputAcc +='<td><label>Número de contrato (DJ 2)&nbsp;&nbsp; </label></td>'; 
 		inputAcc +='<td><input type="text" id="numero_con_compro_ben" name="numero_con_compro_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 13+'</td>';
-		inputAcc +='<td><label>Fecha</label></td>';
-		inputAcc +='<td><label>Fecha de contrato</label></td>';
+		inputAcc +='<td><label>Fecha de contrato</label></td>'; 
 		inputAcc +='<td><input type="date" id="fecha_ben" name="fecha_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 14+'</td>';
-		inputAcc +='<td><label>Numerico</label></td>';
-		inputAcc +='<td><label>Pago Beneficiario</label></td>';
+		inputAcc +='<td><label>Pago Beneficiario</label></td>'; 
 		inputAcc +='<td><input type="text" id="pago_ben" name="pago_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 15+'</td>';
-		inputAcc +='<td><label>Numerico</label></td>';
-		inputAcc +='<td><label>Apoyo Beneficiario</label></td>';
-		inputAcc +='<td><input type="text" id="apoyo_ben" name="apoyo_ben[]" class="border border-primary"></td>';
+		inputAcc +='<td><label>Apoyo INSUS</label></td>';
+		inputAcc +='<td><input type="text" id="apoyo_insus_ben" name="apoyo_insus_ben[]" class="border border-primary"></td>';
+		inputAcc +='</tr>';
+		inputAcc +='<tr>';
+		inputAcc +='<td>'+ 16+'</td>';
+		inputAcc +='<td><label>Subsidio</label></td>';
+		inputAcc +='<td><input type="text" id="subsidio_ben" name="subsidio_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td><input type="text" hidden="true" id="pk_id_con" name="pk_id_con[]" value="'+id_con+'"> </td>';
@@ -804,7 +790,12 @@ function autoCreateInputBenef(acciones, id_con){
     inputAcc +='</form>'; 
 	$("#inputBeneficiarios").html(inputAcc);
 }
+/*Funciono: antes de que se envien los datos al servidor web php, validamos los campos con js, campos de tipo arreglo.*/
+function valArrayInputsBenef(){
+	console.log("Inicia validacion , campos de tipo array para Beneficiario´s");
 
+	console.log("Finaliza validacion , campos de tipo array para Beneficiario´s")
+}
 /*Funcion para agregar*/
 function addBeneficiarios(){
 	data = new FormData($("#form_addBeneficiarios")[0]);
@@ -820,6 +811,7 @@ function addBeneficiarios(){
 		}
 	}).fail(function(resp){
 		console.log(resp);
+		toastrExito("Error del sistema, no se registraron los datos.","Beneficiario´s");
 	});
 }
 /*Funcion para vaciar las variables y compos que se utilizaron para agregar acciones y beneficiariosx*/
@@ -848,7 +840,7 @@ function next_and_before(argument) {
 		$("#div_pro_benef").hide();
 			
 	   }else if(argument == 2){
-	   	console.log("Raci----");
+	   	console.log("Raci----");	
 	   	$("#div_est").hide();
 	   	$("#buscador_estados").hide();
 	  	$("#div_raci").show();
@@ -879,7 +871,7 @@ function searchAccAndBenef(id_raci){
 			contador = 0;
 			contratos_beneficiarios = response;
 			html_acc_benef += '<table id="tabla" class="table  table-hover mytable1"><thead><tr><th>#</th><th>Acción</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Programa</th><th>Nombre</th><th>Appelido Paterno</th><th>Apellido Materno</th><th>Genero</th>';
-			html_acc_benef += '<th>Estado</th><th>Zona</th><th>Manzana</th><th>Lote</th><th>Superficie Mts²</th><th>Uso</th><th>Número de contrato (DJ 1)</th><th>Número de contrato (DJ 2)</th><th>Pago Beneficiario</th><th>Apoyo Beneficiario</th><th>Fecha de contrato</th><th>Accion</th></tr></thead>';
+			html_acc_benef += '<th>Estado</th><th>Zona</th><th>Manzana</th><th>Lote</th><th>Superficie Mts²</th><th>Uso</th><th>Número de contrato (DJ 1)</th><th>Número de contrato (DJ 2)</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Fecha de contrato</th><th>Accion</th></tr></thead>';
 			$.each(response.data.contratos, function(key,value){
 				//console.log(value['nombre_est']);
 				contador++;
@@ -911,7 +903,8 @@ function searchAccAndBenef(id_raci){
 				html_acc_benef +='<td>'+value['numero_con_ben']+'</td>';
 				html_acc_benef +='<td>'+value['numero_con_compro_ben']+'</td>';
 				html_acc_benef +='<td>'+value['pago_ben']+'</td>';
-				html_acc_benef +='<td>'+value['apoyo_ben']+'</td>';
+				html_acc_benef +='<td>'+value['apoyo_insus_ben']+'</td>';
+				html_acc_benef +='<td>'+value['subsidio_ben']+'</td>';
 				html_acc_benef +='<td>'+value['fecha_ben']+'</td>';
 				/*html_acc_benef +='<td>'+value['pk_id_con']+'</td>';*/
 				html_acc_benef +='<td><button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-magnify btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';

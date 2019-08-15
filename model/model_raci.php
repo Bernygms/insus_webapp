@@ -38,7 +38,7 @@ class Model_raci{
             return false;
         }
     }
-
+    #Funcion para actualizar el total de contratados en raci
     public function editRaciPoblado($id_raci, $new_total_cont_raci){
         try {
             $query = $this->db->prepare("UPDATE raci SET  total_con_raci=:total_con_raci  WHERE id_raci = :id_raci");

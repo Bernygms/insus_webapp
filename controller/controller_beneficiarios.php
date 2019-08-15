@@ -20,7 +20,8 @@ if (isset($_POST['op'])) {
     $numero_con_ben =  (isset($_POST['numero_con_ben']) ? $_POST['numero_con_ben'] : NULL);
     $numero_con_compro_ben =  (isset($_POST['numero_con_compro_ben']) ? $_POST['numero_con_compro_ben'] : NULL);
     $pago_ben =  (isset($_POST['pago_ben']) ? $_POST['pago_ben'] : NULL);
-    $apoyo_ben =  (isset($_POST['apoyo_ben']) ? $_POST['apoyo_ben'] : NULL);
+    $apoyo_insus_ben =  (isset($_POST['apoyo_insus_ben']) ? $_POST['apoyo_insus_ben'] : NULL);
+    $subsidio_ben =  (isset($_POST['subsidio_ben']) ? $_POST['subsidio_ben'] : NULL);
     $fecha_ben =  (isset($_POST['fecha_ben']) ? $_POST['fecha_ben'] : NULL);
     $pk_id_con =  (isset($_POST['pk_id_con']) ? $_POST['pk_id_con'] : NULL);
     #Variable de apoyo donde guardamos una cadena  de datos que seran enviados a la bd 
@@ -32,9 +33,9 @@ if (isset($_POST['op'])) {
         case 'benef':
 
             for ($i = 0; $i < count($nombre_ben); $i++) { 
-                $cadena.="('".$nombre_ben[$i]."','".$apellido_pat_ben[$i]."','".$apellido_mat_ben[$i]."','".$genero_ben[$i]."','".$estado_ben[$i]."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".$pago_ben[$i]."','".$apoyo_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
+                $cadena.="('".$nombre_ben[$i]."','".$apellido_pat_ben[$i]."','".$apellido_mat_ben[$i]."','".$genero_ben[$i]."','".$estado_ben[$i]."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".$pago_ben[$i]."','".$apoyo_insus_ben[$i]."','".$subsidio_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
             }
-            $cadena_beneficiarios = substr($cadena,0,-1);
+            $cadena_beneficiarios = substr($cadena,0,-1);   
             $cadena_beneficiarios.=";";
             $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
             if ($response == true) {
@@ -43,7 +44,7 @@ if (isset($_POST['op'])) {
                 echo json_encode($data); 
             }else{
                 $data["data"]["mensaje"] = "No se registraron los datos, puede continuar dando click en omitir.";
-                echo json_encode($data);
+                echo json_encode($cadena_beneficiarios);
             }
             //$data["data"]["mensaje"] = array("cadena" => $cadena_beneficiarios);
             

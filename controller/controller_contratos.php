@@ -112,15 +112,14 @@ if (isset($_POST['op'])) {
                                             echo $response_contratos; 
                                         }
                                     }else{
-                                        if($response_contratos == false){
+                                        if($response_contratos == false){   
                                             $data["data"]["mensaje"] = "No se pudo agregar, revice su conección."; 
                                             echo json_encode($data);
                                         } 
                                     }
                                 }else{
                                     $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes."; 
-                                    echo json_encode($data);
-
+                                    echo json_encode($data); 
                                 }
                                 
                             } else {

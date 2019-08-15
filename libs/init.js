@@ -60,7 +60,9 @@ $(function(){
 		funcFinalizar();
 	}); 
 	$("#btn_save_ben").click(function(){
-		addBeneficiarios();
+		valArrayInputsBenef();
+		//La siguiente funcion , es encargado de registrar los beneficiarios envia datos en formato tipo array 
+		//addBeneficiarios();
 	});
 	$("#btn_next_ben").click(function(){
 		vaciarCamposAccBenef();
@@ -87,7 +89,7 @@ $(function(){
 		console.log(count);
 	});
 	$("#btn_beaforPage").click(function(){
-		if (count > 1) {
+		if (count > 1 && count <= 3) {
 			count--;
 			next_and_before(count);
 		}else{
@@ -95,5 +97,9 @@ $(function(){
 		} 
 		console.log(count);
 	}); 
+
+	/*Validacion de input´s de add Beneficiarios*/
+
+
 	 
 }); 
