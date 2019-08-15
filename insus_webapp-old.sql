@@ -1,11 +1,12 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-08-2019 a las 02:41:44
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.1.27
+-- Tiempo de generación: 18-07-2019 a las 23:43:51
+-- Versión del servidor: 10.3.16-MariaDB
+-- Versión de PHP: 7.3.7
+-- ok 
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,8 +44,7 @@ CREATE TABLE `beneficiarios` (
   `numero_con_ben` varchar(20) NOT NULL,
   `numero_con_compro_ben` varchar(20) NOT NULL,
   `pago_ben` decimal(10,0) NOT NULL,
-  `apoyo_insus_ben` decimal(10,0) NOT NULL,
-  `subsidio_ben` decimal(10,0) NOT NULL,
+  `apoyo_ben` decimal(10,0) NOT NULL,
   `fecha_ben` date NOT NULL,
   `pk_id_con` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -70,6 +70,14 @@ CREATE TABLE `contratos` (
   `pk_id_raci` int(11) NOT NULL,
   `pk_id_pro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `contratos`
+--
+
+INSERT INTO `contratos` (`id_con`, `accion_con`, `pago_ben_con`, `apoyo_insus_con`, `subsidio_con`, `rectificaciones_con`, `otros_con`, `mes_con`, `anno_con`, `fecha_con`, `fecha_edi_con`, `pk_id_raci`, `pk_id_pro`) VALUES
+(7, 2, '12000', '2000', '12000', '0', '0', 'Julio', '2019', '2019-07-01', '2019-07-02', 1, 1),
+(8, 3, '1222', '1222', '1222', '122', '122', 'Julio', '2019', '2019-07-02', '2019-07-02', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -189,40 +197,40 @@ CREATE TABLE `raci` (
 --
 
 INSERT INTO `raci` (`id_raci`, `entidad_raci`, `clave_insus_raci`, `clave_inegi_raci`, `modalidad_raci`, `nombre_de_pob_raci`, `municipio_raci`, `superficie_de_pob_raci`, `municipio_pro_raci`, `fecha_ini_con_raci`, `universo_de_lot_raci`, `contratados_raci`, `total_con_raci`, `pendientes_de_con_raci`) VALUES
-(1, 1, '0003-7', '10010001', 'EXP', 'LAS CUMBRES', ' AGUASCALIENTES', '54-20-52.00', '0', '0000-00-00', 1771, 0, 1122, 0),
-(2, 1, '0004-4', '10010001', 'EXP', 'LAS CUMBRES II', ' AGUASCALIENTES', '02-88-91.92', '0', '0000-00-00', 134, 0, 43, 1),
-(3, 1, '0006-9', '10010001', 'EXP', 'LA HUERTA', ' AGUASCALIENTES', '87-90-29.90', '0', '0000-00-00', 3342, 0, 79, 0),
-(4, 1, '0007-6', '10010001', 'EXP', 'LA HUERTA II', ' AGUASCALIENTES', '38-05-59.00', '0', '0000-00-00', 345, 0, 0, 0),
-(5, 1, '0008-3', '10010001', 'EXP', 'LOS POCITOS', ' AGUASCALIENTES', '15-09-80.10', '0', '0000-00-00', 634, 0, 2, 1),
-(6, 1, '0011-8', '10010001', 'EXP', 'OJO CALIENTE', ' AGUASCALIENTES', '21-42-09.69', '0', '0000-00-00', 289, 0, 0, 3),
-(7, 1, '0012-5', '10010001', 'EXP', 'SALTO DE OJO CALIENTE', ' AGUASCALIENTES', '29-97-37.50', '0', '0000-00-00', 837, 0, 5, 1),
-(8, 1, '0016-4', '10030001', 'EXP', 'CALVILLO', ' CALVILLO', '25-84-60.86', '0', '0000-00-00', 566, 0, 0, 16),
-(9, 1, '0019-6', '10050001', 'EXP', 'JESUS MARIA', 'JESUS MARIA', '37-04-75.73', '0', '0000-00-00', 932, 0, 0, 1),
-(10, 1, '0020-6', '10060261', 'EXP', 'COLONIA PROGRESO', 'PABELLON DE ARTEAGA', '29-20-54.35', '0', '0000-00-00', 671, 0, 0, 0),
-(11, 1, '0024-5', '10080001', 'EXP', 'SAN JOSE DE GRACIA ', 'SAN JOSE DE GRACIA', '38-19-54.56', '0', '0000-00-00', 416, 0, 0, 22),
+(1, 1, '0003-7', '10010001', 'EXP', 'LAS CUMBRES', ' AGUASCALIENTES', '54-20-52.00', '0', '0000-00-00', 1771, 0, 1771, 0),
+(2, 1, '0004-4', '10010001', 'EXP', 'LAS CUMBRES II', ' AGUASCALIENTES', '02-88-91.92', '0', '0000-00-00', 134, 0, 133, 1),
+(3, 1, '0006-9', '10010001', 'EXP', 'LA HUERTA', ' AGUASCALIENTES', '87-90-29.90', '0', '0000-00-00', 3342, 0, 3342, 0),
+(4, 1, '0007-6', '10010001', 'EXP', 'LA HUERTA II', ' AGUASCALIENTES', '38-05-59.00', '0', '0000-00-00', 345, 0, 345, 0),
+(5, 1, '0008-3', '10010001', 'EXP', 'LOS POCITOS', ' AGUASCALIENTES', '15-09-80.10', '0', '0000-00-00', 634, 0, 633, 1),
+(6, 1, '0011-8', '10010001', 'EXP', 'OJO CALIENTE', ' AGUASCALIENTES', '21-42-09.69', '0', '0000-00-00', 289, 0, 286, 3),
+(7, 1, '0012-5', '10010001', 'EXP', 'SALTO DE OJO CALIENTE', ' AGUASCALIENTES', '29-97-37.50', '0', '0000-00-00', 837, 0, 836, 1),
+(8, 1, '0016-4', '10030001', 'EXP', 'CALVILLO', ' CALVILLO', '25-84-60.86', '0', '0000-00-00', 566, 0, 550, 16),
+(9, 1, '0019-6', '10050001', 'EXP', 'JESUS MARIA', 'JESUS MARIA', '37-04-75.73', '0', '0000-00-00', 932, 0, 931, 1),
+(10, 1, '0020-6', '10060261', 'EXP', 'COLONIA PROGRESO', 'PABELLON DE ARTEAGA', '29-20-54.35', '0', '0000-00-00', 671, 0, 671, 0),
+(11, 1, '0024-5', '10080001', 'EXP', 'SAN JOSE DE GRACIA ', 'SAN JOSE DE GRACIA', '38-19-54.56', '0', '0000-00-00', 416, 0, 394, 22),
 (12, 1, '0025-2', '10080001', 'EXP', 'SAN JOSE DE GRACIA II', 'SAN JOSE DE GRACIA', '29-40-54.69', '0', '0000-00-00', 333, 0, 315, 18),
-(13, 1, '0028-4', '10090012', 'EXP', 'EL CHAYOTE', ' TEPEZALA', '34-86-86.00', '0', '0000-00-00', 319, 0, 319, 2),
-(14, 1, '0035-8', '10020059', 'EXP', 'VIUDAS DE ORIENTE', ' ASIENTOS', '50-34-93.37', '0', '0000-00-00', 869, 0, 0, 81),
-(15, 1, '0036-5', '10100001', 'EXP', 'PALO ALTO', ' EL LLANO', '147-26-32.00', '0', '0000-00-00', 1487, 0, 0, 217),
+(13, 1, '0028-4', '10090012', 'EXP', 'EL CHAYOTE', ' TEPEZALA', '34-86-86.00', '0', '0000-00-00', 319, 0, 317, 2),
+(14, 1, '0035-8', '10020059', 'EXP', 'VIUDAS DE ORIENTE', ' ASIENTOS', '50-34-93.37', '0', '0000-00-00', 869, 0, 788, 81),
+(15, 1, '0036-5', '10100001', 'EXP', 'PALO ALTO', ' EL LLANO', '147-26-32.00', '0', '0000-00-00', 1487, 0, 1270, 217),
 (16, 1, '0055-9', '10010001', 'EXP', 'LOS POCITOS II', ' AGUASCALIENTES', '01-39-34.00', '0', '0000-00-00', 38, 0, 30, 8),
 (17, 1, '0069-3', '10080001', 'EXP', 'SAN JOSE DE GRACIA III', ' SAN JOSE DE GRACIA', '16-51-67.00', '0', '0000-00-00', 121, 0, 83, 38),
 (18, 1, '0073-8', '10010001', 'EXP', 'LAS CUMBRES III', ' AGUASCALIENTES', '52-26-89.00', '0', '0000-00-00', 2117, 0, 2078, 39),
 (19, 1, '0076-8', '10010001', 'ESP', 'NAZARIO ORTIZ GARZA', ' AGUASCALIENTES', '00-62-56.50', '0', '0000-00-00', 89, 0, 89, 0),
 (20, 1, '0087-5', '10012272', 'MDT', 'LOS NEGRITOS (EL EDÉN)', ' AGUASCALIENTES', '05-54-97.00', '0', '0000-00-00', 183, 0, 101, 82),
-(21, 1, '0088-8', '10012272', 'MDT', 'LOS NEGRITOS (GRANJAS SAN FELIPE)', ' AGUASCALIENTES', '03-21-50.00', '0', '0000-00-00', 111, 0, 97, 18),
-(22, 1, '0089-7', '10010001', 'MDT', 'CUMBRES (ANEXO PALOMINO DENA)', ' AGUASCALIENTES', '20-90-82.00', '0', '0000-00-00', 710, 0, 646, 65),
+(21, 1, '0088-8', '10012272', 'MDT', 'LOS NEGRITOS (GRANJAS SAN FELIPE)', ' AGUASCALIENTES', '03-21-50.00', '0', '0000-00-00', 111, 0, 93, 18),
+(22, 1, '0089-7', '10010001', 'MDT', 'CUMBRES (ANEXO PALOMINO DENA)', ' AGUASCALIENTES', '20-90-82.00', '0', '0000-00-00', 710, 0, 645, 65),
 (23, 1, '0090-2', '10012050', 'MDT', 'CUMBRES (LA LOMA)', ' AGUASCALIENTES', '71-76-88.00', '0', '0000-00-00', 1500, 0, 1560, -60),
 (24, 1, '0091-7', '10012055', 'MDT', 'SAN IGNACIO (JARDIN DE LOS OLIVOS)', ' AGUASCALIENTES', '06-32-56.00', '0', '0000-00-00', 172, 0, 134, 38),
-(25, 2, '0092-5', '10010001', 'MDT', 'SALTO DE OJO CALIENTE Y SU ANEXO', ' AGUASCALIENTES', '05-83-43.00', '0', '0000-00-00', 127, 0, 103, 27),
+(25, 2, '0092-5', '10010001', 'MDT', 'SALTO DE OJO CALIENTE Y SU ANEXO', ' AGUASCALIENTES', '05-83-43.00', '0', '0000-00-00', 127, 0, 100, 27),
 (26, 1, '0096-6', '10010001', 'MDT', 'PE. OJO CALIENTE (EL RIEGO)', ' AGUASCALIENTES', '03-09-58.00', '0', '0000-00-00', 138, 0, 116, 22),
-(27, 1, '0098-0', '10010001', 'MDT', 'PE. NORIAS DE PASO HONDO (CIUDAD GOTICA)', ' AGUASCALIENTES', '03-28-49.00', '0', '0000-00-00', 112, 0, 88, 25),
+(27, 1, '0098-0', '10010001', 'MDT', 'PE. NORIAS DE PASO HONDO (CIUDAD GOTICA)', ' AGUASCALIENTES', '03-28-49.00', '0', '0000-00-00', 112, 0, 87, 25),
 (28, 1, '0099-8', '10010001', 'MDT', 'PE. NORIAS DE PASO HONDO (ANEXO NORIAS)', ' AGUASCALIENTES', '01-69-81.00', '0', '0000-00-00', 66, 0, 38, 28),
 (29, 1, '0100-2', '10010001', 'MDT', 'PE. SAN IGNACIO (PLAYA DE GUADALUPE)', ' AGUASCALIENTES', '02-00-96.00', '0', '0000-00-00', 65, 0, 20, 45),
 (30, 1, '0105-5', '10010001', 'MDT', 'PE. LOS NEGRITOS (S. MARTIN DE LA CANTERA)', ' AGUASCALIENTES', '02-83-81.22', '0', '0000-00-00', 50, 0, 32, 18),
-(31, 1, '0107-8', '10010001', 'MDT', 'PE. NORIAS DE OJO CALIENTE (P.31 Y 37)', ' AGUASCALIENTES', '18-17-37.00', '0', '0000-00-00', 630, 0, 273, 359),
-(32, 1, '0108-5', '10010001', 'MDT', 'PE. NORIAS DE OJO CALIENTE (PARCELA 42)', ' AGUASCALIENTES', '08-59-13.31', '0', '0000-00-00', 220, 0, 185, 37),
-(33, 1, '0109-8', '10010001', 'MDT', 'PE. EL ZOYATAL (PARCELA 35)', ' AGUASCALIENTES', '01-84-09.10', '0', '0000-00-00', 40, 0, 16, 25),
-(34, 1, '0110-8', '10010293', 'MDT', 'PE. NORIAS DE OJO CALIENTE (PARCELA 20)', ' AGUASCALIENTES', '01-86-01.00', '0', '0000-00-00', 57, 0, 30, 28);
+(31, 1, '0107-8', '10010001', 'MDT', 'PE. NORIAS DE OJO CALIENTE (P.31 Y 37)', ' AGUASCALIENTES', '18-17-37.00', '0', '0000-00-00', 630, 0, 271, 359),
+(32, 1, '0108-5', '10010001', 'MDT', 'PE. NORIAS DE OJO CALIENTE (PARCELA 42)', ' AGUASCALIENTES', '08-59-13.31', '0', '0000-00-00', 220, 0, 183, 37),
+(33, 1, '0109-8', '10010001', 'MDT', 'PE. EL ZOYATAL (PARCELA 35)', ' AGUASCALIENTES', '01-84-09.10', '0', '0000-00-00', 40, 0, 15, 25),
+(34, 1, '0110-8', '10010293', 'MDT', 'PE. NORIAS DE OJO CALIENTE (PARCELA 20)', ' AGUASCALIENTES', '01-86-01.00', '0', '0000-00-00', 57, 0, 29, 28);
 
 -- --------------------------------------------------------
 
@@ -338,13 +346,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `beneficiarios`
 --
 ALTER TABLE `beneficiarios`
-  MODIFY `id_ben` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_ben` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `contratos`
 --
 ALTER TABLE `contratos`
-  MODIFY `id_con` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_con` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `otros_recursos`
