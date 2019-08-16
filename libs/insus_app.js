@@ -793,6 +793,11 @@ function autoCreateInputBenef(acciones, id_con,id_pro){
 /*Funciono: antes de que se envien los datos al servidor web php, validamos los campos con js, campos de tipo arreglo.*/
 function valArrayInputsBenef(){
 	console.log("Inicia validacion , campos de tipo array para Beneficiario´s");
+	var nombre_ben = $("#nombre_ben").val();
+	nombre_ben.forEach(function(element) {
+	  console.log(element);
+	});
+	
 
 	console.log("Finaliza validacion , campos de tipo array para Beneficiario´s")
 }
@@ -810,7 +815,7 @@ function addBeneficiarios(){
 			toastrExito(response.data.mensaje,"Beneficiario´s");
 		}
 	}).fail(function(resp){
-		console.log(resp);
+		//console.log(resp);
 		toastrExito("Error del sistema, no se registraron los datos.","Beneficiario´s");
 	});
 }
