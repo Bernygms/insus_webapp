@@ -24,28 +24,65 @@ if (isset($_POST['op'])) {
     $subsidio_ben =  (isset($_POST['subsidio_ben']) ? $_POST['subsidio_ben'] : NULL);
     $fecha_ben =  (isset($_POST['fecha_ben']) ? $_POST['fecha_ben'] : NULL);
     $pk_id_con =  (isset($_POST['pk_id_con']) ? $_POST['pk_id_con'] : NULL);
+    #Variable de apoyo para cada programa 
+    $pk_id_pro =  (isset($_POST['pk_id_pro']) ? $_POST['pk_id_pro'] : NULL);
+    $num_acciones =  (isset($_POST['num_acciones']) ? $_POST['num_acciones'] : NULL);
     #Variable de apoyo donde guardamos una cadena  de datos que seran enviados a la bd 
     $cadena_beneficiarios = "";
     $cadena = "";
+    $status = false;
     #Instancia a la funcion modelo beneficiarios 
     $objBeneficiarios = new Model_beneficiarios();
-    switch ($op) {
-        case 'benef':
 
+    switch ($op) {
+        case 'benef': 
+            #Ciclo que forma la cadena  sql  despues de value.
+            switch ($pk_id_pro) {
+                case 1:
+                    # REGLA 1
+                    echo $pk_id_pro;
+
+                    break;
+                case 2:
+                    # REGLA 2
+                    echo $pk_id_pro;
+                    break;
+                case 3:
+                    # REGLA 3
+                    echo $pk_id_pro;
+                    break;
+                case 4:
+                    # PMU
+                    echo $pk_id_pro;
+                    break;
+                case 5:
+                    # PRAH
+                    echo $pk_id_pro;
+                    break;
+                case 6:
+                    # PASPRAH
+                    for ($i = 0; $i < 2; $i++) { 
+                        if ($nombre_ben[$i] == "") {
+                            echo $i + 1 ;
+                        }else{
+                            echo $nombre_ben[$i] .PHP_EOL;
+                        }
+                        
+                    }
+                    break;  
+                
+                default:
+                    # code...
+                echo "string default";
+                    break;
+            }
             for ($i = 0; $i < count($nombre_ben); $i++) { 
                 $cadena.="('".$nombre_ben[$i]."','".$apellido_pat_ben[$i]."','".$apellido_mat_ben[$i]."','".$genero_ben[$i]."','".$estado_ben[$i]."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".$pago_ben[$i]."','".$apoyo_insus_ben[$i]."','".$subsidio_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
             }
             $cadena_beneficiarios = substr($cadena,0,-1);   
             $cadena_beneficiarios.=";";
-            $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
-            if ($response == true) {
-                $data["success"] = true;
-                $data["data"]["mensaje"] = "Los datos fueron registrados correctamente.";  
-                echo json_encode($data); 
-            }else{
-                $data["data"]["mensaje"] = "No se registraron los datos, puede continuar dando click en omitir.";
-                echo json_encode($cadena_beneficiarios);
-            }
+            #siguiente codigo funcional para insertar beneficiarios
+            #$response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
             //$data["data"]["mensaje"] = array("cadena" => $cadena_beneficiarios);
             
             break; 

@@ -678,6 +678,7 @@ function autoCreateInputBenef(acciones, id_con,id_pro){
 	var inputAcc = "";
 	inputAcc +='<form action="" id="form_addBeneficiarios">';
 	inputAcc +='<input type="text" hidden="true" id="op" name="op" value="benef" class="border border-primary">';
+	inputAcc +='<input type="text" hidden="true" id="pk_id_pro" name="pk_id_pro" value="'+id_pro+'" class="border border-primary">';
 	for (var i = 1; i <= acciones; i++) { 
 		inputAcc +='<h5 class="text-center">Beneficiario &nbsp;'+i+'</h5>'; 
 		inputAcc +='<table id="tabla" class=""><thead><tr><th>#&nbsp;&nbsp;&nbsp;&nbsp; </th><th>---Tipo--- </th><th>---- Columna ----</th><th>----Valor----</th></tr></thead>';
@@ -791,14 +792,13 @@ function autoCreateInputBenef(acciones, id_con,id_pro){
 	$("#inputBeneficiarios").html(inputAcc);
 }
 /*Funciono: antes de que se envien los datos al servidor web php, validamos los campos con js, campos de tipo arreglo.*/
+/*No funcional*/
 function valArrayInputsBenef(){
 	console.log("Inicia validacion , campos de tipo array para Beneficiario´s");
 	var nombre_ben = $("#nombre_ben").val();
 	nombre_ben.forEach(function(element) {
 	  console.log(element);
-	});
-	
-
+	}); 
 	console.log("Finaliza validacion , campos de tipo array para Beneficiario´s")
 }
 /*Funcion para agregar*/
@@ -809,10 +809,10 @@ function addBeneficiarios(){
 			toastrExito(response.data.mensaje,"Beneficiario´s");
 			$("#btn_omit").hide();
 			$("#btn_input_benef").hide();
-			$("#btn_save_ben").hide();
-			$("#btn_next_ben").show();
+			//$("#btn_save_ben").hide();
+			//$("#btn_next_ben").show();
 		}else if(response.success == false){
-			toastrExito(response.data.mensaje,"Beneficiario´s");
+			toastrError(response.data.mensaje,"Beneficiario´s");
 		}
 	}).fail(function(resp){
 		//console.log(resp);
@@ -869,10 +869,7 @@ function searchAccAndBenef(id_raci){
 	anno_con = fecha.getFullYear();
 	data = {op: "cont_benef",pk_id_raci: id_raci, anno_con: anno_con}; 
 	__Ajax_JSON(urlCont,data).done(function(response){
-		console.log(response);
-		if ($.isEmptyObject(response.data.contratos) == true) {
-				toastrInformativa(response.data.mensaje,"Consulta Acciones/Beneficiarios");	
-		}else{
+		if (response.success == true) {
 			contador = 0;
 			contratos_beneficiarios = response;
 			html_acc_benef += '<table id="tabla" class="table  table-hover mytable1"><thead><tr><th>#</th><th>Acción</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Programa</th><th>Nombre</th><th>Appelido Paterno</th><th>Apellido Materno</th><th>Genero</th>';
@@ -924,6 +921,8 @@ function searchAccAndBenef(id_raci){
 			$(".mytable1").DataTable({
 					"language": idioma_espanol
 			});
+		}else if(response.success == false){
+			toastrInformativa(response.data.mensaje,"Consulta Acciones/Beneficiarios");
 		}
 	}).fail(function(resp){
 		console.log(resp);

@@ -60,18 +60,19 @@ $(function(){
 		funcFinalizar();
 	}); 
 	$("#btn_save_ben").click(function(){
-		valArrayInputsBenef();
+		//No funcional siguiente linea de codigo 
+		//valArrayInputsBenef();
 		//La siguiente funcion , es encargado de registrar los beneficiarios envia datos en formato tipo array 
-		//addBeneficiarios();
+		addBeneficiarios();
 	});
 	$("#btn_next_ben").click(function(){
 		vaciarCamposAccBenef();
 		funcFinalizar();
 	});
 	$("#btn_finalizar").click(function(){
-	hideInput();
-	$("#form_DatosPoblado")[0].reset();
-	$("#myModalAddAcciones").modal('hide');
+		hideInput();
+		$("#form_DatosPoblado")[0].reset();
+		$("#myModalAddAcciones").modal('hide');
 	});
 	$("#btn_cancel_2").click(function(){
 		$("#form_DatosPoblado")[0].reset();
