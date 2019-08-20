@@ -31,6 +31,7 @@ if (isset($_POST['op'])) {
     $cadena_beneficiarios = "";
     $cadena = "";
     $status = false;
+    $contador = 0;
     #Instancia a la funcion modelo beneficiarios 
     $objBeneficiarios = new Model_beneficiarios();
 
@@ -40,8 +41,68 @@ if (isset($_POST['op'])) {
             switch ($pk_id_pro) {
                 case 1:
                     # REGLA 1
-                    echo $pk_id_pro;
-
+                    $fecha_hoy = date("Y")."-".date("m")."-".date("d");
+                    
+                    for ($i = 0; $i < $num_acciones; $i++) {    
+                        $contador = $i+1;
+                        if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i])) {
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(trim($apellido_pat_ben[$i]) == "" || is_numeric($apellido_pat_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Apelldio Paterno,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(trim($genero_ben[$i]) == ""){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Genero, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(trim($estado_ben[$i]) == "" ){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Estado Civil, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(trim($zona_ben[$i]) == ""){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Zona, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(trim($manazana_ben[$i]) == ""){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Manzana, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(trim($lote_ben[$i]) == ""){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Lote, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(trim($superficie_ben[$i]) == ""){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Superficie Mts², (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(trim($uso_ben[$i]) == ""){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Uso, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(trim($fecha_ben[$i]) > $fecha_hoy || trim($fecha_ben[$i]) < "2018-01-01" ){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Fecha, tienes que se menor o igual a ".$fecha_hoy.", pero mayor a la fecha 2017-12-31,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(trim($x[$i]) == ""  ||  !is_numeric($pago_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Pago Beneficiario,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else{
+                            if ($contador == $num_acciones) {
+                                $data["success"] = true;
+                                for ($i = 0; $i < count($nombre_ben); $i++) { 
+                                    $cadena.="('".$nombre_ben[$i]."','".$apellido_pat_ben[$i]."','".$apellido_mat_ben[$i]."','".$genero_ben[$i]."','".$estado_ben[$i]."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".$pago_ben[$i]."','".$apoyo_insus_ben[$i]."','".$subsidio_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
+                                }
+                                $cadena_beneficiarios = substr($cadena,0,-1);   
+                                $cadena_beneficiarios.=";";
+                                $data["data"]["mensaje"] = array("cadena" => $cadena_beneficiarios);
+                                echo json_encode($data);
+                                break;
+                            }
+                        }   
+                    }
                     break;
                 case 2:
                     # REGLA 2
@@ -52,7 +113,7 @@ if (isset($_POST['op'])) {
                     echo $pk_id_pro;
                     break;
                 case 4:
-                    # PMU
+                    # PMU   
                     echo $pk_id_pro;
                     break;
                 case 5:
@@ -61,14 +122,7 @@ if (isset($_POST['op'])) {
                     break;
                 case 6:
                     # PASPRAH
-                    for ($i = 0; $i < 2; $i++) { 
-                        if ($nombre_ben[$i] == "") {
-                            echo $i + 1 ;
-                        }else{
-                            echo $nombre_ben[$i] .PHP_EOL;
-                        }
-                        
-                    }
+                    echo $pk_id_pro;
                     break;  
                 
                 default:
@@ -76,14 +130,14 @@ if (isset($_POST['op'])) {
                 echo "string default";
                     break;
             }
-            for ($i = 0; $i < count($nombre_ben); $i++) { 
+            /*for ($i = 0; $i < count($nombre_ben); $i++) { 
                 $cadena.="('".$nombre_ben[$i]."','".$apellido_pat_ben[$i]."','".$apellido_mat_ben[$i]."','".$genero_ben[$i]."','".$estado_ben[$i]."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".$pago_ben[$i]."','".$apoyo_insus_ben[$i]."','".$subsidio_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
             }
             $cadena_beneficiarios = substr($cadena,0,-1);   
-            $cadena_beneficiarios.=";";
+            $cadena_beneficiarios.=";";*/
             #siguiente codigo funcional para insertar beneficiarios
             #$response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
-            //$data["data"]["mensaje"] = array("cadena" => $cadena_beneficiarios);
+            #$data["data"]["mensaje"] = array("cadena" => $cadena_beneficiarios);
             
             break; 
         default:

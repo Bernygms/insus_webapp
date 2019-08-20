@@ -679,9 +679,10 @@ function autoCreateInputBenef(acciones, id_con,id_pro){
 	inputAcc +='<form action="" id="form_addBeneficiarios">';
 	inputAcc +='<input type="text" hidden="true" id="op" name="op" value="benef" class="border border-primary">';
 	inputAcc +='<input type="text" hidden="true" id="pk_id_pro" name="pk_id_pro" value="'+id_pro+'" class="border border-primary">';
+	inputAcc +='<input type="text" hidden="true" id="num_acciones" name="num_acciones" value="'+acciones+'" class="border border-primary">';
 	for (var i = 1; i <= acciones; i++) { 
 		inputAcc +='<h5 class="text-center">Beneficiario &nbsp;'+i+'</h5>'; 
-		inputAcc +='<table id="tabla" class=""><thead><tr><th>#&nbsp;&nbsp;&nbsp;&nbsp; </th><th>---Tipo--- </th><th>---- Columna ----</th><th>----Valor----</th></tr></thead>';
+		inputAcc +='<table id="tabla" class=""><thead><tr><th>#&nbsp;&nbsp;&nbsp;&nbsp; </th><th>---Tipo--- </th><th>----Valor----</th></tr></thead>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 1 +'</td>';
 		inputAcc +='<td><label>Nombre(s)</label></td>'; 
@@ -786,7 +787,7 @@ function autoCreateInputBenef(acciones, id_con,id_pro){
 		inputAcc +='<tr>';
 		inputAcc +='<td><input type="text" hidden="true" id="pk_id_con" name="pk_id_con[]" value="'+id_con+'"> </td>';
 		inputAcc +='</tr>';
-	    inputAcc +='</tbody></table>';
+	    inputAcc +='</tbody></table><br>';
     } 
     inputAcc +='</form>'; 
 	$("#inputBeneficiarios").html(inputAcc);
@@ -815,8 +816,8 @@ function addBeneficiarios(){
 			toastrError(response.data.mensaje,"Beneficiario´s");
 		}
 	}).fail(function(resp){
-		//console.log(resp);
-		toastrExito("Error del sistema, no se registraron los datos.","Beneficiario´s");
+		console.log(resp);
+		toastrError("Error del sistema, no se registraron los datos.","Beneficiario´s");
 	});
 }
 /*Funcion para vaciar las variables y compos que se utilizaron para agregar acciones y beneficiariosx*/
