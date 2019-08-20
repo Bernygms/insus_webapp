@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-08-2019 a las 02:41:44
+-- Tiempo de generación: 21-08-2019 a las 01:33:56
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.1.27
 
@@ -35,9 +35,9 @@ CREATE TABLE `beneficiarios` (
   `apellido_mat_ben` varchar(30) NOT NULL,
   `genero_ben` int(11) NOT NULL,
   `estado_ben` varchar(40) NOT NULL,
-  `zona_ben` int(11) NOT NULL,
-  `manazana_ben` int(11) NOT NULL,
-  `lote_ben` int(11) NOT NULL,
+  `zona_ben` varchar(10) NOT NULL,
+  `manazana_ben` varchar(10) NOT NULL,
+  `lote_ben` varchar(10) NOT NULL,
   `superficie_ben` varchar(40) NOT NULL,
   `uso_ben` varchar(10) NOT NULL,
   `numero_con_ben` varchar(20) NOT NULL,
@@ -70,6 +70,15 @@ CREATE TABLE `contratos` (
   `pk_id_raci` int(11) NOT NULL,
   `pk_id_pro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `contratos`
+--
+
+INSERT INTO `contratos` (`id_con`, `accion_con`, `pago_ben_con`, `apoyo_insus_con`, `subsidio_con`, `rectificaciones_con`, `otros_con`, `mes_con`, `anno_con`, `fecha_con`, `fecha_edi_con`, `pk_id_raci`, `pk_id_pro`) VALUES
+(23, 2, '1000', '1000', '0', '0', '0', 'Agosto', '2019', '2019-08-20', '2019-08-20', 1, 1),
+(24, 20, '12', '12', '0', '0', '0', 'Agosto', '2019', '2019-08-20', '2019-08-20', 2, 1),
+(25, 2, '12', '12', '0', '0', '0', 'Agosto', '2019', '2019-08-20', '2019-08-20', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -189,16 +198,16 @@ CREATE TABLE `raci` (
 --
 
 INSERT INTO `raci` (`id_raci`, `entidad_raci`, `clave_insus_raci`, `clave_inegi_raci`, `modalidad_raci`, `nombre_de_pob_raci`, `municipio_raci`, `superficie_de_pob_raci`, `municipio_pro_raci`, `fecha_ini_con_raci`, `universo_de_lot_raci`, `contratados_raci`, `total_con_raci`, `pendientes_de_con_raci`) VALUES
-(1, 1, '0003-7', '10010001', 'EXP', 'LAS CUMBRES', ' AGUASCALIENTES', '54-20-52.00', '0', '0000-00-00', 1771, 0, 1122, 0),
-(2, 1, '0004-4', '10010001', 'EXP', 'LAS CUMBRES II', ' AGUASCALIENTES', '02-88-91.92', '0', '0000-00-00', 134, 0, 43, 1),
-(3, 1, '0006-9', '10010001', 'EXP', 'LA HUERTA', ' AGUASCALIENTES', '87-90-29.90', '0', '0000-00-00', 3342, 0, 79, 0),
-(4, 1, '0007-6', '10010001', 'EXP', 'LA HUERTA II', ' AGUASCALIENTES', '38-05-59.00', '0', '0000-00-00', 345, 0, 0, 0),
-(5, 1, '0008-3', '10010001', 'EXP', 'LOS POCITOS', ' AGUASCALIENTES', '15-09-80.10', '0', '0000-00-00', 634, 0, 2, 1),
-(6, 1, '0011-8', '10010001', 'EXP', 'OJO CALIENTE', ' AGUASCALIENTES', '21-42-09.69', '0', '0000-00-00', 289, 0, 0, 3),
+(1, 1, '0003-7', '10010001', 'EXP', 'LAS CUMBRES', ' AGUASCALIENTES', '54-20-52.00', '0', '0000-00-00', 1771, 0, 1137, 0),
+(2, 1, '0004-4', '10010001', 'EXP', 'LAS CUMBRES II', ' AGUASCALIENTES', '02-88-91.92', '0', '0000-00-00', 134, 0, 71, 1),
+(3, 1, '0006-9', '10010001', 'EXP', 'LA HUERTA', ' AGUASCALIENTES', '87-90-29.90', '0', '0000-00-00', 3342, 0, 81, 0),
+(4, 1, '0007-6', '10010001', 'EXP', 'LA HUERTA II', ' AGUASCALIENTES', '38-05-59.00', '0', '0000-00-00', 345, 0, 6, 0),
+(5, 1, '0008-3', '10010001', 'EXP', 'LOS POCITOS', ' AGUASCALIENTES', '15-09-80.10', '0', '0000-00-00', 634, 0, 9, 1),
+(6, 1, '0011-8', '10010001', 'EXP', 'OJO CALIENTE', ' AGUASCALIENTES', '21-42-09.69', '0', '0000-00-00', 289, 0, 2, 3),
 (7, 1, '0012-5', '10010001', 'EXP', 'SALTO DE OJO CALIENTE', ' AGUASCALIENTES', '29-97-37.50', '0', '0000-00-00', 837, 0, 5, 1),
-(8, 1, '0016-4', '10030001', 'EXP', 'CALVILLO', ' CALVILLO', '25-84-60.86', '0', '0000-00-00', 566, 0, 0, 16),
-(9, 1, '0019-6', '10050001', 'EXP', 'JESUS MARIA', 'JESUS MARIA', '37-04-75.73', '0', '0000-00-00', 932, 0, 0, 1),
-(10, 1, '0020-6', '10060261', 'EXP', 'COLONIA PROGRESO', 'PABELLON DE ARTEAGA', '29-20-54.35', '0', '0000-00-00', 671, 0, 0, 0),
+(8, 1, '0016-4', '10030001', 'EXP', 'CALVILLO', ' CALVILLO', '25-84-60.86', '0', '0000-00-00', 566, 0, 2, 16),
+(9, 1, '0019-6', '10050001', 'EXP', 'JESUS MARIA', 'JESUS MARIA', '37-04-75.73', '0', '0000-00-00', 932, 0, 2, 1),
+(10, 1, '0020-6', '10060261', 'EXP', 'COLONIA PROGRESO', 'PABELLON DE ARTEAGA', '29-20-54.35', '0', '0000-00-00', 671, 0, 4, 0),
 (11, 1, '0024-5', '10080001', 'EXP', 'SAN JOSE DE GRACIA ', 'SAN JOSE DE GRACIA', '38-19-54.56', '0', '0000-00-00', 416, 0, 0, 22),
 (12, 1, '0025-2', '10080001', 'EXP', 'SAN JOSE DE GRACIA II', 'SAN JOSE DE GRACIA', '29-40-54.69', '0', '0000-00-00', 333, 0, 315, 18),
 (13, 1, '0028-4', '10090012', 'EXP', 'EL CHAYOTE', ' TEPEZALA', '34-86-86.00', '0', '0000-00-00', 319, 0, 319, 2),
@@ -338,13 +347,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `beneficiarios`
 --
 ALTER TABLE `beneficiarios`
-  MODIFY `id_ben` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_ben` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `contratos`
 --
 ALTER TABLE `contratos`
-  MODIFY `id_con` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_con` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `otros_recursos`

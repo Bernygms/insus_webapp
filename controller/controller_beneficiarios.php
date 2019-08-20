@@ -42,7 +42,7 @@ if (isset($_POST['op'])) {
                 case 1:
                     # REGLA 1
                     $fecha_hoy = date("Y")."-".date("m")."-".date("d");
-                    
+                    x
                     for ($i = 0; $i < $num_acciones; $i++) {    
                         $contador = $i+1;
                         if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i])) {
@@ -82,7 +82,7 @@ if (isset($_POST['op'])) {
                             echo json_encode($data);
                             break;
                         }else if(trim($fecha_ben[$i]) > $fecha_hoy || trim($fecha_ben[$i]) < "2018-01-01" ){
-                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Fecha, tienes que se menor o igual a ".$fecha_hoy.", pero mayor a la fecha 2017-12-31,  (Beneficiario ".$contador." )";
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Fecha, tienes que se menor o igual a ".$fecha_hoy.", pero mayor a la fecha 2017-12-31,  (Beneficiario ".$contador.")";
                             echo json_encode($data);
                             break;
                         }else if(trim($x[$i]) == ""  ||  !is_numeric($pago_ben[$i])){
