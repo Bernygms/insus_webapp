@@ -94,7 +94,7 @@ if (isset($_POST['op'])) {
                             $data["data"]["mensaje"] = "Datos  invalidos,no puedes llenar los dos campos Número de contrato DJ1 o DJ2, (Beneficiario ".$contador." )";
                             echo json_encode($data);
                             break;
-                        }else if($validador == $objBeneficiarios->valNumContratoBenef($numero_con_ben[$i],$numero_con_compro_ben[$i]) ){
+                        }else if(true == $objBeneficiarios->valNumContratoBenef($numero_con_ben[$i],$numero_con_compro_ben[$i]) ){
                             $data["data"]["mensaje"] = "Datos  invalidos,el Número DJ1 o DJ2 de contrato que ingresaste ya existe, (Beneficiario ".$contador." )";
                             echo json_encode($data);
                             break;
@@ -111,7 +111,7 @@ if (isset($_POST['op'])) {
                             echo json_encode($data);
                             break;
                         }else{
-                            var_dump($validador);
+                            #var_dump($validador);
                             if ($contador == $num_acciones) {
                                 $data["success"] = true;
                                 for ($i = 0; $i < count($nombre_ben); $i++) { 
@@ -121,7 +121,7 @@ if (isset($_POST['op'])) {
                                 $cadena_beneficiarios.=";";
                                 $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
                                 $data["data"]["contratos"] = "Los datos  se ingresaron correctament.";
-                                echo json_encode($cadena_beneficiarios);
+                                echo json_encode($data);
                                 break;
                             }
                         }   

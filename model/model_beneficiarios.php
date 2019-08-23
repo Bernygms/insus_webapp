@@ -27,23 +27,27 @@ class Model_beneficiarios{
 		}
 	}
 	#Validacion de numero de contratos de cada benef ... 
-	function valNumContratoBenef($numero_con_ben,$numero_con_compro_ben){
-		if (!$numero_con_ben) {
-			$query = $this->db->prepare("SELECT * FROM beneficiarios  WHERE  numero_con_ben=:numero_con_ben ");
-        	$query->bindParam(":numero_con_ben",$numero_con_ben, PDO::PARAM_STR);
-		}
-		if (!$numero_con_compro_ben) {
-			$query = $this->db->prepare("SELECT * FROM beneficiarios  WHERE  numero_con_compro_ben=:numero_con_compro_ben ");
-        	$query->bindParam(":numero_con_compro_ben",$numero_con_compro_ben, PDO::PARAM_STR);
+	function valNumContratoBenef($numero_con_ben,$numero_con_compro_ben){ 
+		if ($numero_con_ben) {
+			#var_dump($numero_con_ben);
+			$query = $this->db->prepare("SELECT id_ben FROM beneficiarios  WHERE  numero_con_ben=:numero_con_ben");
+			$query->bindParam(":numero_con_ben",$numero_con_ben, PDO::PARAM_STR);
+		}else{
+			if ($numero_con_compro_ben) {
+				# code...
+				$query = $this->db->prepare("SELECT * FROM beneficiarios  WHERE  numero_con_compro_ben=:numero_con_compro_ben ");
+				$query->bindParam(":numero_con_compro_ben",$numero_con_compro_ben, PDO::PARAM_STR);
+
+			}
 		}
         $query->execute();
-        $result = $query-> fetchAll();
+        $result = $query-> fetch();
         if (!empty($result)) {
-        	return true;
+        	$retorno = true;
         }else{
-            return false;
+            $retorno = false;
         }
-
+        return $retorno;
 	}
 
 }

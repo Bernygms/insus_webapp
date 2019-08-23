@@ -333,7 +333,7 @@ if (isset($_POST['op'])) {
             break;
         case 'cont_benef':
             $response_contratos = $objContratos->consultaContratos($anno_con, $pk_id_raci);
-            if (empty($response_contratos)) {
+            if (!empty($response_contratos)) {
                 echo json_encode($response_contratos);
             }else{
                 $data["data"]["mensaje"] = "No encontramos resultados sobre contratos.";
