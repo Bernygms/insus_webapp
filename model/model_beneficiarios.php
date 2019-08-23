@@ -26,5 +26,24 @@ class Model_beneficiarios{
 			return false;
 		}
 	}
+	#Validacion de numero de contratos de cada benef ... 
+	function valNumContratoBenef($numero_con_ben,$numero_con_compro_ben){
+		if (!$numero_con_ben) {
+			$query = $this->db->prepare("SELECT * FROM beneficiarios  WHERE  numero_con_ben=:numero_con_ben ");
+        	$query->bindParam(":numero_con_ben",$numero_con_ben, PDO::PARAM_STR);
+		}
+		if (!$numero_con_compro_ben) {
+			$query = $this->db->prepare("SELECT * FROM beneficiarios  WHERE  numero_con_compro_ben=:numero_con_compro_ben ");
+        	$query->bindParam(":numero_con_compro_ben",$numero_con_compro_ben, PDO::PARAM_STR);
+		}
+        $query->execute();
+        $result = $query-> fetchAll();
+        if (!empty($result)) {
+        	return true;
+        }else{
+            return false;
+        }
+
+	}
 
 }

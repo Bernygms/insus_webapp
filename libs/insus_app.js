@@ -399,7 +399,7 @@ function hideInput(){
 }
  // Validacion del campo accion 
 function valAcciones(){
-	accion_con = $("#accion_con").val();
+	accion_con = $("#accion_con").val().trim();
 	universo_de_lot_raci = $("#universo_de_lot_raci").val();
 	total_con_raci = $("#total_con_raci").val();
 	total_nuevo_con = parseInt(total_con_raci) + parseInt(accion_con);
@@ -508,7 +508,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro, pago_ben_con, apoyo_insus_con, subsidio_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -531,7 +531,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro, pago_ben_con, apoyo_insus_con, subsidio_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -554,7 +554,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro, pago_ben_con, apoyo_insus_con, subsidio_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -579,7 +579,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro, pago_ben_con, apoyo_insus_con, subsidio_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -605,7 +605,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro, pago_ben_con, apoyo_insus_con, subsidio_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -631,7 +631,7 @@ function addAcciones(){
 					}
 					hideBtnAndShowNavBenef();
 					getIdEstForShowRaci(entidad_raci);
-					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro);
+					autoCreateInputBenef(accion_con, response.data.contrato.id_con,pk_id_pro, pago_ben_con, apoyo_insus_con, subsidio_con);
 				}else if(response.success == false){
 					toastrError(response.data.mensaje);
 					enabledBtnAddAcciones();
@@ -671,13 +671,16 @@ function funcFinalizar(){
 		$("#div_finalizar").show();
 }
 
-function autoCreateInputBenef(acciones, id_con,id_pro){
+function autoCreateInputBenef(acciones, id_con,id_pro, pago_ben_con, apoyo_insus_con, subsidio_con){
 	//$("#btn_input_benef").hide();
 	//$("#btn_omit").hide();
 	console.log(acciones +"--- ok ---"+id_con)
 	var inputAcc = "";
 	inputAcc +='<form action="" id="form_addBeneficiarios">';
 	inputAcc +='<input type="text" hidden="true" id="op" name="op" value="benef" class="border border-primary">';
+	inputAcc +='<input type="text" hidden="true" id="pago_ben_con1" name="pago_ben_con1" value="'+pago_ben_con+'" class="border border-primary">';
+	inputAcc +='<input type="text" hidden="true" id="apoyo_insus_con1" name="apoyo_insus_con1" value="'+apoyo_insus_con+'" class="border border-primary">';
+	inputAcc +='<input type="text" hidden="true" id="subsidio_con1" name="subsidio_con1" value="'+subsidio_con+'" class="border border-primary">';
 	inputAcc +='<input type="text" hidden="true" id="pk_id_pro" name="pk_id_pro" value="'+id_pro+'" class="border border-primary">';
 	inputAcc +='<input type="text" hidden="true" id="num_acciones" name="num_acciones" value="'+acciones+'" class="border border-primary">';
 	for (var i = 1; i <= acciones; i++) { 
@@ -733,7 +736,7 @@ function autoCreateInputBenef(acciones, id_con,id_pro){
 		inputAcc +='<td><input type="text" id="manazana_ben" name="manazana_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
-		inputAcc +='<td>'+ 8 +'</td>';
+		inputAcc +='<td>'+ 8 +'</td>'; 
 		inputAcc +='<td><label>Lote</label></td>'; 
 		inputAcc +='<td><input type="text" id="lote_ben" name="lote_ben[]" class="border border-primary"></td>';
 		inputAcc +='</tr>';
@@ -757,12 +760,12 @@ function autoCreateInputBenef(acciones, id_con,id_pro){
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 11 +'</td>';
 		inputAcc +='<td><label>Número de contrato (DJ 1)&nbsp;&nbsp;</label></td>'; 
-		inputAcc +='<td><input type="text" id="numero_con_ben" name="numero_con_ben[]" class="border border-primary"></td>';
+		inputAcc +='<td><input type="text" id="numero_con_ben" name="numero_con_ben[]" min="1" max="5" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 12+'</td>';
 		inputAcc +='<td><label>Número de contrato (DJ 2)&nbsp;&nbsp; </label></td>'; 
-		inputAcc +='<td><input type="text" id="numero_con_compro_ben" name="numero_con_compro_ben[]" class="border border-primary"></td>';
+		inputAcc +='<td><input type="text" id="numero_con_compro_ben" name="numero_con_compro_ben[]" min="1" max="5" class="border border-primary"></td>';
 		inputAcc +='</tr>';
 		inputAcc +='<tr>';
 		inputAcc +='<td>'+ 13+'</td>';

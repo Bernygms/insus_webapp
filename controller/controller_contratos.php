@@ -51,14 +51,18 @@ if (isset($_POST['op'])) {
             if ($pk_id_pro == 1) {
                 if($accion_con == '' || $accion_con == 0 || !is_numeric($accion_con)){
                     $data["data"]["mensaje"] = "Algo salio mal, llena el campo Acción";
+                    echo json_encode($data);
                 } elseif ($pago_ben_con == '' || $pago_ben_con == 0 || !is_numeric($pago_ben_con)){
                     $data["data"]["mensaje"] = "Algo salio mal, llena el campo Pago Beneficiarios";
+                    echo json_encode($data);
                 } elseif ($apoyo_insus_con == '' || $apoyo_insus_con == 0 || !is_numeric($apoyo_insus_con) ){
                     $data["data"]["mensaje"] = "Algo salio mal, llena el campo Apoyo INSUS";
+                    echo json_encode($data);
                 }else{
                     $responseRaci = $objRaci->getIdRaci($pk_id_raci);
                     if ($responseRaci==false) {#If init / consulta de raci
                         $data["data"]["mensaje"] = "Algo salio mal intentalo de nuevo.";
+                        echo json_encode($data);
                     }else{ 
                         foreach ($responseRaci as  $raci) {                       
                             if ($pk_id_raci == $raci['id_raci'] && $universo_de_lot_raci == $raci['universo_de_lot_raci'] && $total_con_raci == $raci['total_con_raci'] ) {
@@ -80,7 +84,6 @@ if (isset($_POST['op'])) {
                                 }else{
                                     $data["data"]["mensaje"] = "Verifica cuantas acciones o contratos puedes agregar, de acuerdo al universo de lotes."; 
                                     echo json_encode($data);
-
                                 }
                                 
                             } else {

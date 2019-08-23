@@ -27,10 +27,15 @@ if (isset($_POST['op'])) {
     #Variable de apoyo para cada programa 
     $pk_id_pro =  (isset($_POST['pk_id_pro']) ? $_POST['pk_id_pro'] : NULL);
     $num_acciones =  (isset($_POST['num_acciones']) ? $_POST['num_acciones'] : NULL);
+    #Variables de apoyo de contratos 
+    $pago_ben_con =  trim((isset($_POST['pago_ben_con1']) ? $_POST['pago_ben_con1'] : NULL));
+    $apoyo_insus_con =  trim((isset($_POST['apoyo_insus_con1']) ? $_POST['apoyo_insus_con1'] : NULL));
+    $subsidio_con=  trim((isset($_POST['subsidio_con1']) ? $_POST['subsidio_con1'] : NULL));
     #Variable de apoyo donde guardamos una cadena  de datos que seran enviados a la bd 
     $cadena_beneficiarios = "";
     $cadena = "";
     $status = false;
+    $validador = true;
     $contador = 0;
     #Instancia a la funcion modelo beneficiarios 
     $objBeneficiarios = new Model_beneficiarios();
@@ -42,8 +47,8 @@ if (isset($_POST['op'])) {
                 case 1:
                     # REGLA 1
                     $fecha_hoy = date("Y")."-".date("m")."-".date("d");
-                    x
-                    for ($i = 0; $i < $num_acciones; $i++) {    
+                    for ($i = 0; $i < $num_acciones; $i++) {   
+                        #var_dump($validador);
                         $contador = $i+1;
                         if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i])) {
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre, (Beneficiario ".$contador." )";
@@ -81,15 +86,32 @@ if (isset($_POST['op'])) {
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Uso, (Beneficiario ".$contador." )";
                             echo json_encode($data);
                             break;
+                        }else if(empty(trim($numero_con_ben[$i])) && empty(trim($numero_con_compro_ben[$i]))){
+                            $data["data"]["mensaje"] = "Datos  invalidos, al menos llena un campo en  Número de contrato DJ1 o DJ2, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(!empty($numero_con_ben[$i]) && !empty($numero_con_compro_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos,no puedes llenar los dos campos Número de contrato DJ1 o DJ2, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if($validador == $objBeneficiarios->valNumContratoBenef($numero_con_ben[$i],$numero_con_compro_ben[$i]) ){
+                            $data["data"]["mensaje"] = "Datos  invalidos,el Número DJ1 o DJ2 de contrato que ingresaste ya existe, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                        }else if(!empty($numero_con_ben[$i]) && !empty($numero_con_compro_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos,no puedes llenar los dos campos Número de contrato DJ1 o DJ2, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
                         }else if(trim($fecha_ben[$i]) > $fecha_hoy || trim($fecha_ben[$i]) < "2018-01-01" ){
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Fecha, tienes que se menor o igual a ".$fecha_hoy.", pero mayor a la fecha 2017-12-31,  (Beneficiario ".$contador.")";
                             echo json_encode($data);
                             break;
-                        }else if(trim($x[$i]) == ""  ||  !is_numeric($pago_ben[$i])){
+                        }else if(trim($pago_ben[$i]) == ""  ||  !is_numeric($pago_ben[$i])){
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Pago Beneficiario,  (Beneficiario ".$contador." )";
                             echo json_encode($data);
                             break;
                         }else{
+                            var_dump($validador);
                             if ($contador == $num_acciones) {
                                 $data["success"] = true;
                                 for ($i = 0; $i < count($nombre_ben); $i++) { 
@@ -97,8 +119,9 @@ if (isset($_POST['op'])) {
                                 }
                                 $cadena_beneficiarios = substr($cadena,0,-1);   
                                 $cadena_beneficiarios.=";";
-                                $data["data"]["mensaje"] = array("cadena" => $cadena_beneficiarios);
-                                echo json_encode($data);
+                                $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
+                                $data["data"]["contratos"] = "Los datos  se ingresaron correctament.";
+                                echo json_encode($cadena_beneficiarios);
                                 break;
                             }
                         }   
