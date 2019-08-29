@@ -193,11 +193,13 @@
             </div>
           <!--footer modal-->
           <div class="modal-footer">
-            <button type="button" id="btn_before_2" class="btn btn-light">Regresar</button>
-            <button type="button" id="btn_next_2" class="btn btn-primary">Guardar</button>
-            <button type="button" id="btn_cancel_2" class="btn btn-danger">Cancelar</button>
-            <button type="button" id="btn_input_benef" class="btn btn-primary">Agregar Beneficiario(s)</button>
-            <button type="button" id="btn_omit" class="btn btn-primary">Omitir</button>
+            <div class="row">
+              <button type="button" id="btn_before_2" class="btn btn-light mt-1">Regresar</button>
+              <button type="button" id="btn_next_2" class="btn btn-primary mt-1">Guardar</button>
+              <button type="button" id="btn_cancel_2" class="btn btn-danger mt-1">Cancelar</button>
+              <button type="button" id="btn_input_benef" class="btn btn-primary mt-1">Agregar Beneficiario(s)</button>
+              <button type="button" id="btn_omit" class="btn btn-primary mt-1">Omitir</button>              
+            </div>
           </div>
         </div>
         </div>

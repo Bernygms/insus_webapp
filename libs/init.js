@@ -7,6 +7,7 @@ $(function(){
 	//funcion init()  se obtine del script insus_app.js
 	init();
 	//Funcion de JQuery para la busqueda de estados en la tabla estados
+	deshabilitaRetroceso();
 	$("#buscar").keyup(function(){
 	 		var _this = this;
 	 		console.log(_this);
@@ -100,6 +101,13 @@ $(function(){
 	}); 
 
 	/*Validacion de input´s de add Beneficiarios*/
+
+	/*De acuerdo ---*/
+	function deshabilitaRetroceso(){
+		window.location.hash="no-back-button";
+		window.location.hash="Again-No-back-button" //chrome
+		window.onhashchange=function(){window.location.hash="no-back-button";}
+	}
 
 
 	 
