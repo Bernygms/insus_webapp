@@ -891,7 +891,7 @@ function searchAccAndBenef(id_raci){
 				html_acc_benef +='<td>'+value['otros_con']+'</td>';*/
 				html_acc_benef +='<td>'+value['mes_con']+'</td>';
 				html_acc_benef +='<td>'+value['anno_con']+'</td>';
-				/*html_acc_benef +='<td>'+value['fecha_con']+'</td>';
+				/*html_acc_benef +='<td>'+value['fecha_con']+'</td>';	
 				html_acc_benef +='<td>'+value['fecha_edi_con']+'</td>';
 				html_acc_benef +='<td>'+value['pk_id_raci']+'</td>';*/
 				html_acc_benef +='<td>'+programasArray[value['pk_id_pro']]+" "+ value['pk_id_pro']+'</td>';
