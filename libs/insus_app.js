@@ -131,7 +131,7 @@ function getIdEstForShowRaci(entidad_raci){
 		};
 		data = {op: "raci",entidad_raci: entidad_raci}
 		__Ajax_JSON(url,data).done(function(response){
-				raci = response;
+				raci = response.data.raci;
 				//console.log(response);
 				html_raci += '<table id="raci" class="table table-hover mytable"><thead><tr><!--<th>#</th>--><th data-toggle="tooltip" data-placement="top" title="Tooltip on top">Cv.INSUS</th><th>Cv.INEGI</th><th>Tipo</th><th>Poblado</th><th>Municipio</th><th>Superficie</th><!--<th>Municipio</th><th>Contrataciòn</th>--><th>Lotes</th><th>Contratados</th><th>Pendientes</th><th>Accion</th></tr>';
 				html_raci += '</thead><tbody>';
@@ -516,9 +516,9 @@ function addAcciones(){
 			});
 		}
 	}else if (pk_id_pro == 2) {
-		if (accion_con == "" || accion_con == 0) {
+		if (accion_con == "" || accion_con == 0 || !$.isNumeric(accion_con)) {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (pago_ben_con == "" || pago_ben_con == 0) {
+		}else if (pago_ben_con == "" || pago_ben_con == 0 || !$.isNumeric(pago_ben_con)) {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
 			desabledBtnAddAcciones();
@@ -539,9 +539,9 @@ function addAcciones(){
 			});
 		}
 	}else if (pk_id_pro == 3) {	
-		if (accion_con == " " || accion_con == 0) {
+		if (accion_con == " " || accion_con == 0 || !$.isNumeric(accion_con)) {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (pago_ben_con == "" || pago_ben_con == 0) {
+		}else if (pago_ben_con == "" || pago_ben_con == 0 || !$.isNumeric(pago_ben_con)) {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
 		}else{
 			desabledBtnAddAcciones();
@@ -562,11 +562,11 @@ function addAcciones(){
 			});
 		}
 	}else if (pk_id_pro == 4) {
-		if (accion_con == "" || accion_con == 0) {
+		if (accion_con == "" || accion_con == 0 || !$.isNumeric(accion_con)) {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (pago_ben_con == "" || pago_ben_con == 0) {
+		}else if (pago_ben_con == "" || pago_ben_con == 0 || !$.isNumeric(pago_ben_con)) {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
-		}else if (subsidio_con == "" || subsidio_con == 0) {
+		}else if (subsidio_con == "" || subsidio_con == 0 || !$.isNumeric(subsidio_con)) {
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
@@ -588,11 +588,11 @@ function addAcciones(){
 		}
 
 	}else if (pk_id_pro == 5) {
-		if (accion_con == "" || accion_con == 0) {
+		if (accion_con == "" || accion_con == 0 || !$.isNumeric(accion_con)) {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (pago_ben_con == "" || pago_ben_con == 0) {
+		}else if (pago_ben_con == "" || pago_ben_con == 0 || !$.isNumeric(pago_ben_con)) {
 			toastrError("El campo Pago Beneficiario, es obligatorio.","Pago Beneficiario");
-		}else if (subsidio_con == "" || subsidio_con == 0) {
+		}else if (subsidio_con == "" || subsidio_con == 0 || !$.isNumeric(subsidio_con)) {
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
@@ -614,11 +614,11 @@ function addAcciones(){
 		}
 
 	}else if (pk_id_pro == 6) {
-		if (accion_con == "") {
+		if (accion_con == "" || accion_con == 0 || !$.isNumeric(accion_con)) {
 			toastrError("El campo acción, es obligatorio.","Acción");
-		}else if (apoyo_insus_con == "" || apoyo_insus_con == 0) {
+		}else if (apoyo_insus_con == "" || apoyo_insus_con == 0 || !$.isNumeric(apoyo_insus_con)) {
 			toastrError("El campo Apoyo INSUS, es obligatorio.","Apoyo INSUS");
-		}else if (subsidio_con == "" || subsidio_con == 0) {
+		}else if (subsidio_con == "" || subsidio_con == 0 || !$.isNumeric(subsidio_con)) {
 			toastrError("El campo Subsidio, es obligatorio.","Subsidio");
 		}else{
 			desabledBtnAddAcciones();
@@ -849,17 +849,28 @@ function next_and_before(argument) {
 		$("#div_pro_benef").hide();
 			
 	   }else if(argument == 2){
-	   	console.log("Raci----");	
-	   	$("#div_est").hide();
-	   	$("#buscador_estados").hide();
-	  	$("#div_raci").show();
-		$("#div_pro_benef").hide();
+		if(raci.length == 0){
+			console.log("ok false");
+			console.log(raci);
+		}else{
+			console.log("Raci----");	
+			$("#div_est").hide();
+			$("#buscador_estados").hide();
+			$("#div_raci").show();
+			$("#div_pro_benef").hide();
+			
+		}
 	   }else if(argument == 3){
-	   	console.log("Acciones y Beneficiarios----");
-	   	$("#div_est").hide();
-	   	$("#buscador_estados").hide();
-	  	$("#div_raci").hide();
-		$("#div_pro_benef").show();
+		if(contratos_beneficiarios.length == 0){
+			console.log("ok false");
+			console.log(contratos_beneficiarios);
+		}else{
+			console.log("Acciones y Beneficiarios----");
+			$("#div_est").hide();
+			$("#buscador_estados").hide();
+			$("#div_raci").hide();
+			$("#div_pro_benef").show();
+		}
 		
 	   }else{
 	   	console.log("Estados por defecto----"+argument);
@@ -875,7 +886,7 @@ function searchAccAndBenef(id_raci){
 	__Ajax_JSON(urlCont,data).done(function(response){
 		if (response.success == true) {
 			contador = 0;
-			contratos_beneficiarios = response;
+			contratos_beneficiarios = response.data.contratos;
 			html_acc_benef += '<table id="tabla" class="table  table-hover mytable1"><thead><tr><th>#</th><th>Acción</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Programa</th><th>Nombre</th><th>Appelido Paterno</th><th>Apellido Materno</th><th>Genero</th>';
 			html_acc_benef += '<th>Estado</th><th>Zona</th><th>Manzana</th><th>Lote</th><th>Superficie Mts²</th><th>Uso</th><th>Número de contrato (DJ 1)</th><th>Número de contrato (DJ 2)</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Fecha de contrato</th><th>Accion</th></tr></thead>';
 			$.each(response.data.contratos, function(key,value){

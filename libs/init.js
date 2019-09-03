@@ -86,7 +86,7 @@ $(function(){
 			count++;
 			next_and_before(count);
 		}else{
-
+			next_and_before(count);
 		}
 		console.log(count);
 	});
@@ -95,7 +95,7 @@ $(function(){
 			count--;
 			next_and_before(count);
 		}else{
-
+			next_and_before(count);
 		} 
 		console.log(count);
 	}); 

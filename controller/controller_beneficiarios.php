@@ -654,21 +654,13 @@ if (isset($_POST['op'])) {
                     break; 
                 default: 
                     # code...
-                echo "string default";
+                    $data["data"]["mensaje"] = "Datos incompletos, respuesta default programa no encontrada.";
+                    echo json_encode($data);
                     break;
-            }
-            /*for ($i = 0; $i < count($nombre_ben); $i++) { 
-                $cadena.="('".$nombre_ben[$i]."','".$apellido_pat_ben[$i]."','".$apellido_mat_ben[$i]."','".$genero_ben[$i]."','".$estado_ben[$i]."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".$pago_ben[$i]."','".$apoyo_insus_ben[$i]."','".$subsidio_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
-            }
-            $cadena_beneficiarios = substr($cadena,0,-1);   
-            $cadena_beneficiarios.=";";*/
-            #siguiente codigo funcional para insertar beneficiarios
-            #$response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
-            #$data["data"]["mensaje"] = array("cadena" => $cadena_beneficiarios);
-            
-            break; 
+            } 
+            break;  
         default:
-            $data["data"]["mensaje"] = "Datos incompletos, respuesta default.";
+            $data["data"]["mensaje"] = "Datos incompletos, respuesta default solicitud no encontrada.";
             echo json_encode($data);
             break;
     }
