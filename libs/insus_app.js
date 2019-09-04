@@ -181,20 +181,20 @@ function getIdRaci(id_raci){
 	var status = false;
 	console.log(id_raci);
 	console.log(raci);
-	for (var i in raci.data.raci) {
-		if (raci.data.raci[i].id_raci == id_raci) {
-			$("#id_raci").val(raci.data.raci[i].id_raci);
-			$("#entidad_raci").val(raci.data.raci[i].entidad_raci);
-			$("#clave_insus_raci").val(raci.data.raci[i].clave_insus_raci);
-			$("#clave_inegi_raci").val(raci.data.raci[i].clave_inegi_raci);
-			$("#modalidad_raci").val(raci.data.raci[i].modalidad_raci);
-			$("#nombre_de_pob_raci").val(raci.data.raci[i].nombre_de_pob_raci);
-			$("#municipio_raci").val(raci.data.raci[i].municipio_raci);
-			$("#superficie_de_pob_raci").val(raci.data.raci[i].superficie_de_pob_raci);
-			$("#municipio_pro_raci").val(raci.data.raci[i].municipio_pro_raci);
-			$("#fecha_ini_con_raci").val(raci.data.raci[i].fecha_ini_con_raci);
-			$("#universo_de_lot_raci").val(raci.data.raci[i].universo_de_lot_raci);
-			$("#total_con_raci").val(raci.data.raci[i].total_con_raci);
+	for (var i in raci) {
+		if (raci[i].id_raci == id_raci) {
+			$("#id_raci").val(raci[i].id_raci);
+			$("#entidad_raci").val(raci[i].entidad_raci);
+			$("#clave_insus_raci").val(raci[i].clave_insus_raci);
+			$("#clave_inegi_raci").val(raci[i].clave_inegi_raci);
+			$("#modalidad_raci").val(raci[i].modalidad_raci);
+			$("#nombre_de_pob_raci").val(raci[i].nombre_de_pob_raci);
+			$("#municipio_raci").val(raci[i].municipio_raci);
+			$("#superficie_de_pob_raci").val(raci[i].superficie_de_pob_raci);
+			$("#municipio_pro_raci").val(raci[i].municipio_pro_raci);
+			$("#fecha_ini_con_raci").val(raci[i].fecha_ini_con_raci);
+			$("#universo_de_lot_raci").val(raci[i].universo_de_lot_raci);
+			$("#total_con_raci").val(raci[i].total_con_raci);
 			status = true;
 			console.log(status);
 		}
@@ -887,7 +887,10 @@ function searchAccAndBenef(id_raci){
 		if (response.success == true) {
 			contador = 0;
 			contratos_beneficiarios = response.data.contratos;
-			html_acc_benef += '<table id="tabla" class="table  table-hover mytable1"><thead><tr><th>#</th><th>Acción</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Programa</th><th>Nombre</th><th>Appelido Paterno</th><th>Apellido Materno</th><th>Genero</th>';
+
+			html_acc_benef += '<table id="tabla" class="table  table-hover mytable1"><thead>';
+			html_acc_benef += '<tr><th colspan="1" rowspan="2">#</th><th colspan="7">Programa y Acciones en Genral</th><th colspan="17">Beneficiariso </th></tr>';
+			html_acc_benef += '<tr><th>Acción</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Programa</th><th>Nombre</th><th>Appelido Paterno</th><th>Apellido Materno</th><th>Genero</th>';
 			html_acc_benef += '<th>Estado</th><th>Zona</th><th>Manzana</th><th>Lote</th><th>Superficie Mts²</th><th>Uso</th><th>Número de contrato (DJ 1)</th><th>Número de contrato (DJ 2)</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Fecha de contrato</th><th>Accion</th></tr></thead>';
 			$.each(response.data.contratos, function(key,value){
 				//console.log(value['nombre_est']);
@@ -905,12 +908,13 @@ function searchAccAndBenef(id_raci){
 				/*html_acc_benef +='<td>'+value['fecha_con']+'</td>';	
 				html_acc_benef +='<td>'+value['fecha_edi_con']+'</td>';
 				html_acc_benef +='<td>'+value['pk_id_raci']+'</td>';*/
-				html_acc_benef +='<td>'+programasArray[value['pk_id_pro']]+" "+ value['pk_id_pro']+'</td>';
+				html_acc_benef +='<td>'+programasArray[value['pk_id_pro']]+'</td>';
 				/*html_acc_benef +='<td>'+value['id_ben']+'</td>';*/
 				html_acc_benef +='<td>'+value['nombre_ben']+'</td>';
 				html_acc_benef +='<td>'+value['apellido_pat_ben']+'</td>';
 				html_acc_benef +='<td>'+value['apellido_mat_ben']+'</td>';
-				html_acc_benef +='<td>'+value['genero_ben']+'</td>';
+				if(value['genero_ben'] == 1) html_acc_benef +='<td>Hombre</td>';
+				if(value['genero_ben'] == 2) html_acc_benef +='<td>Mujer</td>';
 				html_acc_benef +='<td>'+value['estado_ben']+'</td>';
 				html_acc_benef +='<td>'+value['zona_ben']+'</td>';
 				html_acc_benef +='<td>'+value['manazana_ben']+'</td>';

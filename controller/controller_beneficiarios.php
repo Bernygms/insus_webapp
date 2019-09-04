@@ -41,6 +41,9 @@ if (isset($_POST['op'])) {
     $total_apoyo_insus_ben = 0;
     $total_subsidio_ben = 0;
     $max_num = 16;
+    $max_leng40 = 40;
+    $max_leng30 = 30;
+    $max_leng10 = 10;
     #Instancia a la funcion modelo beneficiarios 
     $objBeneficiarios = new Model_beneficiarios();
 
@@ -61,12 +64,24 @@ if (isset($_POST['op'])) {
                         }
                         #var_dump($validador);
                         $contador = $i+1;
-                        if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i])) {
-                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre, (Beneficiario ".$contador." )";
+                        if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i]) || strlen($nombre_ben[$i]) > $max_leng30) {
+                            if(strlen($nombre_ben[$i]) > $max_leng30){ 
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre  maximo ".$max_leng30." caracteres, (Beneficiario ".$contador." )";
+                            }else{
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre, (Beneficiario ".$contador." )";
+                            }
                             echo json_encode($data);
                             break;
-                        }else if(trim($apellido_pat_ben[$i]) == "" || is_numeric($apellido_pat_ben[$i])){
-                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Apelldio Paterno,  (Beneficiario ".$contador." )";
+                        }else if(trim($apellido_pat_ben[$i]) == "" || is_numeric($apellido_pat_ben[$i]) || strlen($apellido_pat_ben[$i]) > $max_leng30){
+                            if(strlen($apellido_pat_ben[$i]) > $max_leng30){ 
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Apelldio Paterno  maximo ".$max_leng30." caracteres, (Beneficiario ".$contador." )";
+                            }else{
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Apelldio Paterno, (Beneficiario ".$contador." )";
+                            }
+                            echo json_encode($data);
+                            break;
+                        }else if(strlen($apellido_mat_ben[$i]) > $max_leng30){
+                            $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Apelldio Materno  maximo ".$max_leng30." caracteres, (Beneficiario ".$contador." )";
                             echo json_encode($data);
                             break;
                         }else if(trim($genero_ben[$i]) == ""){
@@ -548,7 +563,7 @@ if (isset($_POST['op'])) {
                             }
                         }   
                     }
-                    break;
+                    break;  
                 case 6:
                     # PASPRAH
                     $fecha_hoy = date("Y")."-".date("m")."-".date("d");
