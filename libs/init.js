@@ -87,6 +87,10 @@ $(function(){
 			next_and_before(count);
 		}else{
 			next_and_before(count);
+			if (count == 3) {
+				//$('#btn_nextPage').attr("disabled", true);
+				//$('#btn_beaforPage').attr("disabled", false);
+			}
 		}
 		console.log(count);
 	});
@@ -96,6 +100,10 @@ $(function(){
 			next_and_before(count);
 		}else{
 			next_and_before(count);
+			if (count == 1) {
+				//$('#btn_nextPage').attr("disabled", false);
+				//$('#btn_beaforPage').attr("disabled", true);
+			}
 		} 
 		console.log(count);
 	}); 

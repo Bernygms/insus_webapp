@@ -139,7 +139,7 @@
               </form>
             <!--footer modal-->
             <div class="modal-footer">
-              <button id="btn_next_1" type="button" class="btn btn-primary">Continuar</button>
+              <button id="btn_next_1" type="button" class="btn btn-primary ml-1">Continuar</button>
             </div>
           </div>
           </div>
@@ -194,11 +194,11 @@
           <!--footer modal-->
           <div class="modal-footer">
             <div class="row">
-              <button type="button" id="btn_before_2" class="btn btn-light mt-1">Regresar</button>
-              <button type="button" id="btn_next_2" class="btn btn-primary mt-1">Guardar</button>
-              <button type="button" id="btn_cancel_2" class="btn btn-danger mt-1">Cancelar</button>
-              <button type="button" id="btn_input_benef" class="btn btn-primary mt-1">Agregar Beneficiario(s)</button>
-              <button type="button" id="btn_omit" class="btn btn-primary mt-1">Omitir</button>              
+              <button type="button" id="btn_before_2" class="btn btn-light m-1 ml-1">Regresar</button>
+              <button type="button" id="btn_next_2" class="btn btn-primary mt-1 ml-1">Guardar</button>
+              <button type="button" id="btn_cancel_2" class="btn btn-danger mt-1 ml-1">Cancelar</button>
+              <button type="button" id="btn_input_benef" class="btn btn-primary mt-1 ml-1">Agregar Beneficiario(s)</button>
+              <button type="button" id="btn_omit" class="btn btn-primary mt-1 ml-1">Omitir</button>              
             </div>
           </div>
         </div>
@@ -211,8 +211,8 @@
           </div>
           <!--footer modal-->
           <div class="modal-footer"> 
-             <button type="button" id="btn_save_ben" class="btn btn-primary">Guardar</button>
-             <button type="button" id="btn_next_ben" class="btn btn-primary">Continuar</button>
+             <button type="button" id="btn_save_ben" class="btn btn-primary ml-1">Guardar</button>
+             <button type="button" id="btn_next_ben" class="btn btn-primary ml-1">Continuar</button>
           </div>
         </div>
         </div>
@@ -220,7 +220,7 @@
         <div id="div_finalizar">
           <div class="modal-body text-center">
             <h5 class="card-title">Fin del proceso de registro</h5>
-            <p class="card-text">Hemos terminado de registrar las acciones.</p>
+            <p >Hemos terminado de registrar las acciones.</p>
             <a id="btn_finalizar" class="btn btn-primary">Finalizar</a>
           </div>
         </div>

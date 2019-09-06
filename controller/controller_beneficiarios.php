@@ -55,16 +55,28 @@ if (isset($_POST['op'])) {
                     # REGLA 1
                     $fecha_hoy = date("Y")."-".date("m")."-".date("d");
                     for ($i = 0; $i < $num_acciones; $i++) {   
-                        #Total pago beneficiario
-                        if (!empty($pago_ben[$i])) {
-                            $total_pago_ben += str_ireplace(',', '',$pago_ben[$i])  ;
-                        }
-                        if (!empty($apoyo_insus_ben[$i])) {
-                            $total_apoyo_insus_ben += str_ireplace(',', '',$apoyo_insus_ben[$i]);
-                        }
-                        #var_dump($validador);
                         $contador = $i+1;
-                        if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i]) || strlen($nombre_ben[$i]) > $max_leng30) {
+                        #Total pago beneficiario
+                        if (!empty($pago_ben[$i]) && is_numeric($pago_ben[$i])) {
+                            $total_pago_ben += str_ireplace(',', '',$pago_ben[$i])  ;
+                        }else{
+                            if(!is_numeric($pago_ben[$i])){
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Pago Beneficiario, (Beneficiario ".$contador." )";
+                                echo json_encode($data);
+                                break;
+                            }
+                        }
+                        if (!empty($apoyo_insus_ben[$i]) && is_numeric($apoyo_insus_ben[$i])) {
+                            $total_apoyo_insus_ben += str_ireplace(',', '',$apoyo_insus_ben[$i]);
+                        }else{
+                            if(!is_numeric($apoyo_insus_ben[$i])){
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Apoyo INSUS, (Beneficiario ".$contador." )";
+                                echo json_encode($data);
+                                break;
+                            }
+                        } 
+                        #var_dump($validador);  
+                        if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i]) || strlen($nombre_ben[$i]) > $max_leng30) { 
                             if(strlen($nombre_ben[$i]) > $max_leng30){ 
                                 $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre  maximo ".$max_leng30." caracteres, (Beneficiario ".$contador." )";
                             }else{
@@ -141,6 +153,11 @@ if (isset($_POST['op'])) {
                             echo json_encode($data);
                             break;
 
+                        }else if(!empty($subsidio_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos, Subsidio no requerido en Regla 1,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+
                         }else{ 
                             if ($contador == $num_acciones) { 
                                 if($pago_ben_con > $total_pago_ben || $pago_ben_con < $total_pago_ben){
@@ -154,12 +171,12 @@ if (isset($_POST['op'])) {
                                 } 
                                 $data["success"] = true;
                                 for ($i = 0; $i < count($nombre_ben); $i++) { 
-                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','".str_ireplace(',', '',$apoyo_insus_ben[$i])."','".$subsidio_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
+                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','".str_ireplace(',', '',$apoyo_insus_ben[$i])."','". 0 ."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
                                 }
                                 $cadena_beneficiarios = substr($cadena,0,-1);   
                                 $cadena_beneficiarios.=";";
                                 $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
-                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.". $total_apoyo_insus_ben;
+                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.";
                                 echo json_encode($data);
                                 break;
                             }
@@ -169,13 +186,20 @@ if (isset($_POST['op'])) {
                 case 2:
                     # REGLA 2
                     $fecha_hoy = date("Y")."-".date("m")."-".date("d");
-                    for ($i = 0; $i < $num_acciones; $i++) {   
+                    for ($i = 0; $i < $num_acciones; $i++) {  
+                        $contador = $i+1; 
                         #Total pago beneficiario
-                        if (!empty($pago_ben[$i])) {
+                        if (!empty($pago_ben[$i]) && is_numeric($pago_ben[$i])) {
                             $total_pago_ben += str_ireplace(',', '',$pago_ben[$i])  ;
+                        }else{
+                            if(!is_numeric($pago_ben[$i])){
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Pago Beneficiario, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                            }
                         }
                         #var_dump($validador);
-                        $contador = $i+1;
+                        
                         if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i])) {
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre, (Beneficiario ".$contador." )";
                             echo json_encode($data);
@@ -241,6 +265,16 @@ if (isset($_POST['op'])) {
                             echo json_encode($data);
                             break;
 
+                        }else if(!empty($apoyo_insus_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos, Apoyo Insus no requerido en Regla 2,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+
+                        }else if(!empty($subsidio_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos, Subsidio no requerido en Regla 2,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+
                         }else{ 
                             if ($contador == $num_acciones) { 
                                 if($pago_ben_con > $total_pago_ben || $pago_ben_con < $total_pago_ben){
@@ -250,12 +284,12 @@ if (isset($_POST['op'])) {
                                 } 
                                 $data["success"] = true;
                                 for ($i = 0; $i < count($nombre_ben); $i++) { 
-                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','".str_ireplace(',', '',$apoyo_insus_ben[$i])."','".$subsidio_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
+                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','". 0 ."','". 0 ."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
                                 }
                                 $cadena_beneficiarios = substr($cadena,0,-1);   
                                 $cadena_beneficiarios.=";";
                                 $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
-                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.". $total_apoyo_insus_ben;
+                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.";
                                 echo json_encode($data);
                                 break;
                             }
@@ -265,13 +299,18 @@ if (isset($_POST['op'])) {
                 case 3:
                     # REGLA 3
                     $fecha_hoy = date("Y")."-".date("m")."-".date("d");
-                    for ($i = 0; $i < $num_acciones; $i++) {   
+                    for ($i = 0; $i < $num_acciones; $i++) {
+                        $contador = $i+1;   
                         #Total pago beneficiario
-                        if (!empty($pago_ben[$i])) {
+                        if (!empty($pago_ben[$i]) && is_numeric($pago_ben[$i])) {
                             $total_pago_ben += str_ireplace(',', '',$pago_ben[$i])  ;
-                        }
-                        #var_dump($validador);
-                        $contador = $i+1;
+                        }else{
+                            if(!is_numeric($pago_ben[$i])){
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Pago Beneficiario, (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+                            }
+                        }                        
                         if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i])) {
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre, (Beneficiario ".$contador." )";
                             echo json_encode($data);
@@ -335,6 +374,16 @@ if (isset($_POST['op'])) {
                         }else if(trim($pago_ben[$i]) == ""  ||  !is_numeric(str_ireplace(',','', $pago_ben[$i]))){
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Pago Beneficiario,  (Beneficiario ".$contador." )";
                             echo json_encode($data);
+                            break;  
+
+                        }else if(!empty($apoyo_insus_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos, Apoyo Insus no requerido en Regla 3,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+
+                        }else if(!empty($subsidio_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos, Subsidio no requerido en Regla 3,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
                             break;
 
                         }else{ 
@@ -346,12 +395,12 @@ if (isset($_POST['op'])) {
                                 } 
                                 $data["success"] = true;
                                 for ($i = 0; $i < count($nombre_ben); $i++) { 
-                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','".str_ireplace(',', '',$apoyo_insus_ben[$i])."','".$subsidio_ben[$i]."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
+                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','". 0 ."','". 0 ."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
                                 }
                                 $cadena_beneficiarios = substr($cadena,0,-1);   
                                 $cadena_beneficiarios.=";";
                                 $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
-                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.". $total_apoyo_insus_ben;
+                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.";
                                 echo json_encode($data);
                                 break;
                             }
@@ -362,15 +411,28 @@ if (isset($_POST['op'])) {
                     # PMU   
                     $fecha_hoy = date("Y")."-".date("m")."-".date("d");
                     for ($i = 0; $i < $num_acciones; $i++) {   
+                        $contador = $i+1;
                         #Total pago beneficiario
-                        if (!empty($pago_ben[$i])) {
+                        if (!empty($pago_ben[$i]) && is_numeric($pago_ben[$i])) {
                             $total_pago_ben += str_ireplace(',', '',$pago_ben[$i])  ;
+                        }else{
+                            if(!is_numeric($pago_ben[$i])){
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Apoyo INSUS, (Beneficiario ".$contador." )";
+                                echo json_encode($data);
+                                break;
+                            }
                         }
-                        if (!empty($subsidio_ben[$i])) {
+                        if (!empty($subsidio_ben[$i]) && is_numeric($subsidio_ben[$i])) {
                             $total_subsidio_ben += str_ireplace(',', '',$subsidio_ben[$i]);
+                        }else{
+                            if(!is_numeric($subsidio_ben[$i])){
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Subsidio, (Beneficiario ".$contador." )";
+                                echo json_encode($data);
+                                break;
+                            }
                         }
                         #var_dump($validador);
-                        $contador = $i+1;
+                        
                         if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i])) {
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre, (Beneficiario ".$contador." )";
                             echo json_encode($data);
@@ -436,6 +498,11 @@ if (isset($_POST['op'])) {
                             echo json_encode($data);
                             break;
 
+                        }else if(!empty($apoyo_insus_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos, Apoyo Insus no requerido en PMU,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+
                         }else{ 
                             if ($contador == $num_acciones) { 
                                 if($pago_ben_con > $total_pago_ben || $pago_ben_con < $total_pago_ben){
@@ -449,12 +516,12 @@ if (isset($_POST['op'])) {
                                 } 
                                 $data["success"] = true;
                                 for ($i = 0; $i < count($nombre_ben); $i++) { 
-                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','".str_ireplace(',', '',$apoyo_insus_ben[$i])."','".str_ireplace(',', '',$subsidio_ben[$i])."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
+                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','". 0 ."','".str_ireplace(',', '',$subsidio_ben[$i])."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
                                 }
                                 $cadena_beneficiarios = substr($cadena,0,-1);   
                                 $cadena_beneficiarios.=";";
                                 $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
-                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.". $total_apoyo_insus_ben;
+                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.";
                                 echo json_encode($data);
                                 break;
                             }
@@ -465,15 +532,27 @@ if (isset($_POST['op'])) {
                     # PRAH
                     $fecha_hoy = date("Y")."-".date("m")."-".date("d");
                     for ($i = 0; $i < $num_acciones; $i++) {   
-                        #Total pago beneficiario
-                        if (!empty($pago_ben[$i])) {
-                            $total_pago_ben += str_ireplace(',', '',$pago_ben[$i])  ;
-                        }
-                        if (!empty($subsidio_ben[$i])) {
-                            $total_subsidio_ben += str_ireplace(',', '',$subsidio_ben[$i]);
-                        }
-                        #var_dump($validador);
                         $contador = $i+1;
+                        #Total pago beneficiario
+                        if (!empty($pago_ben[$i]) && is_numeric($pago_ben[$i])) {
+                            $total_pago_ben += str_ireplace(',', '',$pago_ben[$i])  ;
+                        }else{
+                            if(!is_numeric($pago_ben[$i])){
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Apoyo INSUS, (Beneficiario ".$contador." )";
+                                echo json_encode($data);
+                                break;
+                            }
+                        }
+                        if (!empty($subsidio_ben[$i]) && is_numeric($subsidio_ben[$i])) {
+                            $total_subsidio_ben += str_ireplace(',', '',$subsidio_ben[$i]);
+                        }else{
+                            if(!is_numeric($subsidio_ben[$i])){
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Subsidio, (Beneficiario ".$contador." )";
+                                echo json_encode($data);
+                                break;
+                            }
+                        }
+
                         if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i])) {
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre, (Beneficiario ".$contador." )";
                             echo json_encode($data);
@@ -536,6 +615,11 @@ if (isset($_POST['op'])) {
                             break;
                         }else if(trim($subsidio_ben[$i]) == ""  ||  !is_numeric(str_ireplace(',','', $subsidio_ben[$i]))){
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Subsidio,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
+
+                        }else if(!empty($apoyo_insus_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos, Apoyo Insus no requerido en PRAH,  (Beneficiario ".$contador." )";
                             echo json_encode($data);
                             break;
 
@@ -552,12 +636,12 @@ if (isset($_POST['op'])) {
                                 } 
                                 $data["success"] = true;
                                 for ($i = 0; $i < count($nombre_ben); $i++) { 
-                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','".str_ireplace(',', '',$apoyo_insus_ben[$i])."','".str_ireplace(',', '',$subsidio_ben[$i])."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
+                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','". 0 ."','".str_ireplace(',', '',$subsidio_ben[$i])."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
                                 }
                                 $cadena_beneficiarios = substr($cadena,0,-1);   
                                 $cadena_beneficiarios.=";";
                                 $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
-                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.". $total_apoyo_insus_ben;
+                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.";
                                 echo json_encode($data);
                                 break;
                             }
@@ -568,15 +652,27 @@ if (isset($_POST['op'])) {
                     # PASPRAH
                     $fecha_hoy = date("Y")."-".date("m")."-".date("d");
                     for ($i = 0; $i < $num_acciones; $i++) {   
-                        #Total pago beneficiario
-                        if (!empty($apoyo_insus_ben[$i])) {
-                            $total_apoyo_insus_ben += str_ireplace(',', '',$apoyo_insus_ben[$i]);
-                        }
-                        if (!empty($subsidio_ben[$i])) {
-                            $total_subsidio_ben += str_ireplace(',', '',$subsidio_ben[$i]);
-                        }
-                        #var_dump($validador);
                         $contador = $i+1;
+                        #Total pago beneficiario
+                        if (!empty($apoyo_insus_ben[$i]) ) {
+                            $total_apoyo_insus_ben += str_ireplace(',', '',$apoyo_insus_ben[$i]);
+                        }else{
+                            if(!is_numeric($apoyo_insus_ben[$i])){
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Apoyo INSUS, (Beneficiario ".$contador." )";
+                                echo json_encode($data);
+                                break;
+                            }
+                        }
+                        if (!empty($subsidio_ben[$i]) && is_numeric($subsidio_ben[$i])) {
+                            $total_subsidio_ben += str_ireplace(',', '',$subsidio_ben[$i]);
+                        }else{
+                            if(!is_numeric($subsidio_ben[$i])){
+                                $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Subsidio, (Beneficiario ".$contador." )";
+                                echo json_encode($data);
+                                break;
+                            }
+                        }
+                         
                         if (trim($nombre_ben[$i]) == "" || is_numeric($nombre_ben[$i])) {
                             $data["data"]["mensaje"] = "Datos  invalidos, verifica el campo Nombre, (Beneficiario ".$contador." )";
                             echo json_encode($data);
@@ -642,6 +738,10 @@ if (isset($_POST['op'])) {
                             echo json_encode($data);
                             break;
 
+                        }else if(!empty($pago_ben[$i])){
+                            $data["data"]["mensaje"] = "Datos  invalidos, Pago Beneficiario no requerido en PASPRAH,  (Beneficiario ".$contador." )";
+                            echo json_encode($data);
+                            break;
                         }else{ 
                             if ($contador == $num_acciones) { 
                                 if( $apoyo_insus_con > $total_apoyo_insus_ben || $apoyo_insus_con < $total_apoyo_insus_ben){
@@ -655,12 +755,12 @@ if (isset($_POST['op'])) {
                                 } 
                                 $data["success"] = true;    
                                 for ($i = 0; $i < count($nombre_ben); $i++) { 
-                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','".str_ireplace(',', '',$pago_ben[$i])."','".str_ireplace(',', '',$apoyo_insus_ben[$i])."','".str_ireplace(',', '',$subsidio_ben[$i])."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
+                                    $cadena.="('".strtoupper($nombre_ben[$i])."','".strtoupper($apellido_pat_ben[$i])."','".strtoupper($apellido_mat_ben[$i])."','".$genero_ben[$i]."','".strtoupper($estado_ben[$i])."','".$zona_ben[$i]."','".$manazana_ben[$i]."','".$lote_ben[$i]."','".$superficie_ben[$i]."','".$uso_ben[$i]."','".$numero_con_ben[$i]."','".$numero_con_compro_ben[$i]."','". 0 ."','".str_ireplace(',', '',$apoyo_insus_ben[$i])."','".str_ireplace(',', '',$subsidio_ben[$i])."','".$fecha_ben[$i]."','".$pk_id_con[$i]."'),";
                                 }
                                 $cadena_beneficiarios = substr($cadena,0,-1);   
                                 $cadena_beneficiarios.=";";
                                 $response = $objBeneficiarios->addBeneficiarios($cadena_beneficiarios);
-                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.". $total_apoyo_insus_ben;
+                                $data["data"]["mensaje"] = "Los datos  se ingresaron correctamente.";
                                 echo json_encode($data);
                                 break;
                             }

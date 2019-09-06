@@ -14,6 +14,7 @@
 	var html_raci = "";
 	var html_acc_benef = "";
 	var contador = 0;
+	var moneda = 0;
  /******************************************************/
  /******************************************************/
     //Variable de entrada para la tabla estados 
@@ -809,14 +810,19 @@ function valArrayInputsBenef(){
 function addBeneficiarios(){
 	data = new FormData($("#form_addBeneficiarios")[0]);
 	__Ajax_FormData(urlBenef,data).done(function(response){
+		$("#contenedor_init_load").show();
 		if (response.success == true) {
 			toastrExito(response.data.mensaje,"Beneficiario´s");
 			$("#btn_omit").hide();
 			$("#btn_input_benef").hide();
-			//$("#btn_save_ben").hide();
-			//$("#btn_next_ben").show();
+			$("#btn_save_ben").hide();
+			$("#btn_next_ben").show();
+			$("#contenedor_init_load").fadeOut();
+			$('#contenedor_init_load').delay(0).fadeOut('slow');
 		}else if(response.success == false){
 			toastrError(response.data.mensaje,"Beneficiario´s");
+			$("#contenedor_init_load").fadeOut();
+			$('#contenedor_init_load').delay(0).fadeOut('slow');
 		}
 	}).fail(function(resp){
 		console.log(resp);
@@ -897,10 +903,10 @@ function searchAccAndBenef(id_raci){
 				contador++;
 				html_acc_benef += '<tr>';
 				html_acc_benef +='<td>'+contador+'</td>';
-				html_acc_benef +='<td>'+value['accion_con']+'</td>';
-				html_acc_benef +='<td>'+value['pago_ben_con']+'</td>';
-				html_acc_benef +='<td>'+value['apoyo_insus_con']+'</td>';
-				html_acc_benef +='<td>'+value['subsidio_con']+'</td>';
+				html_acc_benef +='<td>'+ value['accion_con']+'</td>';
+				html_acc_benef +='<td>&#36;'+formatMoneda(value['pago_ben_con'])+'.00</td>';
+				html_acc_benef +='<td>&#36;'+formatMoneda(value['apoyo_insus_con'])+'.00</td>';
+				html_acc_benef +='<td>&#36;'+formatMoneda(value['subsidio_con'])+'.00</td>';
 				/*html_acc_benef +='<td>'+value['rectificaciones_con']+'</td>';
 				html_acc_benef +='<td>'+value['otros_con']+'</td>';*/
 				html_acc_benef +='<td>'+value['mes_con']+'</td>';
@@ -913,8 +919,8 @@ function searchAccAndBenef(id_raci){
 				html_acc_benef +='<td>'+value['nombre_ben']+'</td>';
 				html_acc_benef +='<td>'+value['apellido_pat_ben']+'</td>';
 				html_acc_benef +='<td>'+value['apellido_mat_ben']+'</td>';
-				if(value['genero_ben'] == 1) html_acc_benef +='<td>Hombre</td>';
-				if(value['genero_ben'] == 2) html_acc_benef +='<td>Mujer</td>';
+				if(value['genero_ben'] == 1) html_acc_benef +='<td>HOMBRE</td>';
+				if(value['genero_ben'] == 2) html_acc_benef +='<td>MUJER</td>';
 				html_acc_benef +='<td>'+value['estado_ben']+'</td>';
 				html_acc_benef +='<td>'+value['zona_ben']+'</td>';
 				html_acc_benef +='<td>'+value['manazana_ben']+'</td>';
@@ -923,9 +929,9 @@ function searchAccAndBenef(id_raci){
 				html_acc_benef +='<td>'+value['uso_ben']+'</td>';
 				html_acc_benef +='<td>'+value['numero_con_ben']+'</td>';
 				html_acc_benef +='<td>'+value['numero_con_compro_ben']+'</td>';
-				html_acc_benef +='<td>'+value['pago_ben']+'</td>';
-				html_acc_benef +='<td>'+value['apoyo_insus_ben']+'</td>';
-				html_acc_benef +='<td>'+value['subsidio_ben']+'</td>';
+				html_acc_benef +='<td>&#36;'+formatMoneda(value['pago_ben'])+'.00</td>';
+				html_acc_benef +='<td>&#36;'+formatMoneda(value['apoyo_insus_ben'])+'.00</td>';
+				html_acc_benef +='<td>&#36;'+formatMoneda(value['subsidio_ben'])+'.00</td>';
 				html_acc_benef +='<td>'+value['fecha_ben']+'</td>';
 				/*html_acc_benef +='<td>'+value['pk_id_con']+'</td>';*/
 				html_acc_benef +='<td><button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-magnify btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';
@@ -947,3 +953,9 @@ function searchAccAndBenef(id_raci){
 		console.log(resp);
 	}); 
 } 
+/*Función, dar formato a la moneda en la tabla Acciones y Beneficiarios*/
+function formatMoneda(moneda_es_mx){
+	moneda = 0;
+	moneda  = new Intl.NumberFormat('es-MX').format(moneda_es_mx);
+	return moneda;
+}
