@@ -67,17 +67,38 @@ if(!isset($_SESSION["rol_usu"]))
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul  class="navbar-nav mr-lg-4 w-100">
           <li class="nav-item nav-search d-none d-lg-block w-100">
-            <div id="buscador_estados" class="input-group">
+            <!--<div id="buscador_estados" class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="search">
                   <i class="mdi mdi-magnify"></i>
                 </span>
               </div>
               <div id="search_est"></div>
-            </div>
+            </div>-->
+            <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                    
+                </div>
+                <div class="d-flex mr-top-10">
+                  <i class="mdi mdi-home text-muted hover-cursor"></i>
+                  <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Inicio</p>
+                  <p class="text-primary mb-0 hover-cursor" id="name_user"></p>
+                  <p class="text-primary mb-0 hover-cursor" id="nombre_estado"></p>
+                </div>
+              </div>
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
+          <!--li init -->
+          <li class="nav-item dropdown mr-1">
+            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+              <i id="btn_beaforPage" class="mdi mdi-arrow-left-bold mx-0"></i></a>
+          </li>
+          <li class="nav-item dropdown mr-1">
+            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+              <i id="btn_nextPage" class="mdi mdi-arrow-right-bold mx-0"></i></a>
+          </li>
+          <!--fin li-->
           <li class="nav-item dropdown mr-1">
             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-message-text mx-0"></i>

@@ -851,7 +851,7 @@ function next_and_before(argument) {
 	  	console.log("Estads----");	
 	  	$("#div_est").show();
 	  	$("#buscador_estados").show();
-	  	$("#div_raci").hide();
+	  	$("#div_raci").hide(); 
 		$("#div_pro_benef").hide();
 			
 	   }else if(argument == 2){
@@ -934,7 +934,7 @@ function searchAccAndBenef(id_raci){
 				html_acc_benef +='<td>&#36;'+formatMoneda(value['subsidio_ben'])+'.00</td>';
 				html_acc_benef +='<td>'+value['fecha_ben']+'</td>';
 				/*html_acc_benef +='<td>'+value['pk_id_con']+'</td>';*/
-				html_acc_benef +='<td><button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-magnify btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';
+				html_acc_benef +='<td><button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';
 				html_acc_benef += '</tr>';
 			});
 			html_acc_benef += '</tbody></table>';
