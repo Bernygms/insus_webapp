@@ -88,8 +88,9 @@ $(function(){
 		}else{
 			next_and_before(count);
 			if (count == 3) {
-				//$('#btn_nextPage').attr("disabled", true);
-				//$('#btn_beaforPage').attr("disabled", false);
+				$("#btn_nextPage").css("color", "#9b9b9b");
+				$('#btn_nextPage').attr("disabled", true);
+				$('#btn_beaforPage').attr("disabled", false);
 			}
 		}
 		console.log(count);
@@ -101,22 +102,18 @@ $(function(){
 		}else{
 			next_and_before(count);
 			if (count == 1) {
-				//$('#btn_nextPage').attr("disabled", false);
-				//$('#btn_beaforPage').attr("disabled", true);
+				$("#btn_beaforPage").css("color", "#9b9b9b");
+				$('#btn_nextPage').attr("disabled", false);
+				$('#btn_beaforPage').attr("disabled", true);
 			}
 		} 
 		console.log(count);
 	}); 
-
-	/*Validacion de input´s de add Beneficiarios*/
-
-	/*De acuerdo ---*/
-	function deshabilitaRetroceso(){
-		window.location.hash="no-back-button";
-		window.location.hash="Again-No-back-button" //chrome
-		window.onhashchange=function(){window.location.hash="no-back-button";}
-	}
-
-
-	 
+	
+	$('.botonF1').hover(function(){
+		$('.btn-pers').addClass('animacionVer');
+	})
+	$('.contenedor').mouseleave(function(){
+		$('.btn-pers').removeClass('animacionVer');
+	})
 }); 

@@ -32,14 +32,11 @@
             <div class="col-md-12 stretch-card">
                 <div class="card">
                   <div id="div_est" class="card-body">
-                    <p id="titulo_est" class="card-title">Cargando ... estado/s</p>
-                    <div id="buscador_estados" class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="search">
-                          <i class="mdi mdi-magnify"></i>
-                        </span>
-                      </div>
-                      <div id="search_est">
+                    <div class="row">
+                      <div class="col-8"><p id="titulo_est" class="card-title">Cargando ... estado/s</p></div>
+                      <div id="buscador_estados" class="input-group col-4 input-group-sm mb-3">
+                        <div id="search_est">
+                        </div>
                       </div>
                     </div>
                     <div id="tab_est" class="table-responsive">
@@ -52,17 +49,19 @@
                   <br>
                 </div>
                 <div id="div_pro_benef" class="card-body">
-                  <div class="text-center"> 
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <label class="btn btn-secondary active">
-                        <input type="radio" name="options" id="option1" autocomplete="off" checked> Acciones y Benerficiarios
-                      </label>
-                      <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option2" autocomplete="off"> Acciones
-                      </label>
-                      <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option3" autocomplete="off"> Otros Rectificaciones
-                      </label>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                          <div role="separator" class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                      </div>
+                     
                     </div>
                   </div>
                   <p id="titulo_prog_benef" class="card-title">Cargando ... programas y beneficiarios. </p>

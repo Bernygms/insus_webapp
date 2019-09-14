@@ -67,14 +67,6 @@ if(!isset($_SESSION["rol_usu"]))
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul  class="navbar-nav mr-lg-4 w-100">
           <li class="nav-item nav-search d-none d-lg-block w-100">
-            <!--<div id="buscador_estados" class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="search">
-                  <i class="mdi mdi-magnify"></i>
-                </span>
-              </div>
-              <div id="search_est"></div>
-            </div>-->
             <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
                     
@@ -84,6 +76,7 @@ if(!isset($_SESSION["rol_usu"]))
                   <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Inicio</p>
                   <p class="text-primary mb-0 hover-cursor" id="name_user"></p>
                   <p class="text-primary mb-0 hover-cursor" id="nombre_estado"></p>
+                  <p class="text-primary mb-0 hover-cursor" id="nombre_poblado"></p>
                 </div>
               </div>
           </li>
@@ -92,11 +85,11 @@ if(!isset($_SESSION["rol_usu"]))
           <!--li init -->
           <li class="nav-item dropdown mr-1">
             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-              <i id="btn_beaforPage" class="mdi mdi-arrow-left-bold mx-0"></i></a>
+              <i id="btn_beaforPage" class="mdi mdi-arrow-left-bold mx-0 color"></i></a>
           </li>
           <li class="nav-item dropdown mr-1">
             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-              <i id="btn_nextPage" class="mdi mdi-arrow-right-bold mx-0"></i></a>
+              <i id="btn_nextPage" class="mdi mdi-arrow-right-bold mx-0 color"></i></a>
           </li>
           <!--fin li-->
           <li class="nav-item dropdown mr-1">

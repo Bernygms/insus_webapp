@@ -856,10 +856,13 @@ function next_and_before(argument) {
 			
 	   }else if(argument == 2){
 		if(raci.length == 0){
-			console.log("ok false");
+			console.log("ok false raci");
 			console.log(raci);
+			$("#btn_nextPage").css("color", "#9b9b9b");
 		}else{
-			console.log("Raci----");	
+			console.log("Raci----");
+			$("#btn_beaforPage").css("color", "#4d83ff");
+			$("#btn_nextPage").css("color", "#4d83ff");	
 			$("#div_est").hide();
 			$("#buscador_estados").hide();
 			$("#div_raci").show();
@@ -868,10 +871,13 @@ function next_and_before(argument) {
 		}
 	   }else if(argument == 3){
 		if(contratos_beneficiarios.length == 0){
-			console.log("ok false");
+			$("#btn_nextPage").css("color", "#9b9b9b");
+			console.log("ok false raci");
 			console.log(contratos_beneficiarios);
 		}else{
 			console.log("Acciones y Beneficiarios----");
+			$("#btn_beaforPage").css("color", "#4d83ff");	
+			$("#btn_nextPage").css("color", "#4d83ff");	
 			$("#div_est").hide();
 			$("#buscador_estados").hide();
 			$("#div_raci").hide();
@@ -893,7 +899,12 @@ function searchAccAndBenef(id_raci){
 		if (response.success == true) {
 			contador = 0;
 			contratos_beneficiarios = response.data.contratos;
-
+			for (var i in raci) {
+				if (raci[i].id_raci == id_raci) {
+					$("#nombre_poblado").html('&nbsp;/&nbsp;'+raci[i].nombre_de_pob_raci);
+					console.log("ok");
+				}
+			}
 			html_acc_benef += '<table id="tabla" class="table  table-hover mytable1"><thead>';
 			html_acc_benef += '<tr><th colspan="1" rowspan="2">#</th><th colspan="7">Programa y Acciones en Genral</th><th colspan="17">Beneficiariso </th></tr>';
 			html_acc_benef += '<tr><th>Acción</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Programa</th><th>Nombre</th><th>Appelido Paterno</th><th>Apellido Materno</th><th>Genero</th>';
@@ -958,4 +969,11 @@ function formatMoneda(moneda_es_mx){
 	moneda = 0;
 	moneda  = new Intl.NumberFormat('es-MX').format(moneda_es_mx);
 	return moneda;
+}
+
+/*De acuerdo ---*/
+function deshabilitaRetroceso(){
+	window.location.hash="no-back-button";
+	window.location.hash="Again-No-back-button" //chrome
+	window.onhashchange=function(){window.location.hash="no-back-button";}
 }
