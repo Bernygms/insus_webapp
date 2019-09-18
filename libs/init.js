@@ -115,5 +115,19 @@ $(function(){
 	})
 	$('.contenedor').mouseleave(function(){
 		$('.btn-pers').removeClass('animacionVer');
-	})
+	});
+	
+	/*Validar la btn mas*/
+	$('#mas1').click(function(){
+		$("p#titulo_prog_benef").html("Acciones y Beneficiarios");
+		$('.btn-pers').removeClass('animacionVer');
+	});
+	$('#mas2').click(function(){
+		$("p#titulo_prog_benef").html("Acciones");
+	});
+	$('#mas3').click(function(){
+		$("p#titulo_prog_benef").html("Otros Rectificaciones");
+	});
+
+
 }); 

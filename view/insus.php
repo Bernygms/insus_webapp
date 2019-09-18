@@ -49,22 +49,25 @@
                   <br>
                 </div>
                 <div id="div_pro_benef" class="card-body">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                          <div role="separator" class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Separated link</a>
+                  <div class="row">
+                    <div class="form-group col-1">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mas</button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" id="mas1">Acciones y Beneficiarios</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" id="mas2">Acciones</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" id="mas3">Otros</a>
+                          </div>
                         </div>
                       </div>
-                     
+                    </div>
+                    <div class="col-11">
+                      <p id="titulo_prog_benef" class="card-title">Cargando ... programas y beneficiarios. </p>
                     </div>
                   </div>
-                  <p id="titulo_prog_benef" class="card-title">Cargando ... programas y beneficiarios. </p>
                   <div id="tab_progra_benef" class="table-responsive"></div>
                   <br>
                 </div>
