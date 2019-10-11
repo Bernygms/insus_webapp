@@ -36,9 +36,7 @@ class Model_beneficiarios{
 			if ($numero_con_compro_ben) {
 				# code...
 				$query = $this->db->prepare("SELECT * FROM beneficiarios  WHERE  numero_con_compro_ben=:numero_con_compro_ben ");
-				$query->bindParam(":numero_con_compro_ben",$numero_con_compro_ben, PDO
-					::PARAM_STR);
-
+				$query->bindParam(":numero_con_compro_ben",$numero_con_compro_ben, PDO::PARAM_STR);
 			}
 		}
         $query->execute();

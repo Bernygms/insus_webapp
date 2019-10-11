@@ -331,6 +331,7 @@ if (isset($_POST['op'])) {
                 echo json_encode($data);
             }
             break;
+        #Consulta de beneficiarios de acuerdo al poblado 
         case 'cont_benef':
             $response_contratos = $objContratos->consultaContratos($anno_con, $pk_id_raci);
             if (!empty($response_contratos)) {

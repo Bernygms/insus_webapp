@@ -99,6 +99,8 @@ $(function(){
 		if (count > 1 && count <= 3) {
 			count--;
 			next_and_before(count);
+			if(count == 1) $("#nombre_estado").hide();
+			if(count == 2)$("#nombre_poblado").hide();
 		}else{
 			next_and_before(count);
 			if (count == 1) {
@@ -121,13 +123,21 @@ $(function(){
 	$('#mas1').click(function(){
 		$("p#titulo_prog_benef").html("Acciones y Beneficiarios");
 		$('.btn-pers').removeClass('animacionVer');
+		$("#tab_progra_benef").show();
+		$("#tab_acciones").hide();
+		$("#tab_otros").hide();
 	});
 	$('#mas2').click(function(){
 		$("p#titulo_prog_benef").html("Acciones");
+		$("#tab_progra_benef").hide();
+		$("#tab_acciones").show();
+		$("#tab_otros").hide();
+
 	});
 	$('#mas3').click(function(){
 		$("p#titulo_prog_benef").html("Otros Rectificaciones");
+		$("#tab_progra_benef").hide();
+		$("#tab_acciones").hide();
+		$("#tab_otros").show();
 	});
-
-
 }); 

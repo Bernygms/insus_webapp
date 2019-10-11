@@ -50,7 +50,7 @@
                 </div>
                 <div id="div_pro_benef" class="card-body">
                   <div class="row">
-                    <div class="form-group col-1">
+                    <div class="form-group col-md-1">
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mas</button>
@@ -64,11 +64,13 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-11">
+                    <div class="col-md-11  mt-2">
                       <p id="titulo_prog_benef" class="card-title">Cargando ... programas y beneficiarios. </p>
                     </div>
                   </div>
                   <div id="tab_progra_benef" class="table-responsive"></div>
+                  <div id="tab_acciones" class="table-responsive">Tabla sin contenido.</div>
+                  <div id="tab_otros" class="table-responsive">Tabla sin contenido.</div>
                   <br>
                 </div>
               </div>  

@@ -13,6 +13,9 @@
 	var html_est = "";
 	var html_raci = "";
 	var html_acc_benef = "";
+	var html_acciones = "";
+	var html_otros = "";
+
 	var contador = 0;
 	var moneda = 0;
  /******************************************************/
@@ -167,6 +170,8 @@ function getIdEstForShowRaci(entidad_raci){
 				$("p#titulo_raci").html("Raci");
 				$("div#tab_raci").html(html_raci);
 				$("div#div_raci").show();
+				contratos_beneficiarios = [];
+				$("p#nombre_estado").show();
 				$(".mytable").DataTable({
 					"language": idioma_espanol
 				});
@@ -854,11 +859,12 @@ function next_and_before(argument) {
 	  	$("#div_raci").hide(); 
 		$("#div_pro_benef").hide();
 			
-	   }else if(argument == 2){
+	}else if(argument == 2){
 		if(raci.length == 0){
 			console.log("ok false raci");
 			console.log(raci);
 			$("#btn_nextPage").css("color", "#9b9b9b");
+			if(count == 2) $("#nombre_estado").html("");
 		}else{
 			console.log("Raci----");
 			$("#btn_beaforPage").css("color", "#4d83ff");
@@ -867,11 +873,12 @@ function next_and_before(argument) {
 			$("#buscador_estados").hide();
 			$("#div_raci").show();
 			$("#div_pro_benef").hide();
-			
+			if(count == 2) $("#nombre_estado").show();
 		}
-	   }else if(argument == 3){
+	}else if(argument == 3){
 		if(contratos_beneficiarios.length == 0){
 			$("#btn_nextPage").css("color", "#9b9b9b");
+			if(count == 3 ) $("#nombre_poblado").html("");
 			console.log("ok false raci");
 			console.log(contratos_beneficiarios);
 		}else{
@@ -882,11 +889,13 @@ function next_and_before(argument) {
 			$("#buscador_estados").hide();
 			$("#div_raci").hide();
 			$("#div_pro_benef").show();
+			$("#nombre_poblado").show();
+			
 		}
 		
-	   }else{
+	}else{
 	   	console.log("Estados por defecto----"+argument);
-	   }
+	}
 } 
 
 /*Cunsulta de acciones y beneficiarios*/
@@ -895,6 +904,7 @@ function searchAccAndBenef(id_raci){
 	fecha = new Date();
 	anno_con = fecha.getFullYear();
 	data = {op: "cont_benef",pk_id_raci: id_raci, anno_con: anno_con}; 
+
 	__Ajax_JSON(urlCont,data).done(function(response){
 		if (response.success == true) {
 			contador = 0;
@@ -907,13 +917,13 @@ function searchAccAndBenef(id_raci){
 			}
 			html_acc_benef += '<table id="tabla" class="table  table-hover mytable1"><thead>';
 			html_acc_benef += '<tr><th colspan="1" rowspan="2">#</th><th colspan="7">Programa y Acciones en Genral</th><th colspan="17">Beneficiariso </th></tr>';
-			html_acc_benef += '<tr><th>Acción</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Programa</th><th>Nombre</th><th>Appelido Paterno</th><th>Apellido Materno</th><th>Genero</th>';
-			html_acc_benef += '<th>Estado</th><th>Zona</th><th>Manzana</th><th>Lote</th><th>Superficie Mts²</th><th>Uso</th><th>Número de contrato (DJ 1)</th><th>Número de contrato (DJ 2)</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Fecha de contrato</th><th>Accion</th></tr></thead>';
+			html_acc_benef += '<tr><th>Acciones</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Programa</th><th>Nombre</th><th>Appelido Paterno</th><th>Apellido Materno</th><th>Genero</th>';
+			html_acc_benef += '<th>Estado</th><th>Zona</th><th>Manzana</th><th>Lote</th><th>Superficie Mts²</th><th>Uso</th><th>Nº de contrato (DJ 1)</th><th>Nº de contrato (DJ 2)</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Fecha de contrato</th><th>Funciones</th></tr></thead>';
 			$.each(response.data.contratos, function(key,value){
 				//console.log(value['nombre_est']);
 				contador++;
 				html_acc_benef += '<tr>';
-				html_acc_benef +='<td>'+contador+'</td>';
+				html_acc_benef +='<td>'+value['pk_id_con']+'</td>';
 				html_acc_benef +='<td>'+ value['accion_con']+'</td>';
 				html_acc_benef +='<td>&#36;'+formatMoneda(value['pago_ben_con'])+'.00</td>';
 				html_acc_benef +='<td>&#36;'+formatMoneda(value['apoyo_insus_con'])+'.00</td>';
@@ -953,10 +963,86 @@ function searchAccAndBenef(id_raci){
 			$("div#div_pro_benef").show();
 			$("p#titulo_prog_benef").html("Acciones y Beneficiarios");
 			$("div#tab_progra_benef").html(html_acc_benef);
+			$("#nombre_poblado").show();
+			$("#tab_acciones").hide();
+			$("#tab_otros").hide();
 			count = 3;
 			$(".mytable1").DataTable({
 					"language": idioma_espanol
 			});
+
+			/*Cargamos acciones en la tabla tab_acciones */
+			html_acciones = "";
+			html_acciones += '<table id="tabla" class="table  table-hover mytable2"><thead>';
+			//html_acciones += '<tr><th colspan="1" rowspan="2">#</th><th colspan="8">Programa y Acciones en Genral</th></tr>';
+			html_acciones += '<tr><th>#</th><th>Acciones</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Fecha</th><th>Fecha de acctualización</th><th>Id Raci</th><th>Programa</th><th>Acción</th></tr></thead>';
+			$.each(response.data.contratos0, function(key,value){
+				//console.log(value['nombre_est']);
+				if (value['pk_id_pro'] == 7) {
+					console.log("igual a otros")
+				}else{
+					html_acciones +='<tr>';
+					html_acciones +='<td>'+value['id_con']+'</td>';
+					html_acciones +='<td>'+value['accion_con']+'</td>';
+					html_acciones +='<td>&#36;'+formatMoneda(value['pago_ben_con'])+'.00</td>';
+					html_acciones +='<td>&#36;'+formatMoneda(value['apoyo_insus_con'])+'.00</td>';
+					html_acciones +='<td>&#36;'+formatMoneda(value['subsidio_con'])+'.00</td>';
+					html_acciones +='<td>'+value['mes_con']+'</td>';
+					html_acciones +='<td>'+value['anno_con']+'</td>';
+					html_acciones +='<td>'+value['fecha_con']+'</td>';	
+					html_acciones +='<td>'+value['fecha_edi_con']+'</td>';
+					html_acciones +='<td> ID RACI'+value['pk_id_raci']+'</td>';
+					html_acciones +='<td>'+programasArray[value['pk_id_pro']]+ '- '+ value['pk_id_pro'] +'</td>';
+					/*html_acciones +='<td>'+value['id_ben']+'</td>';*/
+					/*html_acciones +='<td>'+value['pk_id_con']+'</td>';*/
+					html_acciones +='<td><button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';
+					html_acciones += '</tr>';
+				}
+			});
+			html_acciones += '</tbody></table>';
+			$("div#tab_acciones").html(html_acciones);
+			$(".mytable2").DataTable({
+				"language": idioma_espanol
+			});
+
+			/*Cargamos acciones en la tabla tab_otros */
+			html_otros = "";
+			html_otros += '<table id="tabla" class="table  table-hover mytable3"><thead>';
+			//html_acciones += '<tr><th colspan="1" rowspan="2">#</th><th colspan="8">Programa y Acciones en Genral</th></tr>';
+			html_otros += '<tr><th>#</th><th>Acciones</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Fecha</th><th>Programa</th><th>Acción</th></tr></thead>';
+			$.each(response.data.contratos00, function(key,value){
+				//console.log(value['nombre_est']);
+						if(value['pk_id_pro'] == 7){
+							contador++;
+							html_otros += '<tr>';
+							html_otros +='<td>'+value['id_con']+'</td>';
+							/*html_otros +='<td>'+value['id_con']+'</td>';*/	
+							html_otros +='<td>'+ value['accion_con']+'</td>';
+							html_otros +='<td>&#36;'+formatMoneda(value['pago_ben_con'])+'.00</td>';
+							html_otros +='<td>&#36;'+formatMoneda(value['rectificaciones_con'])+'.00</td>';
+							html_otros +='<td>&#36;'+formatMoneda(value['otros_con'])+'.00</td>';
+							html_otros +='<td>'+value['mes_con']+'</td>';
+							html_otros +='<td>'+value['anno_con']+'</td>';
+							html_otros +='<td>'+value['fecha_con']+'</td>';	
+							//html_otros +='<td>'+value['fecha_edi_con']+'</td>';
+							//html_otros +='<td> ID RACI'+value['pk_id_raci']+'</td>';
+							html_otros +='<td>'+programasArray[value['pk_id_pro']]+ '- '+ value['pk_id_pro'] +'</td>';
+							/*html_otros +='<td>'+value['id_ben']+'</td>';*/
+							html_raci +='';
+							html_otros +='<td><button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil btn-sm" data-toggle="tooltip" data-placement="right" title="Cunsultar poblados" ></td>';
+							html_otros += '</tr>';
+						}else{
+							console.log("No es del rango otros");
+						
+
+						}
+			});
+			html_otros += '</tbody></table>';
+			$("div#tab_otros").html(html_otros);
+			$(".mytable3").DataTable({
+				"language": idioma_espanol
+			});
+
 		}else if(response.success == false){
 			toastrInformativa(response.data.mensaje,"Consulta Acciones/Beneficiarios");
 		}

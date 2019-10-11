@@ -60,14 +60,56 @@ class Model_contratos{
     #Consulta de acciones + beneficiarios in process 
     
     #SELECT * FROM products t1 INNER JOIN productlines t2 ON t1.productline = t2.productline;
-
+    #Integrasr en el objeto  contratos, 
+    
     public function consultaContratos($anno, $pk_id_raci){
+        #select * from contratos where pk_id_raci = 1 and anno_con=2019
+        $query0 = $this->db->prepare("SELECT * FROM contratos c  WHERE c.anno_con=:anno AND c.pk_id_raci=:pk_id_raci");
+        $query0->bindParam(":anno", $anno, PDO::PARAM_INT); 
+        $query0->bindParam(":pk_id_raci", $pk_id_raci, PDO::PARAM_INT);
+        $valor_c = $query0->execute();
+
+        #Consulta de contratos con beneficiarios asignados
         $query = $this->db->prepare("SELECT * FROM contratos c INNER JOIN beneficiarios b ON c.id_con = b.pk_id_con WHERE c.anno_con=:anno AND c.pk_id_raci=:pk_id_raci");
         $query->bindParam(":anno", $anno, PDO::PARAM_INT); 
         $query->bindParam(":pk_id_raci", $pk_id_raci, PDO::PARAM_INT);
         $valor = $query->execute();
-        if ($valor) {   
+
+        if ($valor == true && $valor_c ==  true) {   
             $data["success"] = true;
+            $data["data"]["contratos0"] = array();
+            $cadena=[];
+            $cadena_otros=[];
+            $rows = $query0->fetchAll(PDO::FETCH_ASSOC);
+            $total_r = count($rows);
+            for($i = 0; $i < $total_r; $i++ ){
+                $id_send = 0;
+                $id_send =  $rows[$i]['id_con'];
+               if($id_send == 21){   
+                    $data["data"]["prueba_error"]=  $i;
+                }else{
+                     $cadena[] = $rows[$i];
+                }
+                $data["data"]["contratos0"] = $cadena;
+
+                #Regresa obj de otros rectificaciones
+                if ($rows[$i]['pk_id_pro'] == 7) {
+                    $cadena_otros[] = $rows[$i];
+                }
+                $data["data"]["contratos00"] = $cadena_otros;
+                #$data["data"]["contratos0"] = $cadena;
+            }
+            /*foreach ($rows  as $key => $val) {
+                ##echo $val['id_con'];
+                #echo $key;
+                if($val['id_con'] == 11){
+                    $data["data"]["contratos00"]=  $key;
+                }else{
+                    $data["data"]["contratos0"] = $rows[$key];
+                }
+            }*/
+
+            #Contratos funcional, no tocal 
             $data["data"]["contratos"] = array();
             while($row = $query->fetchAll(PDO::FETCH_ASSOC)){
                 $data["data"]["contratos"]  = $row;
@@ -78,5 +120,11 @@ class Model_contratos{
         }
     }
 
+    public function valExist($id_con){
+        if ($id_con  == 20) {
+           $data = 1;
+        }else{$data = 0;}
 
+        return $data;
+    }
 }
