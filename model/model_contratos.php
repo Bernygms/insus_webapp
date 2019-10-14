@@ -85,7 +85,7 @@ class Model_contratos{
             for($i = 0; $i < $total_r; $i++ ){
                 $id_send = 0;
                 $id_send =  $rows[$i]['id_con'];
-               if($id_send == 21){   
+               if($id_send == 20 || $id_send == 21){   
                     $data["data"]["prueba_error"]=  $i;
                 }else{
                      $cadena[] = $rows[$i];
