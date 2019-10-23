@@ -9,6 +9,24 @@ if (isset($_POST['op'])) {
     $id_est =  (isset($_POST['id_est']) ? $_POST['id_est'] : NULL);#Identificador de cada estado 
     $nombre_est =  (isset($_POST['nombre_est']) ? $_POST['nombre_est'] : NULL);#Campo para el 
     #variables de entrada para la tabla raci
+    /*
+        +------------------------+--------------+------+-----+---------+----------------+
+        | id_raci                | int(11)      | NO   | PRI | NULL    | auto_increment |
+        | entidad_raci           | int(11)      | NO   | MUL | NULL    |                |
+        | clave_insus_raci       | varchar(7)   | NO   |     | NULL    |                |
+        | clave_inegi_raci       | varchar(12)  | NO   |     | NULL    |                |
+        | modalidad_raci         | varchar(8)   | NO   |     | NULL    |                |
+        | nombre_de_pob_raci     | varchar(150) | NO   |     | NULL    |                |
+        | municipio_raci         | varchar(150) | NO   |     | NULL    |                |
+        | superficie_de_pob_raci | varchar(50)  | NO   |     | NULL    |                |
+        | municipio_pro_raci     | varchar(150) | NO   |     | NULL    |                |
+        | fecha_ini_con_raci     | date         | NO   |     | NULL    |                |
+        | universo_de_lot_raci   | int(11)      | NO   |     | NULL    |                |
+        | contratados_raci       | int(11)      | NO   |     | NULL    |                |
+        | total_con_raci         | int(11)      | NO   |     | NULL    |                |
+        | pendientes_de_con_raci | int(11)      | NO   |     | NULL    |                |
+        +------------------------+--------------+------+-----+---------+----------------+
+    */
     $id_raci =  (isset($_POST['id_raci']) ? $_POST['id_raci'] : NULL);
     $entidad_raci =  (isset($_POST['entidad_raci']) ? $_POST['entidad_raci'] : NULL);
     $clave_insus_raci =  (isset($_POST['clave_insus_raci']) ? $_POST['clave_insus_raci'] : NULL);

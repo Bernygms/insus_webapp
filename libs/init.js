@@ -4,6 +4,7 @@ $(function(){
 	$("#div_raci").hide();
 	$("#div_pro_benef").hide();
 	$("#addaction").hide();
+	$("#btn_addPobldo").hide();
 	//funcion init()  se obtine del script insus_app.js
 	init();
 	//Funcion de JQuery para la busqueda de estados en la tabla estados
@@ -79,6 +80,7 @@ $(function(){
 		$("#form_DatosPoblado")[0].reset();
 		$("#myModalAddAcciones").modal('hide');
 	});	
+	
 	/*Finaliza validacion del modal add acciones y beneficiarios*/
 	/*before  and next */
 	$("#btn_nextPage").click(function(){ 		
@@ -139,5 +141,10 @@ $(function(){
 		$("#tab_progra_benef").hide();
 		$("#tab_acciones").hide();
 		$("#tab_otros").show();
+	});
+
+	$("#addPoblado").click(function(){
+		$("#myModalAddPoblados").modal({backdrop: 'static', keyboard: false});
+	    $("#myModalAddPoblados").modal('show');
 	});
 }); 

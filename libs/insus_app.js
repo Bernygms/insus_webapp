@@ -56,7 +56,7 @@
     var urlCont = "../controller/controller_contratos.php";
     var urlBenef = "../controller/controller_beneficiarios.php";
 
-    var idioma_espanol = {
+	var idioma_espanol = {
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
 			"sZeroRecords":    "No se encontraron resultados",
@@ -82,7 +82,8 @@
 		};
 
  //Cosulta de estados 
-function init(){
+function init()
+{
 	rol_usu = $("#rol_usu").val();
 	id_est = $("#pk_id_est").val();
 	html_est = "";
@@ -123,7 +124,8 @@ function init(){
 }
 
 //Consulta de raci
-function getIdEstForShowRaci(entidad_raci){
+function getIdEstForShowRaci(entidad_raci)
+{
 	console.log("ID de entidad: " + entidad_raci);
 	$("#buscador").hide(); 
 	if (entidad_raci) { 
@@ -133,6 +135,7 @@ function getIdEstForShowRaci(entidad_raci){
 		if (rol_usu == 1 || rol_usu == 2) {
 			$("p#nombre_estado").html('&nbsp;/&nbsp;'+ MaysInit(estadosArray[entidad_raci]));
 		};
+		if(rol_usu == 1 || rol_usu == 2 ) $("#btn_addPobldo").show();
 		data = {op: "raci",entidad_raci: entidad_raci}
 		__Ajax_JSON(url,data).done(function(response){
 				raci = response.data.raci;
@@ -156,7 +159,7 @@ function getIdEstForShowRaci(entidad_raci){
 					html_raci +='<td>'+value['total_con_raci']+'</td>';
 					html_raci +='<td>'+pend_contratar+'</td>';
 					html_raci +='<td>';
-					if(rol_usu == 1 || rol_usu == 2 ) html_raci +='<button type="button" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil" data-toggle="tooltip" data-placement="right" title="Actualizar universo de lotes" ></button>&nbsp;&nbsp;';
+					if(rol_usu == 1 || rol_usu == 2 ) html_raci +='<button type="button" onClick="editPoblado('+ value['id_raci'] +')" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil" data-toggle="tooltip" data-placement="right" title="Actualizar universo de lotes" ></button>&nbsp;&nbsp;';
 					if (value['universo_de_lot_raci'] == value['total_con_raci'] || value['universo_de_lot_raci'] < value['total_con_raci'] ) {
 						html_raci +='<button type="button" class="btn  btn-inverse-danger btn-rounded mdi mdi-account-multiple-plus" data-toggle="tooltip" data-placement="right" title="Acciones completadas"  ></button>&nbsp;&nbsp;';
 					}else{
@@ -183,7 +186,8 @@ function getIdEstForShowRaci(entidad_raci){
 	
 } 
 
-function getIdRaci(id_raci){
+function getIdRaci(id_raci)
+{
 	var status = false;
 	console.log(id_raci);
 	console.log(raci);
@@ -236,7 +240,8 @@ function getIdRaci(id_raci){
 }
 
 /*Validamos programas, REGLA 1 , REGLA 2 , REGLA 3, PMU, PRH, PASPRAH, OTROS*/
-function valProgramas(){
+function valProgramas()
+{
 	fecha = new Date();
 	mes_con = meses[fecha.getMonth()];
 	anno_con = fecha.getFullYear();
@@ -385,7 +390,8 @@ function valProgramas(){
 
 }
 //Ocultamos campos por grupo , en modal programas y acciones
-function hideInput(){
+function hideInput()
+{
 	$("#ac1").hide(); //accion
 	$("#ac2").hide(); //pago beneficiario
 	$("#ac3").hide(); //Apoyo insus 
@@ -404,7 +410,8 @@ function hideInput(){
     $("#btn_cancel_2").hide();
 }
  // Validacion del campo accion 
-function valAcciones(){
+function valAcciones()
+{
 	accion_con = $("#accion_con").val().trim();
 	universo_de_lot_raci = $("#universo_de_lot_raci").val();
 	total_con_raci = $("#total_con_raci").val();
@@ -425,35 +432,37 @@ function valAcciones(){
 
 	}
 }
-function desabledBtnAddAcciones(){
-		$('#btn_next_2').attr("disabled", true);
-		$('#btn_before_2').attr("disabled", true);
-		$('#btn_cancel_2').attr("disabled", true);
-		$("#pk_id_pro").attr("disabled", true);
-		$("#accion_con").attr("disabled", true);
-		$("#pago_ben_con").attr("disabled", true);
-		$("#apoyo_insus_con").attr("disabled", true);
-		$("#subsidio_con").attr("disabled", true);
-		$("#rectificaciones_con").attr("disabled", true);
-		$("#otros_con").attr("disabled", true);
+function desabledBtnAddAcciones()
+{
+	$('#btn_next_2').attr("disabled", true);
+	$('#btn_before_2').attr("disabled", true);
+	$('#btn_cancel_2').attr("disabled", true);
+	$("#pk_id_pro").attr("disabled", true);
+	$("#accion_con").attr("disabled", true);
+	$("#pago_ben_con").attr("disabled", true);
+	$("#apoyo_insus_con").attr("disabled", true);
+	$("#subsidio_con").attr("disabled", true);
+	$("#rectificaciones_con").attr("disabled", true);
+	$("#otros_con").attr("disabled", true);
 }
-function enabledBtnAddAcciones(){
-		$("#btn_next_2").show(); //Btn
-		$("#btn_cancel_2").show(); //Btn
-
-		$('#btn_next_2').attr("disabled", false);
-		$('#btn_before_2').attr("disabled", false);
-		$('#btn_cancel_2').attr("disabled", false);
-		$("#pk_id_pro").attr("disabled", false);
-		$("#accion_con").attr("disabled", false);
-		$("#pago_ben_con").attr("disabled", false);
-		$("#apoyo_insus_con").attr("disabled", false);
-		$("#subsidio_con").attr("disabled", false);
-		$("#rectificaciones_con").attr("disabled", false);
-		$("#otros_con").attr("disabled", false);
+function enabledBtnAddAcciones()
+{	
+	$("#btn_next_2").show(); //Btn
+	$("#btn_cancel_2").show(); //Btn
+	$('#btn_next_2').attr("disabled", false);
+	$('#btn_before_2').attr("disabled", false);
+	$('#btn_cancel_2').attr("disabled", false);
+	$("#pk_id_pro").attr("disabled", false);
+	$("#accion_con").attr("disabled", false);
+	$("#pago_ben_con").attr("disabled", false);
+	$("#apoyo_insus_con").attr("disabled", false);
+	$("#subsidio_con").attr("disabled", false);
+	$("#rectificaciones_con").attr("disabled", false);
+	$("#otros_con").attr("disabled", false);
 }
 
-function hideBtnAndShowNavBenef(){
+function hideBtnAndShowNavBenef()
+{
 			$("#btn_before_2").hide();
 			$("#btn_next_2").hide();
 			$("#btn_cancel_2").hide();
@@ -464,7 +473,8 @@ function hideBtnAndShowNavBenef(){
 			$("#btn_input_benef").show();
 			$("#btn_omit").show();
 }
-function addAcciones(){
+function addAcciones()
+{
 	accion_con = $("#accion_con").val().trim();
 	pago_ben_con = $("#pago_ben_con").val().trim();
 	apoyo_insus_con = $("#apoyo_insus_con").val().trim();
@@ -667,7 +677,8 @@ function addAcciones(){
 	}
 }
 
-function funcFinalizar(){
+function funcFinalizar()
+{
 		$("#nav1").removeClass("active");
 		$("#nav2").removeClass("active");
 		$("#nav3").removeClass("active");
@@ -677,7 +688,8 @@ function funcFinalizar(){
 		$("#div_finalizar").show();
 }
 
-function autoCreateInputBenef(acciones, id_con,id_pro, pago_ben_con, apoyo_insus_con, subsidio_con){
+function autoCreateInputBenef(acciones, id_con,id_pro, pago_ben_con, apoyo_insus_con, subsidio_con)
+{
 	//$("#btn_input_benef").hide();
 	//$("#btn_omit").hide();
 	console.log(acciones +"--- ok ---"+id_con)
@@ -803,7 +815,8 @@ function autoCreateInputBenef(acciones, id_con,id_pro, pago_ben_con, apoyo_insus
 }
 /*Funciono: antes de que se envien los datos al servidor web php, validamos los campos con js, campos de tipo arreglo.*/
 /*No funcional*/
-function valArrayInputsBenef(){
+function valArrayInputsBenef()
+{
 	console.log("Inicia validacion , campos de tipo array para Beneficiario´s");
 	var nombre_ben = $("#nombre_ben").val();
 	nombre_ben.forEach(function(element) {
@@ -812,7 +825,8 @@ function valArrayInputsBenef(){
 	console.log("Finaliza validacion , campos de tipo array para Beneficiario´s")
 }
 /*Funcion para agregar*/
-function addBeneficiarios(){
+function addBeneficiarios()
+{
 	data = new FormData($("#form_addBeneficiarios")[0]);
 	__Ajax_FormData(urlBenef,data).done(function(response){
 		$("#contenedor_init_load").show();
@@ -835,14 +849,16 @@ function addBeneficiarios(){
 	});
 }
 /*Funcion para vaciar las variables y compos que se utilizaron para agregar acciones y beneficiariosx*/
-function vaciarCamposAccBenef(){
+function vaciarCamposAccBenef()
+{
 	hideInput();
 	$("#form_DatosPoblado")[0].reset();
 	$("#form_addBeneficiarios")[0].reset();
 }
 
 /*Convertidor de texto mayusculas al inicio*/
-function MaysInit(intoText){
+function MaysInit(intoText)
+{
 	return intoText.toLowerCase()
             .trim()
             .split(' ')
@@ -850,7 +866,8 @@ function MaysInit(intoText){
             .join(' '); 
 }  
 /*Navegacion para el modal  siguiente y anterior */
-function next_and_before(argument) {
+function next_and_before(argument) 
+{
 
   	if (argument == 1) { 
 	  	console.log("Estads----");	
@@ -899,7 +916,8 @@ function next_and_before(argument) {
 } 
 
 /*Cunsulta de acciones y beneficiarios*/
-function searchAccAndBenef(id_raci){
+function searchAccAndBenef(id_raci)
+{
 	html_acc_benef = "";
 	fecha = new Date();
 	anno_con = fecha.getFullYear();
@@ -916,7 +934,7 @@ function searchAccAndBenef(id_raci){
 				}
 			}
 			html_acc_benef += '<table id="tabla" class="table  table-hover mytable1"><thead>';
-			html_acc_benef += '<tr><th colspan="1" rowspan="2">#</th><th colspan="7">Programa y Acciones en Genral</th><th colspan="17">Beneficiariso </th></tr>';
+			html_acc_benef += '<tr><th colspan="1" rowspan="2">#</th><th colspan="7">Programa y Acciones en Genral</th><th colspan="17">Beneficiarios </th></tr>';
 			html_acc_benef += '<tr><th>Acciones</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Mes</th><th>Año</th><th>Programa</th><th>Nombre</th><th>Appelido Paterno</th><th>Apellido Materno</th><th>Genero</th>';
 			html_acc_benef += '<th>Estado</th><th>Zona</th><th>Manzana</th><th>Lote</th><th>Superficie Mts²</th><th>Uso</th><th>Nº de contrato (DJ 1)</th><th>Nº de contrato (DJ 2)</th><th>Pago Beneficiario</th><th>Apoyo INSUS</th><th>Subsidio</th><th>Fecha de contrato</th><th>Funciones</th></tr></thead>';
 			$.each(response.data.contratos, function(key,value){
@@ -1033,8 +1051,6 @@ function searchAccAndBenef(id_raci){
 							html_otros += '</tr>';
 						}else{
 							console.log("No es del rango otros");
-						
-
 						}
 			});
 			html_otros += '</tbody></table>';
@@ -1051,15 +1067,52 @@ function searchAccAndBenef(id_raci){
 	}); 
 } 
 /*Función, dar formato a la moneda en la tabla Acciones y Beneficiarios*/
-function formatMoneda(moneda_es_mx){
+function formatMoneda(moneda_es_mx)
+{
 	moneda = 0;
 	moneda  = new Intl.NumberFormat('es-MX').format(moneda_es_mx);
 	return moneda;
 }
 
 /*De acuerdo ---*/
-function deshabilitaRetroceso(){
+function deshabilitaRetroceso()
+{
 	window.location.hash="no-back-button";
 	window.location.hash="Again-No-back-button" //chrome
 	window.onhashchange=function(){window.location.hash="no-back-button";}
 }
+/*Btn llama modal de agregar poblado*/
+function addPoblado()
+{
+}
+
+/** Btn llama modal de editar poblado**/
+function editPoblado(id_raci)
+{
+	var status = false;
+	console.log(id_raci);
+	console.log(raci);
+	for (var i in raci) {
+		if (raci[i].id_raci == id_raci) {
+			$("#id_raci_edit").val(raci[i].id_raci);
+			$("#entidad_raci_edit").val(raci[i].entidad_raci);
+			$("#clave_insus_raci_edit").val(raci[i].clave_insus_raci);
+			$("#clave_inegi_raci_edit").val(raci[i].clave_inegi_raci);
+			$("#modalidad_raci_edit").val(raci[i].modalidad_raci);
+			$("#nombre_de_pob_raci_edit").val(raci[i].nombre_de_pob_raci);
+			$("#municipio_raci_edit").val(raci[i].municipio_raci);
+			$("#superficie_de_pob_raci_edit").val(raci[i].superficie_de_pob_raci);
+			$("#municipio_pro_raci_edit").val(raci[i].municipio_pro_raci);
+			$("#fecha_ini_con_raci_edit").val(raci[i].fecha_ini_con_raci);
+			$("#universo_de_lot_raci_edit").val(raci[i].universo_de_lot_raci);
+			$("#total_con_raci_edit").val(raci[i].total_con_raci);
+			status = true;
+			console.log(status);
+		}
+	}
+	if (status ==true) {
+		$('#myModalEditPoblados').modal({backdrop: 'static', keyboard: false});
+		$("#myModalEditPoblados").modal('show');	
+	}		
+}
+

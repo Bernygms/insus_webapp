@@ -28,7 +28,6 @@ class Model_contratos{
     public function addContratos($accion_con, $pago_ben_con, $apoyo_insus_con, $subsidio_con, $rectificaciones_con, $otros_con, $mes_con, $anno_con, $fecha_con, $fecha_edi_con, $pk_id_raci, $pk_id_pro){
         try {
             $query =  $this->db->prepare("INSERT INTO contratos(accion_con,pago_ben_con,apoyo_insus_con,subsidio_con,rectificaciones_con,otros_con,mes_con,anno_con,fecha_con,fecha_edi_con,pk_id_raci,pk_id_pro) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-            #$result = $query->execute(array($num_prop ,$ofic_porp_encript ,$anexo6_encript,$anexo7_encript,$lis_de_bene_encript,'','','','','',date("Y-m-d"),'',$id_estado,date("Y"),$id_app_fk));
             $result = $query->execute(array($accion_con, $pago_ben_con, $apoyo_insus_con, $subsidio_con, $rectificaciones_con, $otros_con, $mes_con, $anno_con, $fecha_con, $fecha_edi_con, $pk_id_raci, $pk_id_pro));
             if ($result == true) {
                 $data["success"] = true;
@@ -58,8 +57,6 @@ class Model_contratos{
         
     }
     #Consulta de acciones + beneficiarios in process 
-    
-    #SELECT * FROM products t1 INNER JOIN productlines t2 ON t1.productline = t2.productline;
     #Integrasr en el objeto  contratos, 
     
     public function consultaContratos($anno, $pk_id_raci){
@@ -82,33 +79,27 @@ class Model_contratos{
             $cadena_otros=[];
             $rows = $query0->fetchAll(PDO::FETCH_ASSOC);
             $total_r = count($rows);
+
             for($i = 0; $i < $total_r; $i++ ){
                 $id_send = 0;
-                $id_send =  $rows[$i]['id_con'];
-               if($id_send == 20 || $id_send == 21){   
-                    $data["data"]["prueba_error"]=  $i;
-                }else{
-                     $cadena[] = $rows[$i];
-                }
-                $data["data"]["contratos0"] = $cadena;
+                if ($rows[$i]['pk_id_pro'] == 7) {
+                    # code...
 
+                }else{ 
+                    $id_send =  $rows[$i]['id_con'];
+                    if( true == $this->valExist($id_send)){   
+                        $data["data"]["prueba_error"]=  $i;
+                    }else{
+                        $cadena[] = $rows[$i];
+                    }
+                    $data["data"]["contratos0"] = $cadena;
+                }
                 #Regresa obj de otros rectificaciones
                 if ($rows[$i]['pk_id_pro'] == 7) {
                     $cadena_otros[] = $rows[$i];
                 }
                 $data["data"]["contratos00"] = $cadena_otros;
-                #$data["data"]["contratos0"] = $cadena;
             }
-            /*foreach ($rows  as $key => $val) {
-                ##echo $val['id_con'];
-                #echo $key;
-                if($val['id_con'] == 11){
-                    $data["data"]["contratos00"]=  $key;
-                }else{
-                    $data["data"]["contratos0"] = $rows[$key];
-                }
-            }*/
-
             #Contratos funcional, no tocal 
             $data["data"]["contratos"] = array();
             while($row = $query->fetchAll(PDO::FETCH_ASSOC)){
@@ -121,10 +112,24 @@ class Model_contratos{
     }
 
     public function valExist($id_con){
-        if ($id_con  == 20) {
-           $data = 1;
-        }else{$data = 0;}
-
+        $data = 0;
+        $query = $this->db->prepare("SELECT pk_id_con FROM beneficiarios  WHERE pk_id_con=:id_con");
+        $query->bindParam(":id_con", $id_con, PDO::PARAM_INT);
+        $result = $query->execute();
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        #var_dump($result);
+        if ($result) {
+            $val = count($rows); 
+            for ($i=0; $i < $val; $i++) { 
+                if ($rows[$i]['pk_id_con'] == $id_con) {
+                    $data = 1;
+                }else{
+                    $data = 0;
+                }
+            }
+        }else{
+            $data = 0;
+        }
         return $data;
     }
 }

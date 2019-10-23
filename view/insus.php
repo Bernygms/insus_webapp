@@ -44,7 +44,17 @@
                 </div>
                 
                 <div id="div_raci" class="card-body">
-                  <p id="titulo_raci" class="card-title">Cargando ... contenido de los poblados.</p>
+                  <div class="row">
+                    <div class="col-11">
+                      <p id="titulo_raci" class="card-title">Cargando ... contenido de los poblados.</p>
+                    </div>
+                    <div class="col-1">
+                      <div id="btn_addPobldo" class="d-flex justify-content-between align-items-end flex-wrap float-left">
+                        <button type="button" id="addPoblado" class="btn btn-inverse-success  btn-icon mdi mdi-plus mr-3 mt-2 mt-xl-0 mt-1 ml-1" data-toggle="tooltip" data-placement="right" title="Agregar nuevo poblado."></button>
+                      </div>
+                    </div>
+                  </div>
+                  
                   <div id="tab_raci" class="table-responsive"></div>
                   <br>
                 </div>
