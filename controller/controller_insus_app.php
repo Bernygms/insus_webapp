@@ -9,24 +9,6 @@ if (isset($_POST['op'])) {
     $id_est =  (isset($_POST['id_est']) ? $_POST['id_est'] : NULL);#Identificador de cada estado 
     $nombre_est =  (isset($_POST['nombre_est']) ? $_POST['nombre_est'] : NULL);#Campo para el 
     #variables de entrada para la tabla raci
-    /*
-        +------------------------+--------------+------+-----+---------+----------------+
-        | id_raci                | int(11)      | NO   | PRI | NULL    | auto_increment |
-        | entidad_raci           | int(11)      | NO   | MUL | NULL    |                |
-        | clave_insus_raci       | varchar(7)   | NO   |     | NULL    |                |
-        | clave_inegi_raci       | varchar(12)  | NO   |     | NULL    |                |
-        | modalidad_raci         | varchar(8)   | NO   |     | NULL    |                |
-        | nombre_de_pob_raci     | varchar(150) | NO   |     | NULL    |                |
-        | municipio_raci         | varchar(150) | NO   |     | NULL    |                |
-        | superficie_de_pob_raci | varchar(50)  | NO   |     | NULL    |                |
-        | municipio_pro_raci     | varchar(150) | NO   |     | NULL    |                |
-        | fecha_ini_con_raci     | date         | NO   |     | NULL    |                |
-        | universo_de_lot_raci   | int(11)      | NO   |     | NULL    |                |
-        | contratados_raci       | int(11)      | NO   |     | NULL    |                |
-        | total_con_raci         | int(11)      | NO   |     | NULL    |                |
-        | pendientes_de_con_raci | int(11)      | NO   |     | NULL    |                |
-        +------------------------+--------------+------+-----+---------+----------------+
-    */
     $id_raci =  (isset($_POST['id_raci']) ? $_POST['id_raci'] : NULL);
     $entidad_raci =  (isset($_POST['entidad_raci']) ? $_POST['entidad_raci'] : NULL);
     $clave_insus_raci =  (isset($_POST['clave_insus_raci']) ? $_POST['clave_insus_raci'] : NULL);
@@ -64,7 +46,8 @@ if (isset($_POST['op'])) {
 
     $objContratos = new Model_contratos();
     $objRaci = new Model_raci();
-
+    header('Content-type: application/json; charset=utf-8');
+    $data["success"] = false;
     switch($op) {
         case 'estados':
             # Consulta a la tabla estados
@@ -74,19 +57,17 @@ if (isset($_POST['op'])) {
                 $objEstados = new Model_estados();
                 $response = $objEstados->getEstados($id_est,$rol_usu);
                 if (!empty($response)) {
-                    header('Content-type: application/json; charset=utf-8');
                     echo json_encode($response);
                 }else{
                     if ($response == false) {
                         echo "Lo sentimos, no encontramos resultados.";
                     }
                 }
-            }
+            }   
             break;
         case 'raci':
             $responseRaci = $objRaci->getRaci($entidad_raci);
             if (!empty($responseRaci)) {
-                header('Content-type: application/json; charset=utf-8');
                 echo json_encode($responseRaci);
             }else{
                 if ($responseRaci == false) {
@@ -94,13 +75,33 @@ if (isset($_POST['op'])) {
                 }
             }
             break; 
+        case 'editPoblado':
+            # Actualizamos datos del poblado por id
+            if ($universo_de_lot_raci > $total_con_raci) {
+                $response = $objRaci->editRaci_Poblado($id_raci,$entidad_raci,$clave_insus_raci,$clave_inegi_raci,$modalidad_raci,$nombre_de_pob_raci,$municipio_raci,$superficie_de_pob_raci,$municipio_pro_raci,$fecha_ini_con_raci,$universo_de_lot_raci,$total_con_raci);
+                if ($response== true) {
+                    $data["success"] = true;
+                    $data["data"]["mensaje"] = "Excelente, los datos del poblado fueron actualizados correctamente.";
+                    echo json_encode($data);
+                }else{
+                    $data["data"]["mensaje"] = "Lo sentimos, algo salio mal, no se actualizo  el poblado.";
+                    echo json_encode($data);
+                }
+            }else{
+                $data["data"]["mensaje"] = "El Universo de Lotes debe ser mayor.";
+                echo json_encode($data);
+            }
+            
+            break;
         default: 
-            # mensaje por default
-            echo "Default, datos no encontrados";
+            # mensaje por default 
+            $data["data"]["mensaje"] = "Default, datos no encontrados";
+            echo json_encode($data);
             break;
     }
 }else{
-    echo "Datos incompletos, respuesta default.";
+    $data["data"]["mensaje"] = "Datos incompletos, respuesta default.";
+    echo json_encode($data);
 }
 
 ?>

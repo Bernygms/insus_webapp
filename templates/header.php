@@ -153,7 +153,7 @@ if(!isset($_SESSION["rol_usu"]))
                 <div class="item-content">
                   <h6 class="font-weight-normal">Error de aplicación</h6>
                   <p class="font-weight-light small-text mb-0 text-muted">
-                    Ahora mismo
+                  Ningun error en lista
                   </p>
                 </div>
               </a>

@@ -53,11 +53,51 @@ class Model_raci{
             echo $e->getMessage();
         }
     }
+    /*
+        +------------------------+--------------+------+-----+---------+----------------+
+        | id_raci                | int(11)      | NO   | PRI | NULL    | auto_increment |
+        | entidad_raci           | int(11)      | NO   | MUL | NULL    |                |
+        | clave_insus_raci       | varchar(7)   | NO   |     | NULL    |                |
+        | clave_inegi_raci       | varchar(12)  | NO   |     | NULL    |                |
+        | modalidad_raci         | varchar(8)   | NO   |     | NULL    |                |
+        | nombre_de_pob_raci     | varchar(150) | NO   |     | NULL    |                |
+        | municipio_raci         | varchar(150) | NO   |     | NULL    |                |
+        | superficie_de_pob_raci | varchar(50)  | NO   |     | NULL    |                |
+        | municipio_pro_raci     | varchar(150) | NO   |     | NULL    |                |
+        | fecha_ini_con_raci     | date         | NO   |     | NULL    |                |
+        | universo_de_lot_raci   | int(11)      | NO   |     | NULL    |                |
+        | contratados_raci       | int(11)      | NO   |     | NULL    |                |
+        | total_con_raci         | int(11)      | NO   |     | NULL    |                |
+        | pendientes_de_con_raci | int(11)      | NO   |     | NULL    |                |
+        +------------------------+--------------+------+-----+---------+----------------+
+    */
     #Funcion para ediatar los datos  de un poblado
-    public function editRaci_Poblado($id_raci, $new_total_cont_raci){
+    public function editRaci_Poblado($id_raci,$entidad_raci,$clave_insus_raci,$clave_inegi_raci,$modalidad_raci,$nombre_de_pob_raci,$municipio_raci,$superficie_de_pob_raci,$municipio_pro_raci,$fecha_ini_con_raci,$universo_de_lot_raci,$total_con_raci){
         try {
-            $query = $this->db->prepare("UPDATE raci SET  total_con_raci=:total_con_raci  WHERE id_raci = :id_raci");
-            $query->bindParam(":total_con_raci", $new_total_cont_raci, PDO::PARAM_STR);
+            $query = $this->db->prepare("UPDATE raci SET 
+            entidad_raci=:entidad_raci,
+            clave_insus_raci=:clave_insus_raci, 
+            clave_inegi_raci=:clave_inegi_raci,
+            modalidad_raci=:modalidad_raci,
+            nombre_de_pob_raci=:nombre_de_pob_raci,
+            municipio_raci=:municipio_raci,
+            superficie_de_pob_raci=:superficie_de_pob_raci,
+            municipio_pro_raci=:municipio_pro_raci,
+            fecha_ini_con_raci=:fecha_ini_con_raci,
+            universo_de_lot_raci=:universo_de_lot_raci,
+            total_con_raci=:total_con_raci  WHERE id_raci = :id_raci");
+
+            $query->bindParam(":entidad_raci", $entidad_raci, PDO::PARAM_INT);
+            $query->bindParam(":clave_insus_raci", $clave_insus_raci, PDO::PARAM_STR);
+            $query->bindParam(":clave_inegi_raci", $clave_inegi_raci, PDO::PARAM_STR);
+            $query->bindParam(":modalidad_raci", $modalidad_raci, PDO::PARAM_STR);
+            $query->bindParam(":nombre_de_pob_raci", $nombre_de_pob_raci, PDO::PARAM_STR);
+            $query->bindParam(":municipio_raci", $municipio_raci, PDO::PARAM_STR);
+            $query->bindParam(":superficie_de_pob_raci", $superficie_de_pob_raci, PDO::PARAM_STR);
+            $query->bindParam(":municipio_pro_raci", $municipio_pro_raci, PDO::PARAM_STR);
+            $query->bindParam(":fecha_ini_con_raci", $fecha_ini_con_raci, PDO::PARAM_STR);
+            $query->bindParam(":universo_de_lot_raci", $universo_de_lot_raci, PDO::PARAM_INT);
+            $query->bindParam(":total_con_raci", $total_con_raci, PDO::PARAM_INT);
             $query->bindParam(":id_raci", $id_raci, PDO::PARAM_INT);
             $r = $query->execute();
             if ($r == true) {

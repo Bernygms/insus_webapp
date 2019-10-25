@@ -357,7 +357,7 @@ window.onload = function() {
             <div class="modal-body">
                 <form id="edit_DatosPoblado">
                     <div class="row">
-                        <input id="id_raci_edit" name="id_raci_edit"  class="form-control border border-primary"
+                        <input type="hidden" id="id_raci_edit" name="id_raci_edit"  class="form-control border border-primary"
                             disabled />
                         <div class="form-group col-md-3">
                             <label for="id">Entidad:</label>
@@ -400,7 +400,7 @@ window.onload = function() {
                                 class="form-control border border-primary" />
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="id">Fecha de Contratacion:</label>
+                            <label for="id">Fecha de Contratación:</label>
                             <input id="fecha_ini_con_raci_edit" name="fecha_ini_con_raci_edit" type="text"
                                 class="form-control border border-primary" />
                         </div>
@@ -411,7 +411,7 @@ window.onload = function() {
                         </div>
                         <div class="form-group col-md-3">
                             <label for="id">Contratados:</label>
-                            <input id="total_con_raci" name="total_con_raci" type="text"
+                            <input id="total_con_raci_edit" name="total_con_raci_edit" type="text"
                                 class="form-control border border-primary" />
                         </div>
                     </div>
@@ -420,8 +420,8 @@ window.onload = function() {
 
             <!--footer modal-->
             <div class="modal-footer">
-                <button type="button" id="btn_cancel_Padd" class="btn btn-danger mt-1 ml-1">Cancelar</button>
-                <button id="btn_guardar_Padd" type="button" class="btn btn-primary ml-1">Guardar</button>
+                <button type="button" id="btn_cancel_Pedit" class="btn btn-danger mt-1 ml-1">Cancelar</button>
+                <button id="btn_guardar_Pedit" type="button" class="btn btn-primary ml-1">Guardar</button>
             </div>
         </div>
     </div>

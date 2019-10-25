@@ -1086,9 +1086,8 @@ function addPoblado()
 {
 }
 
-/** Btn llama modal de editar poblado**/
-function editPoblado(id_raci)
-{
+/** Btn llama modal de editar poblado , llenas los campos de acuerdo a la id del poblado seleccionado**/
+function editPoblado(id_raci){
 	var status = false;
 	console.log(id_raci);
 	console.log(raci);
@@ -1116,3 +1115,71 @@ function editPoblado(id_raci)
 	}		
 }
 
+function sendEditPoblado()
+{
+	//Variables de apoyo de raci
+	id_raci = $("#id_raci_edit").val().trim();
+	entidad_raci = $("#entidad_raci_edit").val().trim();
+	clave_insus_raci = $("#clave_insus_raci_edit").val().trim();
+	clave_inegi_raci = $("#clave_inegi_raci_edit").val().trim();
+	modalidad_raci = $("#modalidad_raci_edit").val().trim();
+	nombre_de_pob_raci = $("#nombre_de_pob_raci_edit").val();
+	municipio_raci = $("#municipio_raci_edit").val();
+	superficie_de_pob_raci_edit = $("#superficie_de_pob_raci_edit").val().trim();
+	municipio_pro_raci = $("#municipio_pro_raci_edit").val().trim();
+	fecha_ini_con_raci= $("#fecha_ini_con_raci_edit").val().trim();
+	universo_de_lot_raci= $("#universo_de_lot_raci_edit").val().trim();
+	total_con_raci= $("#total_con_raci_edit").val().trim();
+	data = {
+		op: "editPoblado", 
+		id_raci: id_raci,
+		entidad_raci:entidad_raci,
+		clave_insus_raci: clave_insus_raci,
+		clave_inegi_raci: clave_inegi_raci,
+		modalidad_raci: modalidad_raci,
+		nombre_de_pob_raci: nombre_de_pob_raci,
+		municipio_raci: municipio_raci,
+		superficie_de_pob_raci: superficie_de_pob_raci_edit,
+		municipio_pro_raci: municipio_pro_raci,
+		fecha_ini_con_raci: fecha_ini_con_raci,
+		universo_de_lot_raci:universo_de_lot_raci,
+		total_con_raci: total_con_raci
+	  };
+	if (id_raci == "") {
+		toastrError("Faltan datos, es necesario recargar la pagina web..","Editar Poblado");
+	}else if(entidad_raci == ""){
+		toastrError("Falta el dato Entidad, es necesario recargar la pagina web.","Editar Poblado");
+	}else if(clave_insus_raci == ""){
+		toastrError("El campo Clave INSUS, es obligatorio.","Editar Poblado");	
+	}else if(clave_inegi_raci == ""){
+		toastrError("El campo Clave INEGI, es obligatorio.","Editar Poblado");	
+	}else if(modalidad_raci == ""){
+		toastrError("El campo Moidalidad, es obligatorio.","Editar Poblado");	
+	}else if(nombre_de_pob_raci == ""){
+		toastrError("El campo Poblado, es obligatorio.","Editar Poblado");	
+	}else if(municipio_raci == ""){
+		toastrError("El campo Municipio, es obligatorio.","Editar Poblado");	
+	}else if(superficie_de_pob_raci == ""){
+		toastrError("El campo Superficie, es obligatorio.","Editar Poblado");	
+	}else if(municipio_pro_raci == ""){
+		toastrError("El campo Programa Municipio, es obligatorio.","Editar Poblado");	
+	}else if(fecha_ini_con_raci == ""){
+		toastrError("El campo Fecha de Contratación, es obligatorio.","Editar Poblado");	
+	}else if(universo_de_lot_raci == ""){
+		toastrError("El campo Universo de lotes, es obligatorio.","Editar Poblado");	
+	}else if(total_con_raci == ""){
+		toastrError("El campo Contratados, es obligatorio.","Editar Poblado");	
+	}else{
+		
+		__Ajax_JSON(url,data).done(function(response){
+			if (response.success == true) {
+				toastrExito(response.data.mensaje,"Editar Poblado");
+				$("#myModalEditPoblados").modal('hide');
+				getIdEstForShowRaci(entidad_raci);
+			}else{
+				toastrError(response.data.mensaje,"Editar Poblado");
+			}			
+		});
+	}
+	
+}
