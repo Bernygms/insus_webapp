@@ -160,4 +160,15 @@ $(function(){
 	})
 
 
+	/*Aquí se hace el llamado a la funcion registrar un nuevo poblado */
+	$("#btn_guardar_Padd").click(function(){
+		sendAddPoblado()	
+	})
+
+	/*Funcion para cerrar  la ventana modal de add poblado */
+	$("#btn_cancel_Padd").click(function(){
+		$("#myModalAddPoblados").modal('hide');
+		$("#add_DatosPoblado")[0].reset();
+	})
+	
 }); 
