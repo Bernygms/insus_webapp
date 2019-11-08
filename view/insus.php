@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-1">
                       <div id="btn_addPobldo" class="d-flex justify-content-between align-items-end flex-wrap float-left">
-                        <button type="button" id="addPoblado" class="btn btn-inverse-success  btn-icon mdi mdi-plus mr-3 mt-2 mt-xl-0 mt-1 ml-1" data-toggle="tooltip" data-placement="right" title="Agregar nuevo poblado."></button>
+                        
                       </div>
                     </div>
                   </div>

@@ -42,6 +42,7 @@
 <!-- framework toastr:js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <!-- framework toastr:js -->
+
 <!--acceso js-->
 <script type="text/javascript" src="../libs/toastr.js"></script>
 <script type="text/javascript" src="../libs/ajax.js"></script>
@@ -362,7 +363,7 @@ window.onload = function() {
                         <div class="form-group col-md-3">
                             <label for="id">Entidad:</label>
                             <input id="entidad_raci_edit" name="entidad_raci_edit" type="text"
-                                class="form-control border border-primary" disabled/>
+                                class="form-control border border-primary"/>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="id">Clave INSUS:</label>
@@ -425,8 +426,36 @@ window.onload = function() {
             </div>
         </div>
     </div>
-</div>x
+</div>
 <!--Termina Modal : myModalEditPoblados -->
+<!--Inicia Modal : deletePoblado -->
+<div id="myModalDeletePoblado" class="modal fade bd-prah-modal-sm" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <!--header modal-->
+            <div class="modal-header modal-header-info">
+                <h5 class="modal-title text-center" id="exampleModalLongTitle">Eliminar Poblado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--body del modal-->
+            <div class="modal-body text-center">
+                <p type="text" id="nombre_de_pob_raci_del" name="nombre_de_pob_raci_del"></p>
+                <input type="hidden" id="id_raci_del" name="id_raci_del"   class="form-control border border-primary"/>
+                <button type="button" id="btn_cancel_delete" class="btn btn-danger mt-1 ml-1" >Cancelar</button>
+                <button type="button" id="btn_delete_poblado"  class="btn btn-primary ml-1">Guardar</button>
+            </div>
+
+            <!--footer modal-->
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Termina Modal : deletePoblado -->
 
 
 </body>

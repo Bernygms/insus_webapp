@@ -77,21 +77,55 @@ if (isset($_POST['op'])) {
             break; 
         case 'editPoblado':
             # Actualizamos datos del poblado por id
-            if ($universo_de_lot_raci > $total_con_raci) {
+            if ($universo_de_lot_raci < $total_con_raci) {
+                $data["data"]["mensaje"] = "El Universo de Lotes debe ser mayor.";
+                echo json_encode($data);
+            }else{
                 $response = $objRaci->editRaci_Poblado($id_raci,$entidad_raci,$clave_insus_raci,$clave_inegi_raci,$modalidad_raci,$nombre_de_pob_raci,$municipio_raci,$superficie_de_pob_raci,$municipio_pro_raci,$fecha_ini_con_raci,$universo_de_lot_raci,$total_con_raci);
                 if ($response== true) {
-                    $data["success"] = true;
-                    $data["data"]["mensaje"] = "Excelente, los datos del poblado fueron actualizados correctamente.";
-                    echo json_encode($data);
+                    if (!empty($response)) {
+                        $data["success"] = true;
+                        $data["data"]["mensaje"] = "Excelente, los datos del poblado fueron actualizados correctamente.";
+                        echo json_encode($data);
+                    }else{
+                        $data["success"] = false;
+                        $data["data"]["mensaje"] = "Lo sentimos, algo salio mal no se acctualizaron los datos.";
+                        echo json_encode($data);
+                    }
                 }else{
                     $data["data"]["mensaje"] = "Lo sentimos, algo salio mal, no se actualizo  el poblado.";
                     echo json_encode($data);
                 }
-            }else{
-                $data["data"]["mensaje"] = "El Universo de Lotes debe ser mayor.";
-                echo json_encode($data);
             }
             
+            break;
+        case 'addPoblado':
+            # code...
+            if ($total_con_raci >  0) {
+                $data["data"]["mensaje"] = "Contratados, tiene que ser igual a cero (0).";
+                    echo json_encode($data);    
+            }else{
+                $response = $objRaci->addRaci_Poblado($entidad_raci,$clave_insus_raci,$clave_inegi_raci,$modalidad_raci,$nombre_de_pob_raci,$municipio_raci,$superficie_de_pob_raci,$municipio_pro_raci,$fecha_ini_con_raci,$universo_de_lot_raci,$total_con_raci);
+                if ($response== true) {
+                    $data["success"] = true;
+                    $data["data"]["mensaje"] = "Excelente, los datos del poblado se ingresaron correctamente.";
+                    echo json_encode($data);
+                }else{
+                    $data["data"]["mensaje"] = "Lo sentimos, algo salio mal no se registro  el poblado.";
+                    echo json_encode($data);
+                }
+            }
+            break;
+        case 'deletePoblado':
+            # code...
+            if ($rol_usu == 1 || $rol_usu == 2) {
+                $data["success"] = true;
+                $data["data"]["mensaje"] = "El poblado se elimino con exito.";
+                echo json_encode($data);
+            }else{
+                $data["data"]["mensaje"] = "Usuario, no cuenta con los privilegios de administrador.";
+                echo json_encode($data);
+            }
             break;
         default: 
             # mensaje por default 
@@ -103,5 +137,4 @@ if (isset($_POST['op'])) {
     $data["data"]["mensaje"] = "Datos incompletos, respuesta default.";
     echo json_encode($data);
 }
-
 ?>

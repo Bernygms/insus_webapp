@@ -142,11 +142,7 @@ $(function(){
 		$("#tab_acciones").hide();
 		$("#tab_otros").show();
 	});
-	/* Muestra modal para egragar nuevo poblado*/
-	$("#addPoblado").click(function(){
-		$("#myModalAddPoblados").modal({backdrop: 'static', keyboard: false});
-	    $("#myModalAddPoblados").modal('show');
-	});
+	
 
 	/*Funcion para el llamado a la funcion editar poblado */
 	$("#btn_guardar_Pedit").click(function(){
@@ -170,5 +166,13 @@ $(function(){
 		$("#myModalAddPoblados").modal('hide');
 		$("#add_DatosPoblado")[0].reset();
 	})
+	/**Funcion delete poblado */
+	$("#btn_delete_poblado").click(function(){
+		deletePoblado()	
+	})
+	
+	
 	
 }); 
+
+ 

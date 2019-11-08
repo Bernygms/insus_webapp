@@ -135,7 +135,14 @@ function getIdEstForShowRaci(entidad_raci)
 		if (rol_usu == 1 || rol_usu == 2) {
 			$("p#nombre_estado").html('&nbsp;/&nbsp;'+ MaysInit(estadosArray[entidad_raci]));
 		};
-		if(rol_usu == 1 || rol_usu == 2 ) $("#btn_addPobldo").show();
+		/**BTN add poblado */
+		if(rol_usu == 1 || rol_usu == 2){ 
+			$("#btn_addPobldo").html('<button type="button" id="addPoblado" onClick="getModalAddPoblado()"  class="btn btn-inverse-success  btn-icon mdi mdi-plus mr-3 mt-2 mt-xl-0 mt-1 ml-1" data-toggle="tooltip" data-placement="right" title="Agregar nuevo poblado."></button>');
+		}	
+		if(rol_usu == 3){
+			$("#btn_addPobldo").html('');
+		}
+		
 		data = {op: "raci",entidad_raci: entidad_raci}
 		__Ajax_JSON(url,data).done(function(response){
 				raci = response.data.raci;
@@ -159,13 +166,16 @@ function getIdEstForShowRaci(entidad_raci)
 					html_raci +='<td>'+value['total_con_raci']+'</td>';
 					html_raci +='<td>'+pend_contratar+'</td>';
 					html_raci +='<td>';
-					if(rol_usu == 1 || rol_usu == 2 ) html_raci +='<button type="button" onClick="editPoblado('+ value['id_raci'] +')" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil" data-toggle="tooltip" data-placement="right" title="Actualizar universo de lotes" ></button>&nbsp;&nbsp;';
+					html_raci +='<button type="button" onClick="searchAccAndBenef('+ value['id_raci'] +')" class="btn btn-md btn-inverse-info btn-rounded mdi mdi-magnify data-toggle="tooltip" data-placement="right" title="Consultar acciones"></button>&nbsp;&nbsp;';
 					if (value['universo_de_lot_raci'] == value['total_con_raci'] || value['universo_de_lot_raci'] < value['total_con_raci'] ) {
 						html_raci +='<button type="button" class="btn  btn-inverse-danger btn-rounded mdi mdi-account-multiple-plus" data-toggle="tooltip" data-placement="right" title="Acciones completadas"  ></button>&nbsp;&nbsp;';
 					}else{
 						html_raci +='<button type="button" onClick="getIdRaci('+ value['id_raci'] +')" class="btn  btn-inverse-success btn-rounded mdi mdi-account-multiple-plus data-toggle="tooltip" data-placement="right" title="Agregar nuevas acciones"></button>&nbsp;&nbsp;';
 					}
-					html_raci +='<button type="button" onClick="searchAccAndBenef('+ value['id_raci'] +')" class="btn btn-md btn-inverse-info btn-rounded mdi mdi-magnify data-toggle="tooltip" data-placement="right" title="Consultar acciones"></button>&nbsp;&nbsp;';
+					if(rol_usu == 1 || rol_usu == 2 ){ 
+						html_raci +='<button type="button" onClick="editPoblado('+ value['id_raci'] +')" class="btn btn-inverse-primary btn-rounded mdi mdi-grease-pencil" data-toggle="tooltip" data-placement="right" title="Actualizar Poblado" ></button>&nbsp;&nbsp;';
+						html_raci +='<button type="button" ondblclick="getDeletePoblado('+ value['id_raci'] +')" class="btn btn-inverse-danger btn-rounded mdi mdi-delete-forever" data-toggle="tooltip" data-placement="right" title="Eliminar Poblado" ></button>&nbsp;&nbsp;';
+					}
 					html_raci +='</td>';
 					html_raci +='</tr>';
 				});
@@ -1115,9 +1125,16 @@ function editPoblado(id_raci){
 	}		
 }
 
+/* Muestra modal para egragar nuevo poblado*/
+function getModalAddPoblado(){
+	$("#myModalAddPoblados").modal({backdrop: 'static', keyboard: false});
+	$("#myModalAddPoblados").modal('show');
+}
+
 function sendEditPoblado()
 {
 	//Edit Poblado
+	rol_usu = $("#rol_usu").val();
 	id_raci = $("#id_raci_edit").val().trim();
 	entidad_raci = $("#entidad_raci_edit").val().trim();
 	clave_insus_raci = $("#clave_insus_raci_edit").val().trim();
@@ -1143,7 +1160,8 @@ function sendEditPoblado()
 		municipio_pro_raci: municipio_pro_raci,
 		fecha_ini_con_raci: fecha_ini_con_raci,
 		universo_de_lot_raci:universo_de_lot_raci,
-		total_con_raci: total_con_raci
+		total_con_raci: total_con_raci,
+		rol_usu:rol_usu
 	  };
 	if (id_raci == "") {
 		toastrError("Faltan datos, es necesario recargar la pagina web..","Editar Poblado");
@@ -1186,7 +1204,7 @@ function sendEditPoblado()
 
 function sendAddPoblado(){
 	//Add poblado
-	//id_raci = $("#id_raci_add").val().trim();
+	rol_usu = $("#rol_usu").val();
 	entidad_raci = $("#entidad_raci_add").val().trim();
 	clave_insus_raci = $("#clave_insus_raci_add").val().trim();
 	clave_inegi_raci = $("#clave_inegi_raci_add").val().trim();
@@ -1199,8 +1217,7 @@ function sendAddPoblado(){
 	universo_de_lot_raci= $("#universo_de_lot_raci_add").val().trim();
 	total_con_raci= $("#total_con_raci_add").val().trim();
 	data = {
-		op: "addPoblado", 
-		id_raci: id_raci,
+		op: "addPoblado",
 		entidad_raci:entidad_raci,
 		clave_insus_raci: clave_insus_raci,
 		clave_inegi_raci: clave_inegi_raci,
@@ -1211,43 +1228,88 @@ function sendAddPoblado(){
 		municipio_pro_raci: municipio_pro_raci,
 		fecha_ini_con_raci: fecha_ini_con_raci,
 		universo_de_lot_raci:universo_de_lot_raci,
-		total_con_raci: total_con_raci
+		total_con_raci: total_con_raci,
+		rol_usu:rol_usu
 	  };
-	console.log(entidad_raci);
+	console.log(data);
 	if (id_raci == "") {
-		toastrError("Faltan datos, es necesario recargar la pagina web..","Editar Poblado");
+		toastrError("Faltan datos, es necesario recargar la pagina web..","Agregar Nuevo Poblado");
 	}else if(entidad_raci == ""){
-		toastrError("Falta el dato Entidad, es necesario recargar la pagina web.","Editar Poblado");
+		toastrError("Falta el dato Entidad, es necesario recargar la pagina web.","Agregar Nuevo Poblado");
 	}else if(clave_insus_raci == ""){ 
 
-		toastrError("El campo Clave INSUS, es obligatorio.","Editar Poblado");	
+		toastrError("El campo Clave INSUS, es obligatorio.","Agregar Nuevo Poblado");	
 	}else if(clave_inegi_raci == ""){
-		toastrError("El campo Clave INEGI, es obligatorio.","Editar Poblado");	
+		toastrError("El campo Clave INEGI, es obligatorio.","Agregar Nuevo Poblado");	
 	}else if(modalidad_raci == ""){
-		toastrError("El campo Moidalidad, es obligatorio.","Editar Poblado");	
+		toastrError("El campo Moidalidad, es obligatorio.","Agregar Nuevo Poblado");	
 	}else if(nombre_de_pob_raci == ""){
-		toastrError("El campo Poblado, es obligatorio.","Editar Poblado");	
+		toastrError("El campo Poblado, es obligatorio.","Agregar Nuevo Poblado");	
 	}else if(municipio_raci == ""){
-		toastrError("El campo Municipio, es obligatorio.","Editar Poblado");	
+		toastrError("El campo Municipio, es obligatorio.","Agregar Nuevo Poblado");	
 	}else if(superficie_de_pob_raci == ""){
-		toastrError("El campo Superficie, es obligatorio.","Editar Poblado");	
+		toastrError("El campo Superficie, es obligatorio.","Agregar Nuevo Poblado");	
 	}else if(municipio_pro_raci == ""){
-		toastrError("El campo Programa Municipio, es obligatorio.","Editar Poblado");	
+		toastrError("El campo Programa Municipio, es obligatorio.","Agregar Nuevo Poblado");	
 	}else if(fecha_ini_con_raci == ""){
-		toastrError("El campo Fecha de Contratación, es obligatorio.","Editar Poblado");	
+		toastrError("El campo Fecha de Contratación, es obligatorio.","Agregar Nuevo Poblado");	
 	}else if(universo_de_lot_raci == ""){
-		toastrError("El campo Universo de lotes, es obligatorio.","Editar Poblado");	
+		toastrError("El campo Universo de lotes, es obligatorio.","Agregar Nuevo Poblado");	
 	}else if(total_con_raci == ""){
-		toastrError("El campo Contratados, es obligatorio.","Editar Poblado");	
+		toastrError("El campo Contratados, es obligatorio.","Agregar Nuevo Poblado");	
 	}else{
 		
 		__Ajax_JSON(url,data).done(function(response){
 			if (response.success == true) {
-				toastrExito(response.data.mensaje,"Editar Poblado");
+				toastrExito(response.data.mensaje,"Agregar Nuevo Poblado");
 				$("#myModalEditPoblados").modal('hide');
 				getIdEstForShowRaci(entidad_raci);
 			}else{
-				toastrError(response.data.mensaje,"Editar Poblado");
+				toastrError(response.data.mensaje,"Agregar Nuevo Poblado");
+			}			
+		});
+	}
+}
+
+function getDeletePoblado(id_raci){
+	var status = false;
+	for (var i in raci) {
+		if (raci[i].id_raci == id_raci) {
+			$("#id_raci_del").val(id_raci);
+			$("#nombre_de_pob_raci_del").html(raci[i].nombre_de_pob_raci);
+			
+			status = true;
+			console.log(raci[i].nombre_de_pob_raci);
+		}
+	}
+	if (status ==true) {
+		$('#myModalDeletePoblado').modal({backdrop: 'static', keyboard: false});
+		$("#myModalDeletePoblado").modal('show');	
+	}else{
+		toastrError("No se encontro el poblado.","Busqueda de poblados");
+	}	
+}
+
+function deletePoblado(){
+	rol_usu = $("#rol_usu").val();
+	id_raci = $("#id_raci_del").val();
+	data = {
+		op:"deletePoblado",
+		id_raci:id_raci,
+		rol_usu:rol_usu
+	}
+	if (rol_usu == null) {
+		toastrError("Tu sesion a caducado.","Error");
+	}else if (id_raci == null ) {
+		toastrError("Actualiza el navegador, estamos teniendo problemas","Error")
+	}else{
+		__Ajax_JSON(url,data).done(function(response){
+			if (response.success == true) {
+				toastrExito(response.data.mensaje,"Eliminar Poblado");
+				$("#myModalDeletePoblado").modal('hide');
+				getIdEstForShowRaci(entidad_raci);
+			}else{
+				toastrError(response.data.mensaje,"Eliminar Poblado");
 			}			
 		});
 	}
