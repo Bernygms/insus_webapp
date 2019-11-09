@@ -110,6 +110,21 @@ class Model_raci{
 
     public function deletePoblado($id_raci)
     {
-        
+        $queryCont = $this->db->prepare("SELECT * FROM contratos WHERE pk_id_raci=:id_raci");
+        $queryCont->bindParam(":id_raci", $id_raci, PDO::PARAM_INT);
+        $resultCont = $queryCont->execute();
+        if (!empty($resultCont)) {
+            return  3;
+        }else{
+            $query = $this->db->prepare("DELETE FROM raci WHERE id_raci=:id_raci");
+            $query->bindParam(":id_raci", $id_raci, PDO::PARAM_INT);
+            $result = $query->execute();
+            if(!empty($result)){
+                return 1;
+            }else{
+                return 2;
+            }
+        }
+
     }
 }

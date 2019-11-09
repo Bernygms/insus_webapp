@@ -1134,6 +1134,7 @@ function getModalAddPoblado(){
 function sendEditPoblado()
 {
 	//Edit Poblado
+	
 	rol_usu = $("#rol_usu").val();
 	id_raci = $("#id_raci_edit").val().trim();
 	entidad_raci = $("#entidad_raci_edit").val().trim();

@@ -445,7 +445,7 @@ window.onload = function() {
                 <p type="text" id="nombre_de_pob_raci_del" name="nombre_de_pob_raci_del"></p>
                 <input type="hidden" id="id_raci_del" name="id_raci_del"   class="form-control border border-primary"/>
                 <button type="button" id="btn_cancel_delete" class="btn btn-danger mt-1 ml-1" >Cancelar</button>
-                <button type="button" id="btn_delete_poblado"  class="btn btn-primary ml-1">Guardar</button>
+                <button type="button" id="btn_delete_poblado"  class="btn btn-primary ml-1">Eliminar</button>
             </div>
 
             <!--footer modal-->

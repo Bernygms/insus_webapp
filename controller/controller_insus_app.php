@@ -119,13 +119,25 @@ if (isset($_POST['op'])) {
         case 'deletePoblado':
             # code...
             if ($rol_usu == 1 || $rol_usu == 2) {
-                $data["success"] = true;
-                $data["data"]["mensaje"] = "El poblado se elimino con exito.";
-                echo json_encode($data);
+                if ($id_raci == "") {
+                    $data["data"]["mensaje"] = "No llego el identificador  del poblado a eliminar.";
+                }else {
+                    $response = $objRaci->deletePoblado($id_raci);
+                    if ($response ==  1) {
+                        $data["success"] = true;
+                        $data["data"]["mensaje"] = "El poblado se elimino con exito.";
+                    }else if ($response == 2) {
+                        $data["data"]["mensaje"] = "No se pudo eliminar, no se encontro ningun registro en el identificador ".$id_raci.".";
+                    }else{
+                        $data["data"]["mensaje"] = "No se puede eliminar el poblado, ya que esta sujeto a otras dependecias (Contratos).";
+                    }
+                    
+                }
+                
             }else{
                 $data["data"]["mensaje"] = "Usuario, no cuenta con los privilegios de administrador.";
-                echo json_encode($data);
             }
+            echo json_encode($data);
             break;
         default: 
             # mensaje por default 
