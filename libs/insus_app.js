@@ -1308,7 +1308,8 @@ function deletePoblado(){
 			if (response.success == true) {
 				toastrExito(response.data.mensaje,"Eliminar Poblado");
 				$("#myModalDeletePoblado").modal('hide');
-				getIdEstForShowRaci(entidad_raci);
+				/**ENVIAR ENTIDAD RACI PARA QUE ACTULICE LA TABLA RACI */
+				getIdEstForShowRaci(id_raci);
 			}else{
 				toastrError(response.data.mensaje,"Eliminar Poblado");
 			}			

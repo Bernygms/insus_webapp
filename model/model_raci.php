@@ -112,18 +112,25 @@ class Model_raci{
     {
         $queryCont = $this->db->prepare("SELECT * FROM contratos WHERE pk_id_raci=:id_raci");
         $queryCont->bindParam(":id_raci", $id_raci, PDO::PARAM_INT);
-        $resultCont = $queryCont->execute();
-        if (!empty($resultCont)) {
-            return  3;
+        $queryCont->execute();
+        $result =  $queryCont->fetchAll();
+        if (!empty($result)) {
+            foreach ($result as  $contrato) { 
+                if ($id_raci ==  (int) $contrato['pk_id_raci']) {
+                    return 3;
+                }
+            }
         }else{
+            
             $query = $this->db->prepare("DELETE FROM raci WHERE id_raci=:id_raci");
             $query->bindParam(":id_raci", $id_raci, PDO::PARAM_INT);
             $result = $query->execute();
-            if(!empty($result)){
+            if($result){
                 return 1;
             }else{
                 return 2;
             }
+           
         }
 
     }

@@ -123,14 +123,13 @@ if (isset($_POST['op'])) {
                     $data["data"]["mensaje"] = "No llego el identificador  del poblado a eliminar.";
                 }else {
                     $response = $objRaci->deletePoblado($id_raci);
+                    #$data["data"]["mensaje"] = $response;
                     if ($response ==  1) {
                         $data["success"] = true;
                         $data["data"]["mensaje"] = "El poblado se elimino con exito.";
-                    }else if ($response == 2) {
-                        $data["data"]["mensaje"] = "No se pudo eliminar, no se encontro ningun registro en el identificador ".$id_raci.".";
-                    }else{
-                        $data["data"]["mensaje"] = "No se puede eliminar el poblado, ya que esta sujeto a otras dependecias (Contratos).";
                     }
+                    if($response ==  2) $data["data"]["mensaje"] = "No se pudo eliminar, no se encontro ningun registro en el identificador ".$id_raci.".";
+                    if($response ==  3) $data["data"]["mensaje"] = "No se puede eliminar el poblado, ya que esta sujeto a otras dependecias (Contratos).";
                     
                 }
                 
